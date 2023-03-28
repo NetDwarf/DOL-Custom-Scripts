@@ -38,14 +38,9 @@
  */
 
 using System;
-using System.Collections;
-using DOL.Database;
 using DOL.Events;
 using DOL.GS;
-using DOL.GS.PacketHandler;
 using DOL.GS.Scripts;
-using System.Threading;
-using log4net;
 using DOL.AI.Brain;
 
 namespace DOL.GS.Scripts
@@ -55,8 +50,8 @@ namespace DOL.GS.Scripts
     {
         public override bool AddToWorld()
         {
-             new RegionTimer(this, new RegionTimerCallback(TreeGrow), (10000 * Util.Random(3, 6)));
-             return base.AddToWorld();
+            new RegionTimer(this, new RegionTimerCallback(TreeGrow), (10000 * Util.Random(3, 6)));
+            return base.AddToWorld();
         }
 
         /// <summary>
@@ -78,12 +73,12 @@ namespace DOL.GS.Scripts
             this.Level = (byte)Util.Random(18, 23); //from live, they range from level 18 to 23.
             return 0;
         }
-    
+
     }
 
 
-	public class UndeadSeedsman : GameNPC
-	{        
+    public class UndeadSeedsman : GameNPC
+    {
         public override void SaveIntoDatabase()
         {
         }
@@ -167,7 +162,7 @@ namespace DOL.GS.Scripts
             seedsman.Z = UndeadSeedsmanWalks[0, 2];
             seedsman.Heading = 880;
             seedsman.RoamingRange = 0;
-            seedsman.Flags ^= (uint)GameNPC.eFlags.TRANSPARENT;
+            seedsman.Flags ^= GameNPC.eFlags.GHOST;
             seedsman.CurrentSpeed = 0;
             seedsman.MaxSpeedBase = 191;
             UndeadSeedsmanBrain ubrain = new UndeadSeedsmanBrain();
@@ -181,7 +176,7 @@ namespace DOL.GS.Scripts
 
         #region PlantTree
 
-         //This will plant a tree at x y and z and increase the TreeNumber.
+        //This will plant a tree at x y and z and increase the TreeNumber.
         private int PlantTree(int treeX, int treeY, int treeZ)
         {
             GameHauntedTree hauntedTree = new GameHauntedTree();
@@ -258,7 +253,7 @@ namespace DOL.GS.Scripts
                     y = GameLocation.ConvertLocalYToGlobalY(Tree[TreenumberWhilePlanting, 1], tempZoneID);
                     z = Tree[TreenumberWhilePlanting, 2];
 
-                    WalkTo(x, y, z, WalkSpeed); //walk to next tree
+                    WalkTo(x, y, z, (short)WalkSpeed); //walk to next tree
                 }
                 else
                 {
@@ -286,33 +281,33 @@ namespace DOL.GS.Scripts
                 int x = GameLocation.ConvertLocalXToGlobalX(Tree[0, 0], tempZoneID);
                 int y = GameLocation.ConvertLocalYToGlobalY(Tree[0, 1], tempZoneID);
                 int z = Tree[0, 2];
-                
-                WalkTo(x, y, z, (WalkSpeed + 50)); //x y z speed
+
+                WalkTo(x, y, z, (short)(WalkSpeed + 50)); //x y z speed
             }
         }
-	}
+    }
 }
 
 namespace DOL.AI.Brain
 {
     public class UndeadSeedsmanBrain : StandardMobBrain
-	{
-		public UndeadSeedsmanBrain()
-			: base()
-		{
-			AggroLevel = 100;
-			AggroRange = 500;
-			ThinkInterval = 30000;
-		}
-		public override void Think()
-		{
+    {
+        public UndeadSeedsmanBrain()
+            : base()
+        {
+            AggroLevel = 100;
+            AggroRange = 500;
+            ThinkInterval = 30000;
+        }
+        public override void Think()
+        {
             UndeadSeedsman seedsman = Body as UndeadSeedsman;
             // Check if seedsman is dead, returning home, stunned, or mezzed, if yes then don't think.
             if (!seedsman.IsAlive) { return; }
             if (seedsman.IsReturningHome) { return; }
             if (seedsman.AttackState) { return; }
-           // if ((seedsman.IsStunned) || (seedsman.IsMezzed)) { return; }
-            
+            // if ((seedsman.IsStunned) || (seedsman.IsMezzed)) { return; }
+
             // Check if seedsman should start planting tree's
             if (UndeadSeedsman.TreeNumber < 1 && !UndeadSeedsman.IsPlanting && !seedsman.InCombat && !seedsman.IsMoving) { seedsman.StartPlanting(); }
             // Check if seedsman is idle and should random walk.
@@ -322,11 +317,11 @@ namespace DOL.AI.Brain
                 int chance = Util.Random(1, 3);
                 if (chance == 3)
                 {
-                    int spot = Util.Random(0, UndeadSeedsman.UndeadSeedsmanWalks.GetLength(0)-1);
+                    int spot = Util.Random(0, UndeadSeedsman.UndeadSeedsmanWalks.GetLength(0) - 1);
                     seedsman.WalkTo(UndeadSeedsman.UndeadSeedsmanWalks[spot, 0], UndeadSeedsman.UndeadSeedsmanWalks[spot, 1], UndeadSeedsman.UndeadSeedsmanWalks[spot, 2], 80);
                 }
             }
             base.Think();
-		}
+        }
     }
 }
