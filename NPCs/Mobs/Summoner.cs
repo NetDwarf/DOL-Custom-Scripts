@@ -65,7 +65,7 @@ namespace DOL.GS.Scripts
         /// <summary>
         /// Gets or sets the base maxspeed of this living
         /// </summary>
-        public override int MaxSpeedBase
+        public override short MaxSpeedBase
         {
             get
             {
@@ -216,7 +216,7 @@ namespace DOL.GS.Scripts
             base.TakeDamage(source, damageType, damageAmount, criticalAmount);
             if (ObjectState != eObjectState.Active) return;
             GameLiving t = (GameLiving)source;
-            int range = WorldMgr.GetDistance(this, t);
+            var range = Coordinate.DistanceTo(t.Coordinate);
             if (range > 500)
             {
                 m_summonerTarget = t;
@@ -272,7 +272,6 @@ namespace DOL.GS.Scripts
                 if (m_glare == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 3;
                     spell.ClientEffect = 5510;
                     spell.Description = "Glare";
@@ -298,7 +297,6 @@ namespace DOL.GS.Scripts
                 if (m_glare == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 0;
                     spell.ClientEffect = 14326;
                     spell.Description = "Glare";
@@ -324,7 +322,6 @@ namespace DOL.GS.Scripts
                 if (m_mez == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 0;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 5393;
@@ -353,7 +350,6 @@ namespace DOL.GS.Scripts
                 if (m_heal == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 1;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 13019;
@@ -378,7 +374,6 @@ namespace DOL.GS.Scripts
                 if (m_nuke == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 0;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 4559;
@@ -406,7 +401,6 @@ namespace DOL.GS.Scripts
                 if (m_pb == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 3;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 12143;
@@ -434,7 +428,6 @@ namespace DOL.GS.Scripts
                 if (m_dot == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 0;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 92;
@@ -463,7 +456,6 @@ namespace DOL.GS.Scripts
                 if (m_shield == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 0;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 13510;
@@ -490,7 +482,6 @@ namespace DOL.GS.Scripts
                 if (m_stun == null)
                 {
                     DBSpell spell = new DBSpell();
-                    spell.AutoSave = false;
                     spell.CastTime = 0;
                     spell.Uninterruptible = true;
                     spell.ClientEffect = 80;

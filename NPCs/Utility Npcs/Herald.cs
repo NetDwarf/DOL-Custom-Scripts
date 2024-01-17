@@ -3,6 +3,8 @@ using System.Collections;
 using DOL.GS.PacketHandler;
 using DOL.Database;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace DOL.GS.Scripts
 {
     public class HeraldNPC : GameNPC
@@ -23,7 +25,8 @@ namespace DOL.GS.Scripts
             if (!base.Interact(player))
                 return false;
 
-            DOLCharacters[] chars = (DOLCharacters[])GameServer.Database.SelectObjects<DOLCharacters>("RealmPoints > 0 ORDER BY RealmPoints DESC LIMIT 25");
+            var chars = GameServer.Database.SelectObjects<DOLCharacters>(DB.Column("RealmPoints").IsGreatherThan(0))
+                .OrderByDescending(s => s.RealmPoints).Take(25);
             List<string> list = new List<string>();
             list.Add("Top 25 Highest Realm Points:\n\n");
             int count = 1;

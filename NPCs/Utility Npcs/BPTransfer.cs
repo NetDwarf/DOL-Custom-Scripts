@@ -321,8 +321,9 @@ namespace DOL.GS.Scripts
 				}
 				else if ( text == "YES" )
 				{
-                    DOLCharacters fromchar = player.DBCharacter;
-                    DOLCharacters tochar = (DOLCharacters)m_chars[player];
+                    var senderDolCharacter = GetCharacter(player.Name);
+                    var fromchar = senderDolCharacter;
+                    var tochar = (DOLCharacters)m_chars[player];
 					
 					#region some checks before
 					// NULL check
@@ -362,7 +363,7 @@ namespace DOL.GS.Scripts
 					if ( COSTS_BOUNTY )
 					{
 						if ( IsFreeUsageReady(player) )
-							player.DBCharacter.LastFreeLeveled = DateTime.Now;
+							senderDolCharacter.LastFreeLeveled = DateTime.Now;
 						else
 							player.BountyPoints -= costs;
 					}
@@ -528,13 +529,7 @@ namespace DOL.GS.Scripts
 			/// <returns>the found character or null</returns>
 			private DOLCharacters GetCharacter(string charname)
 			{
-				//Seek players ingame first
-				GameClient client = WorldMgr.GetClientByPlayerName(charname, true, false);
-				if (client != null)
-					return client.Player.DBCharacter;
-	
-				//Return database object
-				return GameServer.Database.SelectObject<DOLCharacters>("Name='" + GameServer.Database.Escape(charname) + "'");
+				return DOLDB<DOLCharacters>.SelectObject(DB.Column("Name").IsEqualTo(charname));
 			}
 			
 			/// <summary>
@@ -549,7 +544,7 @@ namespace DOL.GS.Scripts
 				if ( !FREE_COSTS || player == null || FREE_USAGE_AFTER_DAYS[player.RealmLevel/10] == 0 )
 					return false;
 				
-				DateTime dt = player.DBCharacter.LastFreeLeveled;
+				DateTime dt = GetCharacter(player.Name).LastFreeLeveled;
 				dt = dt.AddDays(FREE_USAGE_AFTER_DAYS[player.RealmLevel/10]);
 				return ( DateTime.Now.CompareTo(dt) >= 0 );
 			}

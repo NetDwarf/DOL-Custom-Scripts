@@ -167,7 +167,7 @@ namespace DOL.GS.Scripts
             seedsman.Z = UndeadSeedsmanWalks[0, 2];
             seedsman.Heading = 880;
             seedsman.RoamingRange = 0;
-            seedsman.Flags ^= (uint)GameNPC.eFlags.TRANSPARENT;
+            seedsman.Flags ^= GameNPC.eFlags.GHOST;
             seedsman.CurrentSpeed = 0;
             seedsman.MaxSpeedBase = 191;
             UndeadSeedsmanBrain ubrain = new UndeadSeedsmanBrain();
@@ -258,7 +258,7 @@ namespace DOL.GS.Scripts
                     y = GameLocation.ConvertLocalYToGlobalY(Tree[TreenumberWhilePlanting, 1], tempZoneID);
                     z = Tree[TreenumberWhilePlanting, 2];
 
-                    WalkTo(x, y, z, WalkSpeed); //walk to next tree
+                    WalkTo(x, y, z, (short)WalkSpeed); //walk to next tree
                 }
                 else
                 {
@@ -287,7 +287,7 @@ namespace DOL.GS.Scripts
                 int y = GameLocation.ConvertLocalYToGlobalY(Tree[0, 1], tempZoneID);
                 int z = Tree[0, 2];
                 
-                WalkTo(x, y, z, (WalkSpeed + 50)); //x y z speed
+                WalkTo(x, y, z, (short)(WalkSpeed + 50)); //x y z speed
             }
         }
 	}

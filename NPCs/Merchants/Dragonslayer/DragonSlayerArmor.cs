@@ -2767,7 +2767,7 @@ namespace DOL.GS.Items
             //This creates and stores all the items for your merchant windows.
 
             MerchantItem m_item = null;
-            m_item = GameServer.Database.SelectObject<MerchantItem>("ItemListID='AlbionDragonItems'");
+            m_item = GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("AlbionDragonItems"));
             if (m_item == null)
             {
                 #region Merchant Items
@@ -5834,7 +5834,7 @@ namespace DOL.GS.Items
             //This creates and stores all the items for your merchant windows.
 
             MerchantItem m_item = null;
-            m_item = GameServer.Database.SelectObject<MerchantItem>("ItemListID='MidgardDragonItems'");
+            m_item = GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("MidgardDragonItems"));
             if (m_item == null)
             {
                 #region Midgard Merchant Items
@@ -8777,7 +8777,7 @@ namespace DOL.GS.Items
             //This creates and stores all the items for your merchant windows.
 
             MerchantItem m_item = null;
-            m_item = GameServer.Database.SelectObject<MerchantItem>("ItemListID='HiberniaDragonItems'");
+            m_item = GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("HiberniaDragonItems"));
             if (m_item == null)
             {
                 #region Hibernia Merchant Items

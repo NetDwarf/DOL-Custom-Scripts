@@ -26,11 +26,11 @@ namespace DOL.GS.Scripts
             GuildName = "Zone Teleporter";
             Level = 50;
             Size = 60;
-            Flags = 16;	// Peace flag.
+            Flags = eFlags.PEACE;	// Peace flag.
             return base.AddToWorld();
         }
 
-        private static ServerProperty curMap = GameServer.Database.SelectObject(typeof(ServerProperty), "`Key` = 'current_map'") as ServerProperty;
+        private static ServerProperty curMap = GameServer.Database.SelectObject<ServerProperty>(DB.Column("Key").IsEqualTo("current_map"));
 
         public override bool Interact(GamePlayer player)
         {

@@ -52,7 +52,7 @@ namespace DOL.GS.Commands
                         text.Add("---------------------------");
                         text.Add("- Name: " + player.Name);
                         text.Add("- Lastname: " + player.LastName);
-                        text.Add("- Class: " + player.CharacterClass.Name);
+                        text.Add("- Class: " + player.CharacterClass.GetSalutation(eGender.Neutral));
                         text.Add("- Guild: " + player.GuildName);
                         text.Add("- Realm: " + player.Realm);
                         text.Add("- Realmpoints: " + player.RealmPoints);

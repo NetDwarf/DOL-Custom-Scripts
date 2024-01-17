@@ -49,7 +49,7 @@ namespace DOL.GS.Scripts
 
                 case "Weapons":
                     {
-                        if (t.CharacterClass.Name == "Wizard" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Wizard) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonWizardStaff");
@@ -60,7 +60,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Sorcerer" || t.CharacterClass.Name == "Sorceress" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Sorcerer) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonSorcererStaff");
@@ -71,7 +71,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Cabalist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Cabalist) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonCabalistStaff");
@@ -82,7 +82,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Theurgist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Theurgist) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonTheurgistStaff");
@@ -92,7 +92,7 @@ namespace DOL.GS.Scripts
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
-                        if (t.CharacterClass.Name == "Necromancer" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Necromancer) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonNecromancerStaff");
@@ -102,7 +102,7 @@ namespace DOL.GS.Scripts
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
-                        if (t.CharacterClass.Name == "Armsman" || t.CharacterClass.Name == "Armswoman" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Armsman) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanDexteraBlade");
@@ -162,7 +162,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Cleric" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Cleric) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ClericDexteraMace");
@@ -173,7 +173,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Friar" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Friar) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("FriarDexteraMace");
@@ -191,7 +191,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Heretic" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Heretic) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("HereticDexteraBarbedChain");
@@ -215,7 +215,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Infiltrator" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Infiltrator) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("InfiltratorDexteraBlade");
@@ -245,7 +245,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Mercenary" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Mercenary) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryDexteraBlade");
@@ -287,7 +287,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Minstrel" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Minstrel) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("MinstrelDexteraBlade");
@@ -310,7 +310,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Paladin" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Paladin) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinDexteraBlade");
@@ -351,7 +351,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Reaver" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Reaver) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ReaverDexteraBarbedChain");
@@ -386,7 +386,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Scout" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Scout) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ScoutDexteraBlade");
@@ -412,7 +412,7 @@ namespace DOL.GS.Scripts
 
                         #region Midgard Champion Weapons
 
-                        if (t.CharacterClass.Name == "Bonedancer" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Bonedancer) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzBonedancerStaff");
@@ -423,7 +423,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Runemaster" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Runemaster) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzRunemasterStaff");
@@ -433,7 +433,7 @@ namespace DOL.GS.Scripts
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
-                        if (t.CharacterClass.Name == "Spiritmaster" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Spiritmaster) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzSpiritmasterStaff");
@@ -444,7 +444,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Warlock" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Warlock) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzWarlockStaff");
@@ -455,7 +455,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Warrior" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Warrior) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorAxe");
@@ -496,7 +496,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Valkyrie" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Valkyrie) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazValkyrieSlashingSpear");
@@ -525,7 +525,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Healer" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Healer) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHealerTwohandedHammer");
@@ -543,7 +543,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Shaman" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Shaman) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShamanHammer");
@@ -560,7 +560,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Hunter" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Hunter) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazCompoundBow");
@@ -595,7 +595,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Savage" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Savage) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageAxe");
@@ -660,7 +660,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Shadowblade" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Shadowblade) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShadowbladeAxe");
@@ -695,7 +695,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Skald" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Skald) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldAxe");
@@ -736,7 +736,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Thane" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Thane) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneAxe");
@@ -780,7 +780,7 @@ namespace DOL.GS.Scripts
 
                         #region Hibernia Champion Weapons
 
-                        if (t.CharacterClass.Name == "Animist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Animist) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtAnimistStaff");
@@ -791,7 +791,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Bainshee" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Bainshee) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtBainsheeStaff");
@@ -802,7 +802,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Eldritch" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Eldritch) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtEldritchStaff");
@@ -813,7 +813,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Enchanter" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Enchanter) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtEnchanterStaff");
@@ -824,7 +824,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Mentalist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Mentalist) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtMentalistStaff");
@@ -835,7 +835,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Valewalker" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Valewalker) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharValewalkerScythe");
@@ -846,7 +846,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Vampiir" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Vampiir) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("VampiirFuarSteel");
@@ -857,7 +857,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Bard" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Bard) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("BardDocharHarp");
@@ -880,7 +880,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Druid" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Druid) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharDruidBlade");
@@ -897,7 +897,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Warden" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Warden) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharWardenBlade");
@@ -914,7 +914,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Blademaster" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Blademaster) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharBlademasterBlade");
@@ -955,7 +955,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Champion" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Champion) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharChampionBlade");
@@ -990,7 +990,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Hero" || t.CharacterClass.Name == "Heroine" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Hero) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroBlade");
@@ -1031,7 +1031,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Nightshade" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Nightshade) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("DocharNightshadeBlade");
@@ -1060,7 +1060,7 @@ namespace DOL.GS.Scripts
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Ranger" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Ranger) && t.ChampionLevel >= 5)
                         {
                             InventoryItem generic0 = new InventoryItem();
                             ItemTemplate tgeneric0 = GameServer.Database.FindObjectByKey<ItemTemplate>("RangerFuarBlade");

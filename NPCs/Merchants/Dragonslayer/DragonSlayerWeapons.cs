@@ -7055,7 +7055,7 @@ namespace DOL.GS.Items
                 ItemTemplate item = null;
 
                 MerchantItem m_item = null;
-                m_item = GameServer.Database.SelectObject<MerchantItem>("ItemListID='AlbionDragonWeapons'");
+                m_item = GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("AlbionDragonWeapons"));
                 if (m_item == null)
                 {
                     #region Albion Merchant Items
@@ -7487,7 +7487,7 @@ namespace DOL.GS.Items
                 }
                 item = null;
 
-                m_item = GameServer.Database.SelectObject<MerchantItem>("ItemListID='MidgardDragonWeapons'");
+                m_item = GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("MidgardDragonWeapons"));
                 if (m_item == null)
                 {
                     #region Midgard Merchant Items
@@ -8009,7 +8009,7 @@ namespace DOL.GS.Items
                 }
                 item = null;
 
-                m_item = GameServer.Database.SelectObject<MerchantItem>("ItemListID='HiberniaDragonWeapons'");
+                m_item = GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("HiberniaDragonWeapons"));
                 if (m_item == null)
                 {
                     #region Hibernia Merchant Items
@@ -8388,4 +8388,3 @@ namespace DOL.GS.Items
         }
     }
 }
-

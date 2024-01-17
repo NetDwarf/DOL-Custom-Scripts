@@ -2142,7 +2142,7 @@ namespace DOL.GS.Items
 
 
             MerchantItem m_item = null;
-            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>("ItemListID='LegendaryColdWeapons'");
+            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("LegendaryColdWeapons"));
             if (m_item == null)
             {
                 #region Merchant Items

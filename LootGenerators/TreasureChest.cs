@@ -216,7 +216,7 @@ namespace DOL.GS
         [ScriptLoadedEvent]
         public static void ScriptLoaded(DOLEvent e, object sender, EventArgs args)
         {
-            Mob mob = GameServer.Database.SelectObject<Mob>("Name = '" + GameServer.Database.Escape("Redemption") + "'");
+            Mob mob = GameServer.Database.SelectObject<Mob>(DB.Column("Name").IsEqualTo("Redemption"));
             if (mob != null)
             {
                 GameNPC npc = new GameNPC();
@@ -228,7 +228,10 @@ namespace DOL.GS
         public static int SpawnChests(RegionTimer timer)
         {
             Console.WriteLine("Treasure Chests created");
-            IList<ItemTemplate> items = GameServer.Database.SelectObjects<ItemTemplate>("PackageID = '" + GameServer.Database.Escape("DragonWeapons") + "' OR PackageID = '" + GameServer.Database.Escape("LabWeaps") + "' OR PackageID = '" + GameServer.Database.Escape("Artifacts") + "'");
+            var sql = DB.Column("PackageID").IsEqualTo("DragonWeapons")
+                .Or(DB.Column("PackageID").IsEqualTo("LabWeaps"))
+                .Or(DB.Column("PackageID").IsEqualTo("Artifacts"));
+            IList<ItemTemplate> items = GameServer.Database.SelectObjects<ItemTemplate>(sql);
             for (int i = 0; i < numberOfChests; i++)
             {
                 TreasureChest chest = new TreasureChest(items);
@@ -248,7 +251,7 @@ namespace DOL.GS
                 client.Out.SendMessage(numberOfChests + " Treasure Chests created in this zone", eChatType.CT_ScreenCenter, eChatLoc.CL_SystemWindow);
                 client.Out.SendMessage(numberOfChests + " Treasure Chests created in this zone", eChatType.CT_ScreenCenter, eChatLoc.CL_SystemWindow);
             }
-            Mob mob = GameServer.Database.SelectObject<Mob>("Name = '" + GameServer.Database.Escape("Redemption") + "'");
+            Mob mob = GameServer.Database.SelectObject<Mob>(DB.Column("Name").IsEqualTo("Redemption"));
             if (mob != null)
             {
                 GameNPC npc = new GameNPC();

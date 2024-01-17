@@ -22,10 +22,10 @@ namespace DOL.GS.Commands
 
     public class OnJail : AbstractCommandHandler, ICommandHandler
     {
-        private Character GetPlayerFromDB(string Pname)
+        private DOLCharacters GetPlayerFromDB(string Pname)
         {
-            DataObject[] m_objs = GameServer.Database.SelectObjects(typeof(Character), "Name = '" + GameServer.Database.Escape(Pname) + "'");
-            foreach (DataObject ob in m_objs) { return (Character)ob; }
+            var m_objs = DOLDB<DOLCharacters>.SelectObjects(DB.Column("Name").IsEqualTo(Pname));
+            foreach (DataObject ob in m_objs) { return (DOLCharacters)ob; }
             return null;
         }
 
@@ -79,7 +79,7 @@ namespace DOL.GS.Commands
                     }
                     else //sta giocando con un altro giocatore?
                     {
-                        foreach (Character dbpg in cl.Account.Characters)
+                        foreach (var dbpg in cl.Account.Characters)
                         {
                             if (dbpg.Name == PlayerName)
                             {
@@ -101,9 +101,9 @@ namespace DOL.GS.Commands
                         }
                     }
                 }
-                else //non è il game, controllo il database
+                else //non ï¿½ il game, controllo il database
                 {
-                    Character dbpg = GetPlayerFromDB(PlayerName);
+                    var dbpg = GetPlayerFromDB(PlayerName);
                     if (dbpg != null)
                     {
                         dbpg.BindXpos = 47382;
@@ -175,7 +175,7 @@ namespace DOL.GS.Commands
                     }
                     else //sta giocando con un altro giocatore?
                     {
-                        foreach (Character dbpg in cl.Account.Characters)
+                        foreach (var dbpg in cl.Account.Characters)
                         {
                             if (dbpg.Name == PlayerName)
                             {
@@ -235,9 +235,9 @@ namespace DOL.GS.Commands
                         }
                     }
                 }
-                else //non è il game, controllo il database
+                else //non ï¿½ il game, controllo il database
                 {
-                    Character dbpg = GetPlayerFromDB(PlayerName);
+                    var dbpg = GetPlayerFromDB(PlayerName);
                     if (dbpg != null)
                     {
                         if (dbpg.Realm == 1)

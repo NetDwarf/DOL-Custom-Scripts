@@ -40,7 +40,7 @@ namespace DOL.GS.Scripts
                         client.Player.Name + " From IP (" + client.Account.LastLoginIP + ") Has Been Kicked For Trying To Speed Hack!", eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
                     }
                     StringBuilder builder = new StringBuilder();
-                    builder.Append("Class= (" + client.Player.CharacterClass.Name + ") Speed= (" + client.Player.MaxSpeed + ")" + " Name= (" + client.Player.Name + ")" + " Account= (" + client.Account.Name + ") IP= (" + client.Account.LastLoginIP + ")");
+                    builder.Append("Class= (" + client.Player.CharacterClass + ") Speed= (" + client.Player.MaxSpeed + ")" + " Name= (" + client.Player.Name + ")" + " Account= (" + client.Account.Name + ") IP= (" + client.Account.LastLoginIP + ")");
                     GameServer.Instance.LogCheatAction(builder.ToString());
 
                     client.Player.Out.SendMessage("Read The Rules Its Not Hard", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
@@ -57,7 +57,7 @@ namespace DOL.GS.Scripts
                         client.Player.Name + " From IP (" + client.Account.LastLoginIP + ") Has Been Kicked For Trying To Speed Hack!", eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
                     }
                     StringBuilder builder = new StringBuilder();
-                    builder.Append("Class= (" + client.Player.CharacterClass.Name + ") Speed Base = (" + client.Player.MaxSpeedBase + ")" + " Name= (" + client.Player.Name + ")" + " Account= (" + client.Account.Name + ") IP= (" + client.Account.LastLoginIP + ")");
+                    builder.Append("Class= (" + client.Player.CharacterClass + ") Speed Base = (" + client.Player.MaxSpeedBase + ")" + " Name= (" + client.Player.Name + ")" + " Account= (" + client.Account.Name + ") IP= (" + client.Account.LastLoginIP + ")");
                     GameServer.Instance.LogCheatAction(builder.ToString());
 
                     client.Player.Out.SendMessage("Read The Rules Its Not Hard", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);

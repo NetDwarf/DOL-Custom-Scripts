@@ -6,6 +6,7 @@ using DOL.Database;
 using DOL.Events;
 using DOL.AI.Brain;
 using DOL.AI;
+using DOL.GS.Geometry;
 
 namespace DOL.GS.Scripts
 {
@@ -341,7 +342,7 @@ namespace DOL.GS.Scripts
         {
 
             #region Hockeystick
-            hockeyStick = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "hockeystick");
+            hockeyStick = GameServer.Database.FindObjectByKey<ItemTemplate>("hockeystick");
             if (hockeyStick == null)
             {
                 hockeyStick = new ItemTemplate();
@@ -389,7 +390,7 @@ namespace DOL.GS.Scripts
             Size = 35;
             Level = 1;
             MaxSpeedBase = 0;
-            Flags = (uint)eFlags.DONTSHOWNAME + (uint)eFlags.CANTTARGET + (uint)eFlags.PEACE;
+            Flags = eFlags.DONTSHOWNAME & eFlags.CANTTARGET & eFlags.PEACE;
             CheerBrain brain = new CheerBrain();
             SetOwnBrain(brain);
         }
@@ -698,7 +699,7 @@ namespace DOL.GS.Scripts
             //We have assigned him to the team. Now, we need to give him a hockey stick!
 
             //HOCKEY STICK HERE (COLOR ETC).
-            InventoryItem stick = new InventoryItem(TomteHockeyGameManager.HockeyStick);
+            InventoryItem stick = GameInventoryItem.Create(TomteHockeyGameManager.HockeyStick);
 
             if (redTeam)
                 stick.Color = 1;
@@ -726,10 +727,10 @@ namespace DOL.GS.Scripts
 
             //Why not use MoveTo? Because we also need to find the heading!
 
-            player.Heading = player.GetHeadingToSpot(X, Y);
+            player.Orientation = player.Coordinate.GetOrientationTo(Coordinate.Create(X,Y));
 
             //Now we send the jump packet, so it sends the heading aswell.
-            player.MoveTo(player.CurrentRegionID, player.X, player.Y, player.Z, player.Heading);
+            player.BroadcastUpdate();
 
             //Check to see if we have filled the amount of players to start the game.
             if (m_playingPlayers.Count >= MaxPlayerCount)
@@ -864,7 +865,9 @@ namespace DOL.GS.Scripts
                 player.X = X;
                 player.Y = Y - YSize / 2;
 
-                player.MoveTo(Region, player.X, player.Y, player.Z, player.GetHeadingToSpot(X, Y));
+                var playerOrientation = player.Coordinate.GetOrientationTo(Coordinate.Create(X,Y));
+                var newPlayerPosition = Position.Create(Region, player.Coordinate, playerOrientation);
+                player.MoveTo(newPlayerPosition);
             }
 
             //Move Blue Team!
@@ -873,7 +876,9 @@ namespace DOL.GS.Scripts
                 player.X = X;
                 player.Y = Y + YSize / 2;
 
-                player.MoveTo(Region, player.X, player.Y, player.Z, player.GetHeadingToSpot(X, Y));
+                var playerOrientation = player.Coordinate.GetOrientationTo(Coordinate.Create(X,Y));
+                var newPlayerPosition = Position.Create(Region, player.Coordinate, playerOrientation);
+                player.MoveTo(newPlayerPosition);
             }
 
         }
@@ -977,7 +982,7 @@ namespace DOL.GS.Scripts
             Size = 80;
             Level = 60;
             Realm = eRealm.None;
-            Flags = (uint)eFlags.PEACE;
+            Flags = eFlags.PEACE;
             CheerBrain brain = new CheerBrain();
             SetOwnBrain(brain);
             MaxSpeedBase = 191;

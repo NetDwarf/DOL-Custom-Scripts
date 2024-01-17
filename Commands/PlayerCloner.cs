@@ -89,7 +89,7 @@ namespace DOL.GS.Scripts
             if (clone == null)
                 return false;
 
-            DOLCharacters dbchar = GameServer.Database.SelectObject<DOLCharacters>("Name = '" + GameServer.Database.Escape(playerName) + "'");
+            DOLCharacters dbchar = DOLDB<DOLCharacters>.SelectObject(DB.Column("Name").IsEqualTo(playerName));
 
             if (dbchar == null)
                 return false;
@@ -212,7 +212,7 @@ namespace DOL.GS.Scripts
 
             #region Inventory
             GameNpcInventoryTemplate npcInventory = new GameNpcInventoryTemplate();
-            IList<InventoryItem> charItems = GameServer.Database.SelectObjects<InventoryItem>("OwnerID = '" + dbchar.ObjectId + "'");
+            IList<InventoryItem> charItems = DOLDB<InventoryItem>.SelectObjects(DB.Column("OwnerID").IsEqualTo(dbchar.ObjectId));
 
             foreach (InventoryItem item in charItems)
             {
@@ -314,7 +314,7 @@ namespace DOL.GS.Scripts
             SetNPCModel(clone, player.Model);
             clone.Level = player.Level;
             clone.Name = player.Name + (player.LastName.Length > 0 ? " " + player.LastName : "");
-            clone.TempProperties.setProperty(CLONE_CLASS_NAME, player.CharacterClass.Name);
+            clone.TempProperties.setProperty(CLONE_CLASS_NAME, player.CharacterClass);
             clone.GuildName = player.GuildName;
             clone.IsCloakHoodUp = player.IsCloakHoodUp;
             clone.IsCloakInvisible = player.IsCloakInvisible;
@@ -352,7 +352,7 @@ namespace DOL.GS.Scripts
 
             npcInventory.CloseTemplate();
             clone.Inventory = npcInventory;
-            clone.UpdateNPCEquipmentAppearance();
+            clone.BroadcastLivingEquipmentUpdate();
             #endregion Inventory
 
             #region Behavior
@@ -383,7 +383,7 @@ namespace DOL.GS.Scripts
 
             if (loadStyles)
             {
-                clone.Styles = GetCharacterStyles(player.DBCharacter);
+                clone.Styles = player.GetStyleList();
             }
 
             clone.SetOwnBrain(new MeleeStyler());

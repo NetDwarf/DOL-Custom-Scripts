@@ -66,7 +66,7 @@ namespace DOL.AI.Brain
                 // Let it fail? Or maneuver closer (say, 5 units instead of 65)?
                 if (m_style != null && m_style.OpeningRequirementType == Style.eOpening.Positional)
                 {
-                    float angle = target.GetAngle(Body);
+                    float angle = target.Coordinate.GetOrientationTo(Body.Coordinate).InDegrees;
                     Point2D positionalPoint;
 
                     switch (m_style.OpeningRequirementValue)
@@ -440,24 +440,24 @@ namespace DOL.AI.Brain
 
                             switch (style.AttackResultRequirement)
                             {
-                                case Style.eAttackResult.Any:
+                                case Style.eAttackResultRequirement.Any:
                                     if (AI_LOGGING) log.Warn("Adding Anytime style " + style.Name);
                                     break;
-                                case Style.eAttackResult.Block:
+                                case Style.eAttackResultRequirement.Block:
                                     if (targetAD.AttackResult != GameLiving.eAttackResult.Blocked)
                                         continue;
                                     if (AI_LOGGING) log.Warn("Adding Block style " + style.Name);
                                     break;
-                                case Style.eAttackResult.Evade:
+                                case Style.eAttackResultRequirement.Evade:
                                     if (targetAD.AttackResult != GameLiving.eAttackResult.Evaded)
                                         continue;
                                     if (AI_LOGGING) log.Warn("Adding Evade style " + style.Name);
                                     break;
-                                case Style.eAttackResult.Fumble:
+                                case Style.eAttackResultRequirement.Fumble:
                                     if (targetAD.AttackResult != GameLiving.eAttackResult.Fumbled)
                                         continue;
                                     break;
-                                case Style.eAttackResult.Parry:
+                                case Style.eAttackResultRequirement.Parry:
                                     if (targetAD.AttackResult != GameLiving.eAttackResult.Parried)
                                         continue;
                                     if (AI_LOGGING) log.Warn("Adding Parry style " + style.Name);
@@ -630,7 +630,7 @@ namespace DOL.AI.Brain
             if (style.Procs != null && style.Procs.Count > 0)
             {
                 //Spell proc = SkillBase.GetSpellByID( style.Procs[0].SpellID );
-                Spell proc = GetSpell(style.Procs[0].SpellID);
+                Spell proc = GetSpell(style.Procs[0].Item1.ID);
 
                 if (proc != null)
                 {
@@ -733,7 +733,7 @@ namespace DOL.AI.Brain
             public SCStyle(Style style)
             {
                 Name = style.Name;
-                ID = style.ID;
+                ID = (ushort)style.ID;
                 ClassID = style.ClassID;
                 Weight = 0.0;
             }

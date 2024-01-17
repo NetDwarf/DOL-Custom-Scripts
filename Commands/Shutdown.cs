@@ -44,7 +44,7 @@ namespace DOL.GS.Commands
 
             TimeSpan uptime = TimeSpan.FromTicks(GameServer.Instance.TickCount);
 
-            ServerProperty propertyHour = GameServer.Database.SelectObject(typeof(ServerProperty), "`Key` = 'shutdown_hour'") as ServerProperty;
+            var propertyHour = DOLDB<ServerProperty>.SelectObject(DB.Column("Key").IsEqualTo("shutdown_hour"));
             if (propertyHour == null)
             {
                 propertyHour = new ServerProperty();
@@ -53,10 +53,10 @@ namespace DOL.GS.Commands
                 propertyHour.Key = "shutdown_hour";
                 propertyHour.Value = "-1";
 
-                GameServer.Database.AddNewObject(propertyHour);
+                GameServer.Database.AddObject(propertyHour);
             }
 
-            ServerProperty propertyDays = GameServer.Database.SelectObject(typeof(ServerProperty), "`Key` = 'shutdown_days'") as ServerProperty;
+            ServerProperty propertyDays = DOLDB<ServerProperty>.SelectObject(DB.Column("Key").IsEqualTo("shutdown_days"));
             if (propertyDays == null)
             {
                 propertyDays = new ServerProperty();
@@ -65,7 +65,7 @@ namespace DOL.GS.Commands
                 propertyDays.Key = "shutdown_days";
                 propertyDays.Value = "-1";
 
-                GameServer.Database.AddNewObject(propertyDays);
+                GameServer.Database.AddObject(propertyDays);
             }
 
 

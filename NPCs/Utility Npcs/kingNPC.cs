@@ -13,9 +13,9 @@ using DOL.Database;
 
 namespace DOL.GS.Scripts
 {
-    public class ChampionNPC : GameNPC
+    public class KingNPC : GameNPC
     {
-        public ChampionNPC()
+        public KingNPC()
             : base()
         {
             Name = "Champion Level";
@@ -75,7 +75,6 @@ namespace DOL.GS.Scripts
             if (player == null) return false;
             if (str == "dostuff")
             {
-                DoSomeStuff(15);
                 return true;
             }
             if (player.Level != 50)
@@ -117,19 +116,7 @@ namespace DOL.GS.Scripts
             {
                 if (player.Champion && player.ChampionLevel >= 5)
                 {
-                    player.RemoveSpellLine(GlobalSpellsLines.Champion_Spells + player.Name);
-                    SkillBase.UnRegisterSpellLine(GlobalSpellsLines.Champion_Spells + player.Name);
-                    player.ChampionSpells = "";
-                    player.ChampionSpecialtyPoints = player.ChampionLevel;
-                    player.UpdateSpellLineLevels(true);
-                    player.RefreshSpecDependantSkills(true);
-                    player.Out.SendUpdatePlayer();
-                    player.UpdatePlayerStatus();
-                    player.Out.SendUpdatePlayerSkills();
-                    player.SaveIntoDatabase();
-                    player.Out.SendMessage("You might have to reconnect to our world to make the changes take effect.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                    //There is a bug here that old spells will come back once buying new ones untill relog of character.  you may want
-                    //to force the player to relog after they respec champion spells.
+                    player.RespecChampionSkills();
                 }
             }
 
@@ -197,83 +184,6 @@ namespace DOL.GS.Scripts
 
             return true;
         }
-
-        public void DoSomeStuff(int times)
-        {
-            int idlinecount = 1;
-            for (int i = 0; i < times; i++)
-            {
-                int indexcount = 1;
-                int skillindexcount = 1;
-                for (int o = 0; o < 5; o++)
-                {
-                    DBChampSpecs s1 = new DBChampSpecs();
-                    s1.ObjectId = idlinecount.ToString() + "-" + skillindexcount.ToString() + "-" + indexcount.ToString();
-                    s1.IdLine = idlinecount;
-                    s1.SkillIndex = skillindexcount;
-                    s1.Index = indexcount;
-                    s1.Cost = 1;
-                    s1.AllowAdd = true;
-                    GameServer.Database.AddObject(s1);
-                    indexcount++;
-                }
-                indexcount = 1;
-                for (int o = 0; o < 5; o++)
-                {
-                    DBChampSpecs s1 = new DBChampSpecs();
-                    s1.ObjectId = idlinecount.ToString() + "-" + (skillindexcount + 1).ToString() + "-" + indexcount.ToString();
-                    s1.IdLine = idlinecount;
-                    s1.SkillIndex = skillindexcount + 1;
-                    s1.Index = indexcount;
-                    s1.Cost = 1;
-                    s1.AllowAdd = true;
-                    GameServer.Database.AddObject(s1);
-                    indexcount++;
-                }
-                indexcount = 1;
-                for (int o = 0; o < 2; o++)
-                {
-                    DBChampSpecs s1 = new DBChampSpecs();
-                    s1.ObjectId = idlinecount.ToString() + "-" + (skillindexcount + 2).ToString() + "-" + indexcount.ToString();
-                    s1.IdLine = idlinecount;
-                    s1.SkillIndex = skillindexcount + 2;
-                    s1.Index = indexcount;
-                    s1.Cost = 1;
-                    s1.AllowAdd = true;
-                    GameServer.Database.AddObject(s1);
-                    indexcount++;
-                }
-                indexcount = 1;
-                for (int o = 0; o < 3; o++)
-                {
-                    DBChampSpecs s1 = new DBChampSpecs();
-                    s1.ObjectId = idlinecount.ToString() + "-" + (skillindexcount + 3).ToString() + "-" + indexcount.ToString();
-                    s1.IdLine = idlinecount;
-                    s1.SkillIndex = skillindexcount + 3;
-                    s1.Index = indexcount;
-                    s1.Cost = 1;
-                    s1.AllowAdd = true;
-                    GameServer.Database.AddObject(s1);
-                    indexcount++;
-                }
-                indexcount = 1;
-                for (int o = 0; o < 2; o++)
-                {
-                    DBChampSpecs s1 = new DBChampSpecs();
-                    s1.ObjectId = idlinecount.ToString() + "-" + (skillindexcount + 4).ToString() + "-" + indexcount.ToString();
-                    s1.IdLine = idlinecount;
-                    s1.SkillIndex = skillindexcount + 4;
-                    s1.Index = indexcount;
-                    s1.Cost = 1;
-                    s1.AllowAdd = true;
-                    GameServer.Database.AddObject(s1);
-                    indexcount++;
-                }
-                idlinecount++;
-
-            }
-        }
-
 
         protected void CheckPromoteChampion(GamePlayer player)
         {

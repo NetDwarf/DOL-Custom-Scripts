@@ -5656,7 +5656,7 @@ namespace DOL.GS.Items
         {
 
             MerchantItem m_item = null;
-            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem> ("ItemListID='AlbLabWeaps'");
+            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("AlbLabWeaps"));
             if (m_item == null)
             {
                 #region Merchant Items
@@ -6175,7 +6175,7 @@ namespace DOL.GS.Items
         public static void OnServerStartup(DOLEvent e, object sender, EventArgs args)
         {
             MerchantItem m_item = null;
-            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>( "ItemListID='MidLabWeaps'");
+            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("MidLabWeaps"));
             if (m_item == null)
             {
                 #region Midgard Merchant Items
@@ -6585,7 +6585,7 @@ namespace DOL.GS.Items
         public static void OnServerStartup(DOLEvent e, object sender, EventArgs args)
         {
             MerchantItem m_item = null;
-            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>( "ItemListID='HibLabWeaps'");
+            m_item = (MerchantItem)GameServer.Database.SelectObject<MerchantItem>(DB.Column("ItemListID").IsEqualTo("HibLabWeaps"));
             if (m_item == null)
             {
 

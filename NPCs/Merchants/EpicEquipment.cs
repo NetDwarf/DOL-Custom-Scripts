@@ -136,7 +136,7 @@ namespace DOL.GS.Scripts
         protected static void GiveItem(GameLiving source, GamePlayer player, ItemTemplate itemTemplate)
         {
             itemTemplate.AllowAdd = true;
-            if (GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + itemTemplate.Id_nb + "'") == null)
+            if (GameServer.Database.SelectObject<ItemTemplate>(DB.Column("Id_nb").IsEqualTo(itemTemplate.Id_nb)) == null)
             {
                 GameServer.Database.AddObject(itemTemplate);
             }

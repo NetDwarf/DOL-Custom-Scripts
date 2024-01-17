@@ -34,6 +34,7 @@ using DOL.AI.Brain;
 using DOL.Database;
 using DOL.Events;
 using DOL.GS.Effects;
+using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
 
 #endregion
@@ -1062,14 +1063,9 @@ namespace DOL.GS.Spells
                 }
                 Npc.LoadTemplate(template);
             }
-           
-            int x, y;
-            Caster.GetSpotFromHeading(64, out x, out y);
-            Npc.X = x;
-            Npc.Y = y;
-            Npc.Z = Caster.Z;
-            Npc.CurrentRegion = Caster.CurrentRegion;
-            Npc.Heading = (ushort) ((Caster.Heading + 2048)%4096);
+
+            Npc.Position = Caster.Position + Vector.Create(Caster.Orientation, 64);
+            Npc.Position = Npc.Position.TurnedAround();
             Npc.Realm = Caster.Realm;
             Npc.CurrentSpeed = 0;
             Npc.Level = Caster.Level;

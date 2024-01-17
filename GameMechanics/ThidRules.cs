@@ -986,7 +986,7 @@ namespace DOL.GS.ServerRules
             // Ban account
             IList<DBBannedAccount> objs;
             //objs = GameServer.Database.SelectObjects<DBBannedAccount>("(Type ='Account' AND Account ='" + GameServer.Database.Escape(username) + "') OR (Type ='Account+Ip' AND Account ='" + GameServer.Database.Escape(username) + "')");
-            objs = GameServer.Database.SelectObjects<DBBannedAccount>("((Type='A' OR Type='B') AND Account ='" + GameServer.Database.Escape(username) + "')");
+            objs = GameServer.Database.SelectObjects<DBBannedAccount>((DB.Column("Type").IsEqualTo("A").Or(DB.Column("Type").IsEqualTo("B"))).And(DB.Column("Account").IsEqualTo(username)));
             if (objs.Count > 0)
             {
                 client.Out.SendLoginDenied(eLoginError.AccountIsBannedFromThisServerType);
@@ -995,7 +995,7 @@ namespace DOL.GS.ServerRules
 
             // Ban IP Adress
             //objs = GameServer.Database.SelectObjects<DBBannedAccount>("(Type = 'Ip' AND Ip ='" + GameServer.Database.Escape(accip) + "') OR (Type ='Account+Ip' AND Ip ='" + GameServer.Database.Escape(accip) + "')");
-            objs = GameServer.Database.SelectObjects<DBBannedAccount>("((Type='I' OR Type='B') AND Ip ='" + GameServer.Database.Escape(accip) + "')");
+            objs = GameServer.Database.SelectObjects<DBBannedAccount>((DB.Column("Type").IsEqualTo("I").Or(DB.Column("Type").IsEqualTo("B"))).And(DB.Column("Ip").IsEqualTo(accip)));
             if (objs.Count > 0)
             {
                 client.Out.SendLoginDenied(eLoginError.AccountIsBannedFromThisServerType);
@@ -1057,7 +1057,7 @@ namespace DOL.GS.ServerRules
                 if (WorldMgr.GetAllClients().Count > Properties.MAX_PLAYERS)
                 {
                     // GMs are still allowed to enter server
-                    accountobjs = GameServer.Database.SelectObjects<Account>(string.Format("Name = '{0}'", GameServer.Database.Escape(username)));
+                    accountobjs = GameServer.Database.SelectObjects<Account>(DB.Column("Name").IsEqualTo(username));
                     if (accountobjs.Count > 0)
                     {
                         Account account = accountobjs[0] as Account;
@@ -1074,7 +1074,7 @@ namespace DOL.GS.ServerRules
             if (Properties.STAFF_LOGIN)
             {
                 // GMs are still allowed to enter server
-                accountobjs = GameServer.Database.SelectObjects<Account>(string.Format("Name = '{0}'", GameServer.Database.Escape(username)));
+                accountobjs = GameServer.Database.SelectObjects<Account>(DB.Column("Name").IsEqualTo(username));
                 if (accountobjs.Count > 0)
                 {
                     Account account = accountobjs[0] as Account;
@@ -1401,7 +1401,7 @@ namespace DOL.GS.ServerRules
 
                     if (!BG && living is GamePlayer)
                     {
-                        AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living, 16000);
+                        AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.Position, 16000);
                         if (keep != null)
                         {
                             byte bonus = 0;
@@ -1711,17 +1711,17 @@ namespace DOL.GS.PacketHandler.Client.v168
                                 if (TCServerRules.IsSafeZone(myTarget.CurrentRegionID))
                                 {
                                     messages.RemoveAt(messages.Count - 1);
-                                    messages.Add(string.Format(LanguageMgr.GetTranslation(player.Client, "GamePlayer.GetExamineMessages.RealmMember", player.GetName(targetPlayer), targetPlayer.GetPronoun(player.Client, 0, true), targetPlayer.CharacterClass.Name)));
+                                    messages.Add(string.Format(LanguageMgr.GetTranslation(player.Client, "GamePlayer.GetExamineMessages.RealmMember", player.GetName(targetPlayer), targetPlayer.GetPronoun(player.Client, 0, true), targetPlayer.Salutation)));
                                 }
                                 else if (TCServerRules.IsPvEZone(myTarget.CurrentRegionID))
                                 {
                                     messages.RemoveAt(messages.Count - 1);
-                                    messages.Add(string.Format(LanguageMgr.GetTranslation(player.Client, "GamePlayer.GetExamineMessages.RealmMember", player.GetName(targetPlayer), targetPlayer.GetPronoun(player.Client, 0, true), targetPlayer.CharacterClass.Name)));
+                                    messages.Add(string.Format(LanguageMgr.GetTranslation(player.Client, "GamePlayer.GetExamineMessages.RealmMember", player.GetName(targetPlayer), targetPlayer.GetPronoun(player.Client, 0, true), targetPlayer.Salutation)));
                                 }
                                 else if (TCServerRules.IsPvPZone(myTarget.CurrentRegionID))
                                 {
                                     messages.RemoveAt(messages.Count - 1);
-                                    messages.Add(string.Format(LanguageMgr.GetTranslation(player.Client, "GamePlayer.GetExamineMessages.RealmMember", player.GetName(targetPlayer), targetPlayer.GetPronoun(player.Client, 0, true), targetPlayer.CharacterClass.Name)));
+                                    messages.Add(string.Format(LanguageMgr.GetTranslation(player.Client, "GamePlayer.GetExamineMessages.RealmMember", player.GetName(targetPlayer), targetPlayer.GetPronoun(player.Client, 0, true), targetPlayer.Salutation)));
                                 }
                             }// if both players are no GMs
                         }// if myTarget is GamePlayer

@@ -58,7 +58,7 @@ namespace DOL.GS.Scripts
             {
                 #region Albion Dragonslayer Weapons
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Wizard"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Wizard)))
                 {
                     t.Out.SendMessage("Excellent, you have slain the Dragon.\n" +
                     "Here, please take your reward!", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
@@ -72,7 +72,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Sorcerer" || t.CharacterClass.Name == "Sorceress"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Sorcerer)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerSorcererStaff");
@@ -83,7 +83,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Cabalist"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Cabalist)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerCabalistStaff");
@@ -94,7 +94,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Theurgist"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Theurgist)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerTheurgistStaff");
@@ -104,7 +104,7 @@ namespace DOL.GS.Scripts
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Necromancer"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Necromancer)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerNecromancerStaff");
@@ -114,7 +114,7 @@ namespace DOL.GS.Scripts
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Armsman" || t.CharacterClass.Name == "Armswoman"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Armsman)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("ArmsmanDragonslayerBlade");
@@ -174,7 +174,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Cleric"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Cleric)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("ClericDragonslayerMace");
@@ -185,7 +185,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if (t.CharacterClass.Name == "Friar")
+                if (t.CharacterClass.Equals(CharacterClass.Friar))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("FriarDragonslayerMace");
@@ -203,7 +203,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Heretic"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Heretic)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("HereticDragonslayerBarbedChain");
@@ -227,7 +227,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Infiltrator"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Infiltrator)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("InfiltratorDragonslayerBlade");
@@ -257,7 +257,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Mercenary"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Mercenary)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("MercenaryDragonslayerBlade");
@@ -299,7 +299,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Minstrel"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Minstrel)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("MinstrelDragonslayerBlade");
@@ -322,7 +322,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Paladin"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Paladin)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PaladinDragonslayerBlade");
@@ -363,7 +363,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Reaver"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Reaver)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("ReaverDragonslayerBarbedChain");
@@ -398,7 +398,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Scout"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Scout)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("ScoutDragonslayerBlade");
@@ -424,7 +424,7 @@ namespace DOL.GS.Scripts
 
                 #region Midgard Dragonslayer Weapons
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Bonedancer"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Bonedancer)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerBonedancerStaff");
@@ -435,7 +435,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Runemaster"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Runemaster)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerRunemasterStaff");
@@ -445,7 +445,7 @@ namespace DOL.GS.Scripts
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Spiritmaster"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Spiritmaster)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerSpiritmasterStaff");
@@ -456,7 +456,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Warlock"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Warlock)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerWarlockStaff");
@@ -467,7 +467,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Warrior"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Warrior)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerWarriorAxe");
@@ -508,7 +508,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Valkyrie"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Valkyrie)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerValkyrieSlashingSpear");
@@ -537,7 +537,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Healer"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Healer)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerHealerTwohandedHammer");
@@ -555,7 +555,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Shaman"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Shaman)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerShamanHammer");
@@ -572,7 +572,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Hunter"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Hunter)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerCompoundBow");
@@ -607,7 +607,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Savage"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Savage)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerSavageAxe");
@@ -672,7 +672,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Shadowblade"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Shadowblade)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerShadowbladeAxe");
@@ -707,7 +707,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Berserker"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Berserker)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerBerserkerAxerh");
@@ -754,7 +754,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Skald"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Skald)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerSkaldAxe");
@@ -795,7 +795,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Thane"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Thane)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerThaneAxe");
@@ -839,7 +839,7 @@ namespace DOL.GS.Scripts
 
                 #region Hibernia Dragonslayer Weapons
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Animist"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Animist)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerAnimistStaff");
@@ -850,7 +850,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Bainshee"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Bainshee)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerBainsheeStaff");
@@ -861,7 +861,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Eldritch"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Eldritch)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerEldritchStaff");
@@ -872,7 +872,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Enchanter") || (t.CharacterClass.Name == "Enchantress"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Enchanter)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerEnchanterStaff");
@@ -883,7 +883,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Mentalist"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Mentalist)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerMentalistStaff");
@@ -894,7 +894,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Valewalker"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Valewalker)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerValewalkerScythe");
@@ -905,7 +905,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Vampiir"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Vampiir)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("VampiirDragonslayerFuarSteel");
@@ -916,7 +916,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Bard"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Bard)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerHarp");
@@ -939,7 +939,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Druid"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Druid)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerDruidBlade");
@@ -956,7 +956,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Warden"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Warden)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerWardenBlade");
@@ -973,7 +973,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Blademaster"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Blademaster)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerBlademasterBlade");
@@ -1014,7 +1014,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Champion"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Champion)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerChampionBlade");
@@ -1049,7 +1049,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Hero" || t.CharacterClass.Name == "Heroine"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Hero)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerHeroBlade");
@@ -1090,7 +1090,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Nightshade"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Nightshade)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("DragonslayerNightshadeBlade");
@@ -1119,7 +1119,7 @@ namespace DOL.GS.Scripts
                     t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 }
 
-                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Name == "Ranger"))
+                if ((item.Id_nb == "Gjalpinulva's_Remains") && (t.CharacterClass.Equals(CharacterClass.Ranger)))
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("RangerDragonslayerFuarBlade");

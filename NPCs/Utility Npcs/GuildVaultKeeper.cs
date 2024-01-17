@@ -139,9 +139,9 @@ namespace DOL.GS
 
         private IList<InventoryItem> GetItems()
         {
-            string sqlQuery = "OwnerID = '" + m_vaultOwner + "' AND ";
-            sqlQuery += "SlotPosition >= " + FirstDBSlot + " AND ";
-            sqlQuery += "SlotPosition <= " + LastDBSlot;
+            var sqlQuery = DB.Column("OwnerID").IsEqualTo(m_vaultOwner)
+                .And(DB.Column("SlotPosition").IsGreaterOrEqualTo(FirstDBSlot))
+                .And(DB.Column("SlotPosition").IsLessOrEqualTo(LastDBSlot));
 
             return (GameServer.Database.SelectObjects<InventoryItem>(sqlQuery));
         }

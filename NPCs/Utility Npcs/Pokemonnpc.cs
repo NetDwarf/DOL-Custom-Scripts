@@ -38,7 +38,7 @@ namespace DOL.GS.Scripts
             }
 
             Inventory = template.CloseTemplate();
-            Flags = 16;	// Peace flag.
+            Flags = eFlags.PEACE;	// Peace flag.
             return base.AddToWorld();
         }
 		public override bool Interact(GamePlayer t)
@@ -61,53 +61,29 @@ namespace DOL.GS.Scripts
 
                         Say("Ah a Gamemaster, you guys will bankrupt me you know!");
 
-                        InventoryItem generic0 = new InventoryItem();
-                        ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfCloak");
-                        generic0.CopyFrom(tgeneric0);
+                        ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfCloak");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                        ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfNeck");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                        InventoryItem generic1 = new InventoryItem();
-                        ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfNeck");
-                        generic1.CopyFrom(tgeneric1);
+                        ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfJewel");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                        ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfBelt");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                        InventoryItem generic2 = new InventoryItem();
-                        ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfJewel");
-                        generic2.CopyFrom(tgeneric2);
+                        ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfRing");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                        ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfBand");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
 
-                        InventoryItem generic3 = new InventoryItem();
-                        ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfBelt");
-                        generic3.CopyFrom(tgeneric3);
+                        ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfBracer");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric6));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                        InventoryItem generic4 = new InventoryItem();
-                        ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfRing");
-                        generic4.CopyFrom(tgeneric4);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                        InventoryItem generic5 = new InventoryItem();
-                        ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfBand");
-                        generic5.CopyFrom(tgeneric5);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
-
-                        InventoryItem generic6 = new InventoryItem();
-                        ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfBracer");
-                        generic6.CopyFrom(tgeneric6);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic6);
-
-                        InventoryItem generic7 = new InventoryItem();
-                        ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PerfWristBand");
-                        generic7.CopyFrom(tgeneric7);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic7);
+                        ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PerfWristBand");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric7));
                          
                         SendReply(t, "Here you are !");
                     

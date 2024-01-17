@@ -11,6 +11,7 @@ using DOL.Events;
 using DOL.GS.GameEvents;
 using DOL.GS.Scripts;
 using log4net;
+using DOL.GS.Geometry;
 
 /* Summon Buffbot Command - Created By Deathwish, with a BIG THANKS to geshi for his help!
  * Version 1.0 (13/07/2010) For the use of all Dol Members.
@@ -188,13 +189,9 @@ namespace DOL.GS.Spells
                 npc.LoadTemplate(template);
             }
             GameSpellEffect effect = CreateSpellEffect(npc, effectiveness);
-            int x, y;
-            m_caster.GetSpotFromHeading(64, out x, out y);
-            npc.X = x;
-            npc.Y = y;
-            npc.Z = m_caster.Z;
-            npc.CurrentRegion = m_caster.CurrentRegion;
-            npc.Heading = (ushort)((m_caster.Heading + 2048) % 4096);
+
+            npc.Position = Caster.Position + Vector.Create(Caster.Orientation, 64);
+            npc.Position = npc.Position.TurnedAround();
             npc.Realm = m_caster.Realm;
             npc.CurrentSpeed = 0;
             npc.Level = 1;

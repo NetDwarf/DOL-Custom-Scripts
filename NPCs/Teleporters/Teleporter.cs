@@ -193,7 +193,6 @@ namespace DOL.GS.Scripts
                     {
                         player.RespecRealm();
                         player.RealmPoints = 0;
-                        player.RealmSpecialtyPoints = 0;
                         player.RealmLevel = 0;
                         player.GainRealmPoints(5974125, false);
                         /*

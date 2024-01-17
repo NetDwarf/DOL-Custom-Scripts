@@ -90,7 +90,7 @@ namespace DOL.AI.Brain
                 }
             }
             //if (Body.TargetObject != null && WorldMgr.GetDistance(Body, Body.TargetObject) < 1200)
-			if (Body.TargetObject != null && new Point3D(Body.X, Body.Y, Body.Z).GetDistanceTo(Body.TargetPosition) < 1200)
+			if (Body.TargetObject != null && Body.GetDistanceTo(Body.TargetObject) < 1200)
             {
                 GameEventMgr.AddHandler(Body, GameNPCEvent.ArriveAtTarget, new DOLEventHandler(ArriveAt));
                 TheWalk(Body.TargetObject as GamePlayer, Body);
@@ -99,7 +99,7 @@ namespace DOL.AI.Brain
             {
                 Body.TargetObject = null;
                 //if (WorldMgr.GetDistance(Body.SpawnX, Body.SpawnY, Body.SpawnZ, Body.X, Body.Y, Body.Z) > 1000)
-				if (Body.SpawnPoint.GetDistance(new Point3D(Body.X, Body.Y, Body.Z)) > 1000)
+				if (Body.SpawnPosition.Coordinate.DistanceTo(Body.Coordinate) > 1000)
                     Body.WalkToSpawn();
                 else
                     Body.WalkTo((Body.X - Util.Random(1, 100)), (Body.Y - Util.Random(1, 100)), Body.Z, 80);
@@ -123,7 +123,7 @@ namespace DOL.AI.Brain
                 return;
             }
             //if (WorldMgr.GetDistance(Body, Body.TargetObject) > 85)
-			if (new Point3D(Body.X, Body.Y, Body.Z).GetDistanceTo(Body.TargetPosition) > 85)
+			if (Body.GetDistanceTo(Body.TargetObject) > 85)
                 TheWalk(Body.TargetObject as GamePlayer, Body);
             else
             {

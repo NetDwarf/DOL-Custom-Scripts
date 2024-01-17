@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using DOL.GS.PacketHandler;
+using DOL.Database;
 
 namespace DOL.GS.Scripts
 {
@@ -206,8 +207,8 @@ namespace DOL.GS.Scripts
                     }
                
                                                   
-                    Dude.Model = (ushort)Dude.PlayerCharacter.OriginalCreationModel;
-                    Dude.PlayerCharacter.CreationModel = Dude.PlayerCharacter.OriginalCreationModel;
+                    Dude.Model = (ushort)Dude.CreationModel;
+                    Dude.GetDBCharacter().CurrentModel = Dude.Model;
                
                     SayTo(Dude, "Your morph has been restored too " + Dude.Model + ". " + rcostmsg + "\n");
                 }
@@ -296,12 +297,12 @@ namespace DOL.GS.Scripts
                     }
 
                 }
-                if (Dude.PlayerCharacter.OriginalCreationModel == 0)
+                if (Dude.GetDBCharacter().CreationModel == 0)
                 {
-                    Dude.PlayerCharacter.OriginalCreationModel = Dude.PlayerCharacter.CreationModel;
+                    Dude.GetDBCharacter().CreationModel = Dude.GetDBCharacter().CurrentModel;
                 }
                 Dude.Model = Convert.ToUInt16(str);
-                Dude.PlayerCharacter.CreationModel = Convert.ToInt16(str);
+                Dude.GetDBCharacter().CurrentModel = Convert.ToInt16(str);
 
 
             }
@@ -321,5 +322,11 @@ namespace DOL.GS.Scripts
      
 
         #endregion
+    }
+
+    public static class DBCharacterExtension
+    {
+        public static DOLCharacters GetDBCharacter(this GamePlayer player)
+            => player.Client.Account.Characters[player.Client.ActiveCharIndex];
     }
 }

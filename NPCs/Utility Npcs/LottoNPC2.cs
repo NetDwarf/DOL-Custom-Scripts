@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Timers; 
 using DOL;
-using DOL.GS.PlayerClass;
 using DOL.GS;
 using DOL.Database; 
 using DOL.GS.Scripts; 

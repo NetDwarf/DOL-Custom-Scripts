@@ -96,7 +96,7 @@ namespace DOL.GS.Scripts
 			if (player.Level<5) player.Out.SendMessage("You are not ready to take on a profession yet. You have to reach the level 5 first.", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
 			else
 			{
-				if ((player.CharacterClass.BaseName==player.CharacterClass.Name)&&(player.Level==5))
+				if ((player.CharacterClass.HasAdvancedFromBaseClass() != true)&&(player.Level==5))
 				{
 					player.Out.SendMessage("", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
 					switch(player.CharacterClass.ID)
@@ -175,8 +175,8 @@ namespace DOL.GS.Scripts
 						default: break;
 					}
 				}
-				if ((player.CharacterClass.BaseName!=player.CharacterClass.Name)&&(player.Level==5)) player.Out.SendMessage("I am just here to help you to select your skills. I will not help you to gain experience.", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
-				if ((player.CharacterClass.BaseName!=player.CharacterClass.Name)&&(player.Level>5)) player.Out.SendTrainerWindow();
+				if ((player.CharacterClass.HasAdvancedFromBaseClass() != true)&&(player.Level==5)) player.Out.SendMessage("I am just here to help you to select your skills. I will not help you to gain experience.", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
+				if ((player.CharacterClass.HasAdvancedFromBaseClass() != true)&&(player.Level>5)) player.Out.SendTrainerWindow();
 			}
 			return true;
 		}
@@ -185,7 +185,7 @@ namespace DOL.GS.Scripts
 			if(!base.WhisperReceive(source,str)) return false;
 		  	if(!(source is GamePlayer)) return false;
 			GamePlayer player = (GamePlayer) source;
-			if(player.CharacterClass.Name==player.CharacterClass.BaseName)
+			if(player.CharacterClass.HasAdvancedFromBaseClass() != true)
 			{
 				switch(str)
 				{
@@ -385,47 +385,53 @@ namespace DOL.GS.Scripts
             if (player.SetCharacterClass(classid))
             {
                 player.Out.SendMessage(this.Name + " says, \"" + messageToPlayer + "\"", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                player.Out.SendMessage("You have been upgraded to the " + player.CharacterClass.Name + " class!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-                player.CharacterClass.OnLevelUp(player, player.Level);
+                player.Out.SendMessage("You have been upgraded to the " + player.CharacterClass.GetSalutation(eGender.Male) + " class!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                player.OnLevelUp(player.Level);
                 player.RefreshSpecDependantSkills(true);
                 player.Out.SendUpdatePlayerSkills();
                 player.Out.SendUpdatePlayer();
                 player.UpdatePlayerStatus();
-                switch (player.CharacterClass.Name)
+                if (player.CharacterClass == CharacterClass.Armsman)
                 {
-                    case "Armsman":
-                        player.GetSpecializationByName("Slash", false).Level = 12;
-                        player.GetSpecializationByName("Thrust", false).Level = 12;
-                        break;
-                    case "Mercenary":
-                        player.GetSpecializationByName("Slash", false).Level = 12;
-                        player.GetSpecializationByName("Thrust", false).Level = 12;
-                        break;
-                    case "Minstrel":
-                        player.GetSpecializationByName("Instruments", false).Level = 12;
-                        break;
-                    case "Paladin":
-                        player.GetSpecializationByName("Chants", false).Level = 12;
-                        player.GetSpecializationByName("Slash", false).Level = 12;
-                        break;
-                    case "Reaver":
-                        player.GetSpecializationByName("Flexible", false).Level = 12;
-                        player.GetSpecializationByName("Slash", false).Level = 12;
-                        break;
-                    case "Scout":
-                        player.GetSpecializationByName("Longbows", false).Level = 12;
-                        break;
-                    case "Infiltrator":
-                        player.GetSpecializationByName("Stealth", false).Level = 12;
-                        break;
-                    case "Ranger":
-                        player.GetSpecializationByName("Recurve Bow", false).Level = 12;
-                        break;
-                    case "Warrior":
-                        player.GetSpecializationByName("Axe", false).Level = 12;
-                        player.GetSpecializationByName("Sword", false).Level = 12;
-                        player.GetSpecializationByName("Hammer", false).Level = 12;
-                        break;
+                    player.GetSpecializationByName("Slash", false).Level = 12;
+                    player.GetSpecializationByName("Thrust", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Mercenary)
+                {
+                    player.GetSpecializationByName("Slash", false).Level = 12;
+                    player.GetSpecializationByName("Thrust", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Minstrel)
+                {
+                    player.GetSpecializationByName("Instruments", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Paladin)
+                {
+                    player.GetSpecializationByName("Chants", false).Level = 12;
+                    player.GetSpecializationByName("Slash", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Reaver)
+                {
+                    player.GetSpecializationByName("Flexible", false).Level = 12;
+                    player.GetSpecializationByName("Slash", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Scout)
+                {
+                    player.GetSpecializationByName("Longbows", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Infiltrator)
+                {
+                    player.GetSpecializationByName("Stealth", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Ranger)
+                {
+                    player.GetSpecializationByName("Recurve Bow", false).Level = 12;
+                }
+                else if (player.CharacterClass == CharacterClass.Warrior)
+                {
+                    player.GetSpecializationByName("Axe", false).Level = 12;
+                    player.GetSpecializationByName("Sword", false).Level = 12;
+                    player.GetSpecializationByName("Hammer", false).Level = 12;
                 }
 
                 player.Level = 50;
@@ -434,7 +440,7 @@ namespace DOL.GS.Scripts
                 player.Mana = player.MaxMana;
                 player.UpdatePlayerStatus();
 
-                player.Out.SendMessage("You have been accepted by the " + player.CharacterClass.Profession + "!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage("You have been accepted by the " + player.CharacterClass.GetProfessionTitle(player) + "!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                 player.Out.SendTrainerWindow();
                 return true;
             }

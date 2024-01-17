@@ -38,7 +38,7 @@ namespace DOL.GS.Scripts
             }
 
             Inventory = template.CloseTemplate();
-            Flags = 16;	// Peace flag.
+            Flags = eFlags.PEACE;	// Peace flag.
             return base.AddToWorld();
         }
         public override bool Interact(GamePlayer player)
@@ -70,362 +70,221 @@ namespace DOL.GS.Scripts
 
                 case "Weapons":
                     {
-                        if (t.CharacterClass.Name == "Wizard" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Wizard) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "UpsilonWizardStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonWizardStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Sorcerer" || t.CharacterClass.Name == "Sorceress" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Sorcerer) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "UpsilonSorcererStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonSorcererStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Cabalist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Cabalist) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "UpsilonCabalistStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonCabalistStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Theurgist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Theurgist) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "UpsilonTheurgistStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonTheurgistStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
-                        if (t.CharacterClass.Name == "Necromancer" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Necromancer) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "UpsilonNecromancerStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("UpsilonNecromancerStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
-                        if (t.CharacterClass.Name == "Armsman" || t.CharacterClass.Name == "Armswoman" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Armsman) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanDexteraBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanDexteraEdge");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanSatagoArchMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanDexteraMace");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanSatagoFlamberge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanSatagoHalberd");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
 
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanSatagoArchMace");
-                            generic3.CopyFrom(tgeneric3);
+                            ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanSatagoLance");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric6));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
+                            ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanSatagoMattock");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric7));
 
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanSatagoFlamberge");
-                            generic4.CopyFrom(tgeneric4);
-                           
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanSatagoHalberd");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
-
-                            InventoryItem generic6 = new InventoryItem();
-                            ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanSatagoLance");
-                            generic6.CopyFrom(tgeneric6);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic6);
-
-                            InventoryItem generic7 = new InventoryItem();
-                            ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanSatagoMattock");
-                            generic7.CopyFrom(tgeneric7);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic7);
-
-                            InventoryItem generic8 = new InventoryItem();
-                            ItemTemplate tgeneric8 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ArmsmanSatagoPike");
-                            generic8.CopyFrom(tgeneric8);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic8);
+                            ItemTemplate tgeneric8 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ArmsmanSatagoPike");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric8));
 
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Cleric" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Cleric) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ClericDexteraMace");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ClericDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Friar" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Friar) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "FriarDexteraMace");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("FriarDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
-
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "FriarSatagoQuarterStaff");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("FriarSatagoQuarterStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Heretic" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Heretic) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "HereticDexteraBarbedChain");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("HereticDexteraBarbedChain");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("HereticDexteraFlail");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "HereticDexteraFlail");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "HereticDexteraMace");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("HereticDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Infiltrator" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Infiltrator) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "InfiltratorDexteraBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("InfiltratorDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("InfiltratorDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "InfiltratorDexteraEdge");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("InfiltratorLaevusBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "InfiltratorLaevusBlade");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "InfiltratorLaevusEdge");
-                            generic3.CopyFrom(tgeneric3);
-                            
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("InfiltratorLaevusEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Mercenary" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Mercenary) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MercenaryDexteraBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MercenaryDexteraEdge");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryLaevusBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MercenaryDexteraMace");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryLaevusEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MercenaryLaevusBlade");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MercenaryLaevusEdge");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MercenaryLaevusMace");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MercenaryLaevusMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
 
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Minstrel" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Minstrel) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MinstrelDexteraBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MinstrelDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MinstrelDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MinstrelDexteraEdge");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "MinstrelDexteraHarp");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("MinstrelDexteraHarp");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Paladin" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Paladin) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PaladinDexteraBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PaladinDexteraEdge");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinSatagoGreatEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PaladinDexteraMace");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinSatagoGreatHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PaladinSatagoGreatEdge");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PaladinSatagoGreatHammer");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "PaladinSatagoGreatSword");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("PaladinSatagoGreatSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Reaver" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Reaver) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ReaverDexteraBarbedChain");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ReaverDexteraBarbedChain");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ReaverDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ReaverDexteraBlade");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ReaverDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ReaverDexteraFlail");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ReaverDexteraEdge");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ReaverDexteraFlail");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ReaverDexteraMace");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ReaverDexteraMace");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Scout" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Scout) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ScoutDexteraBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ScoutDexteraBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ScoutDexteraBow");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ScoutDexteraBow");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ScoutDexteraEdge");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ScoutDexteraEdge");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
@@ -433,367 +292,217 @@ namespace DOL.GS.Scripts
 
                 #region Midgard Champion Weapons
 
-                        if (t.CharacterClass.Name == "Bonedancer" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Bonedancer) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "AnsuzBonedancerStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzBonedancerStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Runemaster" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Runemaster) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "AnsuzRunemasterStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzRunemasterStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
-                        if (t.CharacterClass.Name == "Spiritmaster" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Spiritmaster) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "AnsuzSpiritmasterStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzSpiritmasterStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Warlock" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Warlock) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "AnsuzWarlockStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("AnsuzWarlockStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Warrior" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Warrior) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazWarriorAxe");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazWarriorHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorTwohandedAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazWarriorSword");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorTwohandedHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazWarriorTwohandedAxe");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazWarriorTwohandedHammer");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazWarriorTwohandedSword");
-                            generic5.CopyFrom(tgeneric5);
-                            
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazWarriorTwohandedSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Valkyrie" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Valkyrie) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazValkyrieSlashingSpear");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazValkyrieSlashingSpear");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazValkyrieSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazValkyrieSword");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazValkyrieThrustingSpear");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazValkyrieThrustingSpear");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazValkyrieTwohandedSword");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazValkyrieTwohandedSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Healer" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Healer) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazHealerTwohandedHammer");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHealerTwohandedHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
-
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazHealerHammer");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHealerHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Shaman" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Shaman) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShamanHammer");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShamanHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
-
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShamanTwohandedHammer");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShamanTwohandedHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Hunter" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Hunter) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazCompoundBow");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazCompoundBow");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHunterSlashingSpear");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazHunterSlashingSpear");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHunterSpear");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHunterSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazHunterSpear");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazHunterSword");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazHunterTwohandedSword");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazHunterTwohandedSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Savage" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Savage) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageAxe");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageSlashingGlaiverh");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageSlashingGlaivelh");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageSlashingGlaiverh");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageThrashingGlaiverh");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
 
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageSlashingGlaivelh");
-                            generic3.CopyFrom(tgeneric3);
+                            ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageThrashingGlaivelh");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric6));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
+                            ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageTwohandedAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric7));
 
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageSword");
-                            generic4.CopyFrom(tgeneric4);
+                            ItemTemplate tgeneric8 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageTwohandedHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric8));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageThrashingGlaiverh");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
-
-                            InventoryItem generic6 = new InventoryItem();
-                            ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageThrashingGlaivelh");
-                            generic6.CopyFrom(tgeneric6);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic6);
-
-                            InventoryItem generic7 = new InventoryItem();
-                            ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageTwohandedAxe");
-                            generic7.CopyFrom(tgeneric7);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic7);
-
-                            InventoryItem generic8 = new InventoryItem();
-                            ItemTemplate tgeneric8 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageTwohandedHammer");
-                            generic8.CopyFrom(tgeneric8);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic8);
-
-                            InventoryItem generic9 = new InventoryItem();
-                            ItemTemplate tgeneric9 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSavageTwohandedSword");
-                            generic9.CopyFrom(tgeneric9);
-                            
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic9);
+                            ItemTemplate tgeneric9 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSavageTwohandedSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric9));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Shadowblade" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Shadowblade) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShadowbladeAxe");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShadowbladeAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShadowbladeHeavyAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShadowbladeHeavyAxe");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShadowbladeHeavyAxe2");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShadowbladeHeavySword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShadowbladeHeavyAxe2");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShadowbladeHeavySword");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazShadowbladeSword");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazShadowbladeSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Skald" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Skald) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSkaldAxe");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSkaldHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldTwohandedAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSkaldSword");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldTwohandedHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSkaldTwohandedAxe");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSkaldTwohandedHammer");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazSkaldTwohandedSword");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazSkaldTwohandedSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Thane" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Thane) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazThaneAxe");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazThaneHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneTwohandedAxe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazThaneSword");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneTwohandedHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazThaneTwohandedAxe");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazThaneTwohandedHammer");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ThurisazThaneTwohandedSword");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ThurisazThaneTwohandedSword");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
@@ -801,317 +510,197 @@ namespace DOL.GS.Scripts
 
                 #region Hibernia Champion Weapons
 
-                        if (t.CharacterClass.Name == "Animist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Animist) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DraiochtAnimistStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtAnimistStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Bainshee" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Bainshee) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DraiochtBainsheeStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtBainsheeStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Eldritch" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Eldritch) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DraiochtEldritchStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtEldritchStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Enchanter" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Enchanter) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DraiochtEnchanterStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtEnchanterStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Mentalist" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Mentalist) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DraiochtMentalistStaff");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DraiochtMentalistStaff");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Valewalker" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Valewalker) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharValewalkerScythe");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharValewalkerScythe");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Vampiir" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Vampiir) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "VampiirFuarSteel");
-                            generic0.CopyFrom(tgeneric0);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("VampiirFuarSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Bard" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Bard) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "BardDocharHarp");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("BardDocharHarp");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharBardBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharBardBlade");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharBardHammer");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharBardHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Druid" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Druid) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharDruidBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharDruidBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
-
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharDruidHammer");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharDruidHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Warden" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Warden) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharWardenBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharWardenBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
-
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharWardenHammer");
-                            generic1.CopyFrom(tgeneric1);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharWardenHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Blademaster" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Blademaster) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharBlademasterBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharBlademasterBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharBlademasterHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharBlademasterHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharBlademasterSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("BlademasterFuarBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharBlademasterSteel");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("BlademasterFuarHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "BlademasterFuarBlade");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "BlademasterFuarHammer");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "BlademasterFuarSteel");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("BlademasterFuarSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Champion" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Champion) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharChampionBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharChampionBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharChampionHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharChampionHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharChampionSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharChampionWarblade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharChampionSteel");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharChampionWarblade");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharChampionWarhammer");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharChampionWarhammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Hero" || t.CharacterClass.Name == "Heroine" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Hero) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharHeroBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroHammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharHeroHammer");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroSpear");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharHeroSpear");
-                            generic2.CopyFrom(tgeneric2);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroWarblade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharHeroSteel");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharHeroWarblade");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                            InventoryItem generic5 = new InventoryItem();
-                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharHeroWarhammer");
-                            generic5.CopyFrom(tgeneric5);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
+                            ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharHeroWarhammer");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Nightshade" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Nightshade) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharNightshadeBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharNightshadeBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharNightshadeSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharNightshadeSteel");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("NightshadeFuarBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
-
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "NightshadeFuarBlade");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "NightshadeFuarSteel");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("NightshadeFuarSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
 
-                        if (t.CharacterClass.Name == "Ranger" && t.ChampionLevel >= 5)
+                        if (t.CharacterClass.Equals(CharacterClass.Ranger) && t.ChampionLevel >= 5)
                         {
-                            InventoryItem generic0 = new InventoryItem();
-                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "RangerFuarBlade");
-                            generic0.CopyFrom(tgeneric0);
+                            ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("RangerFuarBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("RangerFuarSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                            InventoryItem generic1 = new InventoryItem();
-                            ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "RangerFuarSteel");
-                            generic1.CopyFrom(tgeneric1);
+                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharRangerBlade");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharRangerSteel");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                            InventoryItem generic2 = new InventoryItem();
-                            ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharRangerBlade");
-                            generic2.CopyFrom(tgeneric2);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
-
-                            InventoryItem generic3 = new InventoryItem();
-                            ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharRangerSteel");
-                            generic3.CopyFrom(tgeneric3);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                            InventoryItem generic4 = new InventoryItem();
-                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "DocharRecurveBow");
-                            generic4.CopyFrom(tgeneric4);
-
-                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
+                            ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DocharRecurveBow");
+                            t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
                             t.UpdatePlayerStatus();
                             t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
@@ -1123,53 +712,29 @@ namespace DOL.GS.Scripts
 
                 case "Jewelry":
                     {
-                        InventoryItem generic0 = new InventoryItem();
-                        ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionCloak");
-                        generic0.CopyFrom(tgeneric0);
+                        ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionCloak");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric0));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
+                        ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionNecklace");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric1));
 
-                        InventoryItem generic1 = new InventoryItem();
-                        ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionNecklace");
-                        generic1.CopyFrom(tgeneric1);
+                        ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionBelt");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric2));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
+                        ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionJewel");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric3));
 
-                        InventoryItem generic2 = new InventoryItem();
-                        ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionBelt");
-                        generic2.CopyFrom(tgeneric2);
+                        ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionRing");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric4));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
+                        ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionBand");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric5));
 
-                        InventoryItem generic3 = new InventoryItem();
-                        ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionJewel");
-                        generic3.CopyFrom(tgeneric3);
+                        ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionBracer");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric6));
 
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
-
-                        InventoryItem generic4 = new InventoryItem();
-                        ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionRing");
-                        generic4.CopyFrom(tgeneric4);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
-
-                        InventoryItem generic5 = new InventoryItem();
-                        ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionBand");
-                        generic5.CopyFrom(tgeneric5);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
-
-                        InventoryItem generic6 = new InventoryItem();
-                        ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionBracer");
-                        generic6.CopyFrom(tgeneric6);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic6);
-
-                        InventoryItem generic7 = new InventoryItem();
-                        ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey(typeof(ItemTemplate), "ChampionWristBand");
-                        generic7.CopyFrom(tgeneric7);
-
-                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic7);
+                        ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("ChampionWristBand");
+                        t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(tgeneric7));
                         t.UpdatePlayerStatus();
                         t.Out.SendMessage("Here you are!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                     }

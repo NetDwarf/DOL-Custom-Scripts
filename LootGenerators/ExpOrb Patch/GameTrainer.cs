@@ -197,7 +197,8 @@ namespace DOL.GS
         /// <returns></returns>
         public virtual bool CanTrainChampionLevels(GamePlayer player)
         {
-            return player.Level >= player.MaxLevel && player.Champion && m_championTrainerType != eChampionTrainerType.None && m_championTrainerType != player.CharacterClass.ChampionTrainerType();
+            var targetClass = CharacterClass.GetClass((int)TrainedClass);
+            return player.Level >= player.MaxLevel && player.Champion && !targetClass.HasAdvancedFromBaseClass() && targetClass != player.CharacterClass.GetBaseClass();
         }
 
         /// <summary>
@@ -466,7 +467,8 @@ namespace DOL.GS
         /// <param name="player"></param>
         public virtual bool CanPromotePlayer(GamePlayer player)
         {
-            var baseClass = ScriptMgr.FindCharacterBaseClass((int)TrainedClass);
+            var targetClass = CharacterClass.GetClass((int)TrainedClass);
+            var baseClass = targetClass.GetBaseClass();
 
             // Error or Base Trainer...
             if (baseClass == null || baseClass.ID == (int)TrainedClass)
@@ -479,7 +481,8 @@ namespace DOL.GS
                 return false;
             }
 
-            if (!GlobalConstants.RACES_CLASSES_DICT.ContainsKey((eRace)player.Race) || !GlobalConstants.RACES_CLASSES_DICT[(eRace)player.Race].Contains(TrainedClass))
+            var isRaceEligibleForClass = targetClass.EligibleRaces.Any(s => (short)s.ID == player.Race);
+            if (isRaceEligibleForClass)
             {
                 return false;
             }
@@ -508,7 +511,7 @@ namespace DOL.GS
                 return false;
             }
 
-            ICharacterClass oldClass = player.CharacterClass;
+            var oldClass = player.CharacterClass;
 
             // Player was promoted
             if (player.SetCharacterClass(classid))
@@ -522,9 +525,9 @@ namespace DOL.GS
                     player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "GameTrainer.PromotePlayer.Says", Name, messageToPlayer), eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 }
 
-                player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "GameTrainer.PromotePlayer.Upgraded", player.CharacterClass.Name), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "GameTrainer.PromotePlayer.Upgraded", player.Salutation), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 
-                player.CharacterClass.OnLevelUp(player, player.Level);
+                player.OnLevelUp(player.Level);
                 player.RefreshSpecDependantSkills(true);
                 player.StartPowerRegeneration();
                 player.Out.SendUpdatePlayerSkills();
@@ -543,7 +546,7 @@ namespace DOL.GS
                 }
 
                 // after gifts
-                player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "GameTrainer.PromotePlayer.Accepted", player.CharacterClass.Profession), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "GameTrainer.PromotePlayer.Accepted", player.CharacterClass.GetProfessionTitle(player)), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 
                 Notify(GameTrainerEvent.PlayerPromoted, this, new PlayerPromotedEventArgs(player, oldClass));
 
@@ -609,7 +612,7 @@ namespace DOL.GS
                 if (disabled_classes == null)
                 {
                     // creation of disabled_classes list.
-                    disabled_classes = ServerProperties.Properties.DISABLED_CLASSES.SplitCSV().ToList();
+                    disabled_classes = Util.SplitCSV(ServerProperties.Properties.DISABLED_CLASSES);
                 }
 
                 if (disabled_classes.Contains(TrainedClass.ToString()))
