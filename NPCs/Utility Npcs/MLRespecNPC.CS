@@ -1,17 +1,9 @@
 using System;
-using System.Collections;
-using System.Timers;
 using log4net;
-using DOL;
-using DOL.GS;
 using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.GS.Scripts;
 using DOL.Events;
-using DOL.GS.GameEvents;
 using DOL.GS.PacketHandler;
 using System.Reflection;
-using System.Collections;
 
 namespace DOL.GS.Scripts
 {
@@ -60,13 +52,11 @@ namespace DOL.GS.Scripts
     }
     public class MLRespecNPC : GameNPC
     {
-        private static ItemTemplate item = null;
         private static ItemTemplate mlrespectoken = null;
 
         byte mlchoicea = 0;
         byte mlchoiceb = 0;
         byte mlfinish = 0;
-        int MLLevel = 0;
         
 	private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 	public MLRespecNPC()
@@ -497,7 +487,7 @@ namespace DOL.GS.Scripts
 
         protected static void GiveItem(GameLiving source, GamePlayer player, ItemTemplate itemTemplate)
         {
-            InventoryItem item = GameInventoryItem.Create<ItemTemplate>(itemTemplate);
+            InventoryItem item = GameInventoryItem.Create(itemTemplate);
             if (player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, item))
             {
                 if (source == null)
@@ -534,7 +524,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
             switch (str)
             {
                 case "mlrespectoken":

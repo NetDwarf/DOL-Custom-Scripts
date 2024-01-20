@@ -170,76 +170,76 @@ namespace DOL.GS
             npc.SaveIntoDatabase();
             return true;
 
-            #region Respecs
-            if (str == "Respecs")
-            {
-                player.Out.SendMessage("You currently have:\n" + player.RespecAmountAllSkill + " Full     skill respecs\n" + player.RespecAmountSingleSkill + " Single skill respecs\n" + player.RespecAmountRealmSkill + " Realm skill respecs\n" + player.RespecAmountChampionSkill + " Champion skill respecs", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                player.Out.SendMessage("Which would you like to buy:\n[Full], [Single], [Realm], [MasterLevel] or [Champion]?", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                return true;
-            }
+            // #region Respecs
+            // if (str == "Respecs")
+            // {
+            //     player.Out.SendMessage("You currently have:\n" + player.RespecAmountAllSkill + " Full     skill respecs\n" + player.RespecAmountSingleSkill + " Single skill respecs\n" + player.RespecAmountRealmSkill + " Realm skill respecs\n" + player.RespecAmountChampionSkill + " Champion skill respecs", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+            //     player.Out.SendMessage("Which would you like to buy:\n[Full], [Single], [Realm], [MasterLevel] or [Champion]?", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+            //     return true;
+            // }
 
-            if (str == "Full")
-            {
-                //first check if the player has too many
-                if (player.RespecAmountAllSkill >= 5)
-                {
-                    player.Out.SendMessage("You already have " + player.RespecAmountAllSkill + " Full skill respecs, to use them simply target me and type /respec ALL", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                    return true;
-                }
-                //TODO next, check that the player can afford it
+            // if (str == "Full")
+            // {
+            //     //first check if the player has too many
+            //     if (player.RespecAmountAllSkill >= 5)
+            //     {
+            //         player.Out.SendMessage("You already have " + player.RespecAmountAllSkill + " Full skill respecs, to use them simply target me and type /respec ALL", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+            //         return true;
+            //     }
+            //     //TODO next, check that the player can afford it
 
-                //send dialog to player to confirm the purchase of the full skill respec
-                player.Out.SendCustomDialog("Full Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecFullDialogResponse));
-                return true;
-            }
+            //     //send dialog to player to confirm the purchase of the full skill respec
+            //     player.Out.SendCustomDialog("Full Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecFullDialogResponse));
+            //     return true;
+            // }
 
-            if (str == "Single")
-            {
-                //first check if the player has too many
-                if (player.RespecAmountSingleSkill >= 5)
-                {
-                    player.Out.SendMessage("You already have " + player.RespecAmountAllSkill + " Single skill Respecs, to use them simply target me and type /respec <line>", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                    return true;
-                }
+            // if (str == "Single")
+            // {
+            //     //first check if the player has too many
+            //     if (player.RespecAmountSingleSkill >= 5)
+            //     {
+            //         player.Out.SendMessage("You already have " + player.RespecAmountAllSkill + " Single skill Respecs, to use them simply target me and type /respec <line>", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+            //         return true;
+            //     }
 
-                //TODO next, check that the player can afford it
-                //send dialog to player to confirm the purchase of the single skill respec
-                player.Out.SendCustomDialog("Single Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecSingleDialogResponse));
-                return true;
-            }
+            //     //TODO next, check that the player can afford it
+            //     //send dialog to player to confirm the purchase of the single skill respec
+            //     player.Out.SendCustomDialog("Single Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecSingleDialogResponse));
+            //     return true;
+            // }
 
-            if (str == "Realm")
-            {
-                //first check if the player has too many
-                if (player.RespecAmountRealmSkill >= 5)
-                {
-                    player.Out.SendMessage("You already have " + player.RespecAmountRealmSkill + " Realm skill respecs, to use them simply target me and type /respec Realm", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                    return true;
-                }
+            // if (str == "Realm")
+            // {
+            //     //first check if the player has too many
+            //     if (player.RespecAmountRealmSkill >= 5)
+            //     {
+            //         player.Out.SendMessage("You already have " + player.RespecAmountRealmSkill + " Realm skill respecs, to use them simply target me and type /respec Realm", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+            //         return true;
+            //     }
 
-                //TODO next, check that the player can afford it
-                //send dialog to player to confirm the purchase of the full skill respec
-                player.Out.SendCustomDialog("Realm Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecRealmDialogResponse));
-                return true;
-            }
+            //     //TODO next, check that the player can afford it
+            //     //send dialog to player to confirm the purchase of the full skill respec
+            //     player.Out.SendCustomDialog("Realm Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecRealmDialogResponse));
+            //     return true;
+            // }
 
-            if (str == "ChampionLevel")
-            {
-                if (player.RespecAmountChampionSkill >= 5)
-                {
-                    player.Out.SendMessage("You already have " + player.RespecAmountChampionSkill + " Champion skill respecs, to use them please visit the Champion Level Master.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-                    return true;
-                }
+            // if (str == "ChampionLevel")
+            // {
+            //     if (player.RespecAmountChampionSkill >= 5)
+            //     {
+            //         player.Out.SendMessage("You already have " + player.RespecAmountChampionSkill + " Champion skill respecs, to use them please visit the Champion Level Master.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+            //         return true;
+            //     }
 
-                //TODO next, check that the player can afford it
-                //send dialog to player to confirm the purchase of the Champion skill respec token
-                player.Out.SendCustomDialog("CL Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecChampionDialogResponse));
-                return true;
-            }
-            #endregion Respec
+            //     //TODO next, check that the player can afford it
+            //     //send dialog to player to confirm the purchase of the Champion skill respec token
+            //     player.Out.SendCustomDialog("CL Skill Respec price is: FREE Do you really want to buy one?", new CustomDialogResponse(RespecChampionDialogResponse));
+            //     return true;
+            // }
+            // #endregion Respec
 
-            player.Out.SendTrainerWindow();
-            return true;
+            // player.Out.SendTrainerWindow();
+            // return true;
         }
 
         #region TrainSpecLine

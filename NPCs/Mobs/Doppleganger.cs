@@ -4,28 +4,8 @@
  * If you change or modify this script, please re-post.
  */
 
-
-using System.Reflection;
-using System.Collections.Generic;
-using DOL.AI;
-using DOL.Language;
-using DOL.GS.Effects;
-using DOL.GS.Movement;
-using DOL.GS.Quests;
-using DOL.GS.Spells;
-using DOL.GS.Utils;
-using DOL.GS.Housing;
-using DOL.GS.RealmAbilities;
-using System;
-using System.Collections;
 using DOL.Database;
-using DOL.Events;
-using DOL.GS;
-using DOL.GS.PacketHandler;
-using DOL.GS.Scripts;
-using System.Threading;
 using log4net;
-using DOL.AI.Brain;
 
 namespace DOL.GS
 {
@@ -174,10 +154,12 @@ namespace DOL.GS
 
             base.StartAttack(attackTarget);
         }
-        public void SwitchToMelee(GameObject target)
-        {
-            SwitchWeapon(eActiveWeaponSlot.Standard);
-            this.Health = this.MaxHealth;
-        }
+
+        // Cannot be overridden and therefore be used by declaring
+        // public void SwitchToMelee(GameObject target)
+        // {
+        //     SwitchWeapon(eActiveWeaponSlot.Standard);
+        //     this.Health = this.MaxHealth;
+        // }
     }
 }

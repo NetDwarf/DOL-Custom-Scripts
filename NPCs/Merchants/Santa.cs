@@ -12,6 +12,7 @@ using DOL.GS.Spells;
 using DOL.GS.Effects;
 using DOL.Database;
 using System.Reflection;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -44,7 +45,7 @@ namespace DOL.GS.Scripts
 		public override bool Interact(GamePlayer t)
 		{
 			if (!base.Interact(t)) return false;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
 			t.Out.SendMessage("Hello "+t.Name+", would you like a [Present]? " +
             "Each Present costs 500 Bounty Points.", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
 			return true;
@@ -54,50 +55,51 @@ namespace DOL.GS.Scripts
 			if(!base.WhisperReceive(source,str)) return false;
 		  	if(!(source is GamePlayer)) return false;
 			GamePlayer t = (GamePlayer) source;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
 			switch(str)
 			{
                 
 
                 case "Present":
-                    if (t.BountyPoints >= 500)
+                    var price = Currency.BountyPoints.Mint(500);
+                    if (t.GetBalance(price.Currency).Amount >= price.Amount)
                     {
                         int RandLottery = Util.Random(1, 7);//Creates a random number between 1 and 7
 
                         if (RandLottery == 1)
                         {
                             t.ReceiveItem(this, "present1");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                         else if (RandLottery == 2)
                         {
                             t.ReceiveItem(this, "present2");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                         else if (RandLottery == 3)
                         {
                             t.ReceiveItem(this, "present3");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                         else if (RandLottery == 4)
                         {
                             t.ReceiveItem(this, "present4");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                         else if (RandLottery == 5)
                         {
                             t.ReceiveItem(this, "present5");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                         else if (RandLottery == 6)
                         {
                             t.ReceiveItem(this, "present6");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                         else if (RandLottery == 7)
                         {
                             t.ReceiveItem(this, "present7");
-                            t.RemoveBountyPoints(500); SendReply(t, "Here is your present!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your present!");
                         }
                        
                     }

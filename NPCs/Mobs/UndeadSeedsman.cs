@@ -42,7 +42,7 @@ using System.Collections;
 using DOL.Database;
 using DOL.Events;
 using DOL.GS;
-using DOL.GS.PacketHandler;
+using DOL.GS.Geometry;
 using DOL.GS.Scripts;
 using System.Threading;
 using log4net;
@@ -113,39 +113,39 @@ namespace DOL.GS.Scripts
         }
 
         //Array of Coordinates (locs) to plant tree's at
-        public static int[,] Tree = {
+        public static Coordinate[] Tree = {
             //  0       1      2    3
-            {56958, 46853, 3355}, //0 --Row 1 Tree 1
-            {57791, 46853, 3246}, //1 --Row 1 Tree 2
-            {58560, 46853, 3183}, //2 --Row 1 Tree 3
-            {59329, 46853, 3118}, //3 --Row 1 Tree 4
-            {60114, 46853, 3061}, //4 --Row 1 Tree 5
+            Coordinate.Create(56958, 46853, 3355), //0 --Row 1 Tree 1
+            Coordinate.Create(57791, 46853, 3246), //1 --Row 1 Tree 2
+            Coordinate.Create(58560, 46853, 3183), //2 --Row 1 Tree 3
+            Coordinate.Create(59329, 46853, 3118), //3 --Row 1 Tree 4
+            Coordinate.Create(60114, 46853, 3061), //4 --Row 1 Tree 5
             
-            {60114, 46087, 3036}, //4 --Row 2 Tree 1
-            {59329, 46087, 3129}, //5 --Row 2 Tree 2
-            {58560, 46087, 3193}, //6 --Row 2 Tree 3
-            {57791, 46087, 3253}, //7 --Row 2 Tree 4
-            {56958, 46087, 3320}, //8 --Row 1 Tree 5
+            Coordinate.Create(60114, 46087, 3036), //4 --Row 2 Tree 1
+            Coordinate.Create(59329, 46087, 3129), //5 --Row 2 Tree 2
+            Coordinate.Create(58560, 46087, 3193), //6 --Row 2 Tree 3
+            Coordinate.Create(57791, 46087, 3253), //7 --Row 2 Tree 4
+            Coordinate.Create(56958, 46087, 3320), //8 --Row 1 Tree 5
             
-            {56958, 45445, 3264}, //9 --Row 3 Tree 1
-            {57791, 45445, 3191}, //10--Row 3 Tree 2
-            {58560, 45445, 3152}, //11--Row 3 Tree 3
-            {59329, 45445, 3094}, //12--Row 3 Tree 4
-            {60114, 45445, 3063}, //13--Row 3 Tree 5
+            Coordinate.Create(56958, 45445, 3264), //9 --Row 3 Tree 1
+            Coordinate.Create(57791, 45445, 3191), //10--Row 3 Tree 2
+            Coordinate.Create(58560, 45445, 3152), //11--Row 3 Tree 3
+            Coordinate.Create(59329, 45445, 3094), //12--Row 3 Tree 4
+            Coordinate.Create(60114, 45445, 3063), //13--Row 3 Tree 5
 
-            {60114, 44804, 3064}, //14--Row 4 Tree 1
-            {59329, 44804, 3088}, //15--Row 4 Tree 2
-            {58560, 44804, 3121}, //16--Row 4 Tree 3
-            {57791, 44804, 3153}, //17--Row 4 Tree 4
-            {56958, 44804, 3185}  //18--Row 4 Tree 5
+            Coordinate.Create(60114, 44804, 3064), //14--Row 4 Tree 1
+            Coordinate.Create(59329, 44804, 3088), //15--Row 4 Tree 2
+            Coordinate.Create(58560, 44804, 3121), //16--Row 4 Tree 3
+            Coordinate.Create(57791, 44804, 3153), //17--Row 4 Tree 4
+            Coordinate.Create(56958, 44804, 3185)  //18--Row 4 Tree 5
         };
 
-        public static int[,] UndeadSeedsmanWalks = {
-            {484138, 486809, 3213}, // Random Walk Spot 1
-            {483924, 487861, 3184}, // Random Walk Spot 2
-            {483567, 488859, 3275}, // Random Walk Spot 3
-            {482823, 487321, 3203}, // Random Walk Spot 4
-            {482734, 488722, 3378}  // Random Walk Spot 5
+        public static Coordinate[] UndeadSeedsmanWalks = {
+            Coordinate.Create(484138, 486809, 3213), // Random Walk Spot 1
+            Coordinate.Create(483924, 487861, 3184), // Random Walk Spot 2
+            Coordinate.Create(483567, 488859, 3275), // Random Walk Spot 3
+            Coordinate.Create(482823, 487321, 3203), // Random Walk Spot 4
+            Coordinate.Create(482734, 488722, 3378)  // Random Walk Spot 5
         };
 
         //ZoneId of Avalon Isle
@@ -159,13 +159,9 @@ namespace DOL.GS.Scripts
             seedsman.GuildName = "";
             seedsman.Model = 921;
             seedsman.Realm = 0;
-            seedsman.CurrentRegionID = 51;
             seedsman.Size = 35;
             seedsman.Level = (byte)Util.Random(19, 20);//from live, he ranges in level from 19 to 20.
-            seedsman.X = UndeadSeedsmanWalks[0, 0];
-            seedsman.Y = UndeadSeedsmanWalks[0, 1];
-            seedsman.Z = UndeadSeedsmanWalks[0, 2];
-            seedsman.Heading = 880;
+            seedsman.Position = Position.Create(regionID: 51, UndeadSeedsmanWalks[0], Angle.Heading(880));
             seedsman.RoamingRange = 0;
             seedsman.Flags ^= GameNPC.eFlags.GHOST;
             seedsman.CurrentSpeed = 0;
@@ -182,22 +178,21 @@ namespace DOL.GS.Scripts
         #region PlantTree
 
          //This will plant a tree at x y and z and increase the TreeNumber.
-        private int PlantTree(int treeX, int treeY, int treeZ)
+        private int PlantTree(Coordinate coordinate)
         {
+            var treeX = coordinate.X;
+            var treeY = coordinate.Y;
+            var treeZ = coordinate.Z;
             GameHauntedTree hauntedTree = new GameHauntedTree();
             hauntedTree.Model = 948;
             hauntedTree.Size = 25;
             hauntedTree.Level = (byte)Util.Random(6, 7); //from live, they range in level from 6 to 7.
             hauntedTree.Name = "haunted appletree seedling"; //from live
-            hauntedTree.CurrentRegionID = 51;
-            hauntedTree.Heading = 3195;
             hauntedTree.Realm = 0;
             hauntedTree.CurrentSpeed = 0;
             hauntedTree.MaxSpeedBase = 191;
             hauntedTree.GuildName = "";
-            hauntedTree.X = treeX; //These have to vary depending on which
-            hauntedTree.Y = treeY; //spot we are planting a tree at.
-            hauntedTree.Z = treeZ; //Z is very important.  Strange behavior if Z is zero.
+            hauntedTree.Position = Position.CreateInZone(zoneID: 51, coordinate, Angle.Heading(3195));
             hauntedTree.RoamingRange = 0;
             hauntedTree.RespawnInterval = -1;
             hauntedTree.BodyType = 0;
@@ -239,26 +234,20 @@ namespace DOL.GS.Scripts
             {
                 if ((!IsPlanting) || (InCombat) || (IsStunned) || (IsMezzed) || (AttackState)) { return; } //disregard if not planting or in combat
 
-                int x, y, z;
                 //Treemnumber is the current index
                 if (TreenumberWhilePlanting < Tree.GetLength(0))
                 {
-                    x = GameLocation.ConvertLocalXToGlobalX(Tree[TreenumberWhilePlanting, 0], tempZoneID);
-                    y = GameLocation.ConvertLocalYToGlobalY(Tree[TreenumberWhilePlanting, 1], tempZoneID);
-                    z = Tree[TreenumberWhilePlanting, 2];
+                    var waypoint = Tree[TreenumberWhilePlanting];
 
                     //Increases Treenumber by 1
-                    PlantTree(x, y, z);
+                    PlantTree(Tree[TreenumberWhilePlanting]);
                 }
 
                 //Treenumber was increased
                 if (TreenumberWhilePlanting < Tree.GetLength(0))
                 {
-                    x = GameLocation.ConvertLocalXToGlobalX(Tree[TreenumberWhilePlanting, 0], tempZoneID);
-                    y = GameLocation.ConvertLocalYToGlobalY(Tree[TreenumberWhilePlanting, 1], tempZoneID);
-                    z = Tree[TreenumberWhilePlanting, 2];
-
-                    WalkTo(x, y, z, (short)WalkSpeed); //walk to next tree
+                    var waypoint = Position.CreateInZone(tempZoneID, zoneCoordinate: Tree[TreenumberWhilePlanting]);
+                    WalkTo( waypoint.Coordinate, (short)WalkSpeed); //walk to next tree
                 }
                 else
                 {
@@ -266,7 +255,7 @@ namespace DOL.GS.Scripts
                     IsPlanting = false;
                     if (!IsPlanting && !InCombat) //back at spawn loc, turn toward field of trees.
                     {
-                        TurnTo(UndeadSeedsmanWalks[0, 0], UndeadSeedsmanWalks[0, 1]);
+                        TurnTo(UndeadSeedsmanWalks[0]);
                     }
                 }
             }
@@ -283,11 +272,9 @@ namespace DOL.GS.Scripts
             if (TreeNumber < 1)
             {
                 TreenumberWhilePlanting = TreeNumber;
-                int x = GameLocation.ConvertLocalXToGlobalX(Tree[0, 0], tempZoneID);
-                int y = GameLocation.ConvertLocalYToGlobalY(Tree[0, 1], tempZoneID);
-                int z = Tree[0, 2];
-                
-                WalkTo(x, y, z, (short)(WalkSpeed + 50)); //x y z speed
+                var waypoint = Position.CreateInZone(zoneID: tempZoneID, zoneCoordinate: Tree[0]);
+
+                WalkTo(waypoint.Coordinate, (short)(WalkSpeed + 50)); //x y z speed
             }
         }
 	}
@@ -323,7 +310,7 @@ namespace DOL.AI.Brain
                 if (chance == 3)
                 {
                     int spot = Util.Random(0, UndeadSeedsman.UndeadSeedsmanWalks.GetLength(0)-1);
-                    seedsman.WalkTo(UndeadSeedsman.UndeadSeedsmanWalks[spot, 0], UndeadSeedsman.UndeadSeedsmanWalks[spot, 1], UndeadSeedsman.UndeadSeedsmanWalks[spot, 2], 80);
+                    seedsman.WalkTo(UndeadSeedsman.UndeadSeedsmanWalks[spot], 80);
                 }
             }
             base.Think();

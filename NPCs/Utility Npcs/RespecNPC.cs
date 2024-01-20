@@ -13,7 +13,7 @@ namespace DOL.GS.Scripts
             if (!base.Interact(player))
                 return false;
 
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             SayTo(player, eChatLoc.CL_ChatWindow, "Hand me a Luminescent Exerpise Stone, Luminescent Abrogo Stone, or Luminescent Ceriac Stone for a respec credit!");
             return true;
         }

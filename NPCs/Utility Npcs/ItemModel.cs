@@ -2,19 +2,15 @@
 
 
 using DOL.Database;
+using DOL.GS.Finance;
 using DOL.GS.PacketHandler;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DOL.GS
 {
     public class ItemModel : GameNPC
     {
         public string TempProperty = "ItemModel";
-        private int Chance;
         private Random rnd = new Random();
 
         public override bool AddToWorld()
@@ -50,7 +46,7 @@ namespace DOL.GS
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer player = (GamePlayer)source;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
 
             InventoryItem item = player.TempProperties.getProperty<InventoryItem>(TempProperty);
 
@@ -71,9 +67,8 @@ namespace DOL.GS
         {
             GamePlayer player = source as GamePlayer;
             if (player == null || item == null) return false;
-            bool output = false;
             #region messages
-            if (player.BountyPoints < 300)
+            if (player.BountyPointBalance < 300)
             {
                 SendReply(player, "You need 300 bounty points to use my service!");
                 return false;
@@ -82,7 +77,6 @@ namespace DOL.GS
             {
                 item = player.TempProperties.getProperty<InventoryItem>(TempProperty);
                 SendReply(player, "You already gave me an item! What was it again?");
-                output = true;
             }
             SendReply(player, "Ok, now whisper me the model ID.");
             player.TempProperties.setProperty(TempProperty, item);
@@ -110,7 +104,7 @@ namespace DOL.GS
             InventoryItem newInventoryItem = GameInventoryItem.Create(unique as ItemTemplate);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
-            player.RemoveBountyPoints(300);
+            player.RemoveMoney(Currency.BountyPoints.Mint(300));
             player.SaveIntoDatabase();
         }
     }

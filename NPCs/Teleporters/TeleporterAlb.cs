@@ -1,5 +1,5 @@
 using System;
-using DOL.GS;
+using DOL.GS.Geometry;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
@@ -29,12 +29,12 @@ namespace DOL.GS.Scripts
 			if(!base.WhisperReceive(source,str)) return false;
 		  	if(!(source is GamePlayer)) return false;
 			GamePlayer t = (GamePlayer) source;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
 			switch(str)
 			{
 				case "Farm":
                         Say("I'm now teleporting you to Darkness Falls");
-                        t.MoveTo(249, 31670, 27908, 22893, 3058);
+                        t.MoveTo(Position.Create(regionID: 249, x: 31670, y: 27908, z: 22893, heading: 3058));
                         break;
 
                 default: break;

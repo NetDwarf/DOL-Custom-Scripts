@@ -3,16 +3,7 @@ Author : Dams33
 Date : May 2007
 Description : Mob that allow to change item model by whisper
 */
-
-using DOL;
-using DOL.GS;
-using DOL.Events;
-using DOL.Database;
-using System;
 using DOL.GS.PacketHandler;
-using DOL.AI.Brain;
-using DOL.GS.Spells;
-using System;
 using System.Collections.Generic;
 
 
@@ -70,7 +61,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer player = (GamePlayer)source;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             ClearChat(player);
             if (player.InCombat)
             {
@@ -105,7 +96,7 @@ namespace DOL.GS.Scripts
                             grupee.Out.SendMessage(player.Name + " has ported to " + portnow.Name, eChatType.CT_Group, eChatLoc.CL_ChatWindow);
                         }
                     }
-                    player.MoveTo(portnow.CurrentRegionID, portnow.X, portnow.Y, portnow.Z, portnow.Heading);
+                    player.MoveTo(portnow.Position);
                     npcs = null;
                     return true;
                 }

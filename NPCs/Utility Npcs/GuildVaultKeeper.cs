@@ -96,9 +96,6 @@ namespace DOL.GS
         private string m_vaultOwner;
         private int m_vaultNumber = 0;
 
-        private object m_vaultSync = new object();
-
-
         /// <summary>
         /// An Guild vault that masquerades as a house vault to the game client
         /// </summary>

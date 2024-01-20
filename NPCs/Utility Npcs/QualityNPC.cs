@@ -44,7 +44,7 @@ namespace DOL.GS.Scripts
 		{
 			if(!base.Interact(player)) return false;
 			
-			TurnTo(player.X,player.Y);
+			TurnTo(player.Coordinate);
 			Reply(player, "Hello " +player.Name+"! I am an Expert Blacksmith and I can repair any item you give"+
 					" me to 100% condition and 105% quality for a cost of 1000 Bounty Points");
 					

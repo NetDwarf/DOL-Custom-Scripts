@@ -5,6 +5,7 @@ using DOL.GS.PacketHandler;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.Language;
+using DOL.GS.Profession;
 
 namespace DOL.GS.Scripts
 {
@@ -43,7 +44,7 @@ namespace DOL.GS.Scripts
             MaxSpeedBase = 0;
             Realm = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("LegendaryMatterWeapons");
+            Catalog = MerchantCatalog.Create("LegendaryMatterWeapons");
 
             return base.AddToWorld();
         }

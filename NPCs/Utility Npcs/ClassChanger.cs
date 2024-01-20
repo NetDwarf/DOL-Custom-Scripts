@@ -167,7 +167,7 @@ namespace DOL.Storm
 
             //reset before, and after changing the class.
             player.Reset();
-            player.SetCharacterClass(newClassID);
+            player.SetCharacterClass(CharacterClass.GetClass(newClassID));
             player.Reset();
 
             player.SaveIntoDatabase();

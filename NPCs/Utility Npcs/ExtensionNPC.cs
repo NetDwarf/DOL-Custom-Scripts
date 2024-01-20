@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using DOL.Database;
+using DOL.GS.Finance;
 using DOL.GS.PacketHandler;
 
 namespace DOL.GS
@@ -10,7 +11,7 @@ namespace DOL.GS
     public class ExtensionNPC : GameNPC
     {
         private const string ITEM_WEAK = "extension_npc.item";
-        private const int COST = 10;
+        private static readonly Finance.Money COST = Currency.BountyPoints.Mint(10);
 
         /// <summary>
         /// Adds messages to ArrayList which are sent when object is targeted
@@ -68,7 +69,7 @@ namespace DOL.GS
             }
 
             player.TempProperties.setProperty(ITEM_WEAK, new WeakRef(item));
-            player.Out.SendMessage("It will cost " + COST + " Bounty Points to upgrade the " + item.Name, eChatType.CT_System, eChatLoc.CL_SystemWindow);
+            player.Out.SendMessage("It will cost " + COST.Amount + " Bounty Points to upgrade the " + item.Name, eChatType.CT_System, eChatLoc.CL_SystemWindow);
             player.Client.Out.SendCustomDialog("Do you accept to upgrade the " + item.Name, new CustomDialogResponse(DialogResponse));
 
             return true;
@@ -92,13 +93,13 @@ namespace DOL.GS
                 return;
             }
 
-            if (!player.RemoveBountyPoints(COST))
+            if (!player.RemoveMoney(COST))
             {
-                player.Out.SendMessage("You don't have enough bounty points, you need " + COST + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage("You don't have enough bounty points, you need " + COST.Amount + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 return;
             }
 
-            player.Out.SendMessage("You pay " + GetName(0, false) + " " + COST + " bounty points.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+            player.Out.SendMessage("You pay " + GetName(0, false) + " " + COST.Amount + " bounty points.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 
             item.Extension = 5;
             GameServer.Database.SaveObject(item);

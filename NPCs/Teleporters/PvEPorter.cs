@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Text;
-using System.Threading;
 using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
 
 using DOL.Events;
-using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.AI.Brain;
-using DOL.GS.SkillHandler;
-using DOL.GS;
-using DOL.GS.Scripts;
+using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
 
 using log4net;
 
@@ -36,7 +25,7 @@ namespace DOL.GS.Scripts
         public override bool Interact(GamePlayer player)
         {
             if (!base.Interact(player)) return false;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             player.Out.SendMessage("Hello " + player.Name + ", You can currently be translocated to the [Starting Area], [BP Dungeon] or [Housing].", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
             player.Bind(true);
 
@@ -50,7 +39,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
 
             switch (str)
             {
@@ -60,7 +49,7 @@ namespace DOL.GS.Scripts
 				if (!t.InCombat)
 				{	
                     SendReply(t, "I'm now translocating you to the Starting Area!");
-                    t.MoveTo(88, 31963, 32907, 16000, 35);
+                    t.MoveTo(Position.Create(regionID: 88, x: 31963, y: 32907, z: 16000, heading: 35));
 				}
 					else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
 
@@ -72,7 +61,7 @@ namespace DOL.GS.Scripts
 				{
 				
 					SendReply(t, "I'm now translocating you to the BP Dungeon!");
-                    t.MoveTo(125, 32156, 32101, 16000, 35);
+                    t.MoveTo(Position.Create(regionID: 125, x: 32156, y: 32101, z: 16000, heading: 35));
 					
 				}
 					else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
@@ -85,7 +74,7 @@ namespace DOL.GS.Scripts
 				{
 				
                     SendReply(t, "Housing Is Closed Until 12/15/2015");
-//                    t.MoveTo(51, 476642, 461501, 4200, 35);
+//                    t.MoveTo(Position.Create(regionID: 51, x: 476642, y: 461501, z: 4200, heading: 35));
 
 }
 				else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }

@@ -26,6 +26,7 @@ using DOL.Language;
 using DOL.GS;
 using DOL.GS.ServerProperties;
 using DOL.GS.PacketHandler;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -34,11 +35,8 @@ namespace DOL.GS.Scripts
 /// </summary>
 public class BPMob : GameNPC
 {
-
     public override void Die(GameObject killer)
-
     {
-
         GamePlayer player = killer as GamePlayer;
         int basebp = 0;
         if (Level <= 44) { basebp = 5; }
@@ -85,13 +83,11 @@ public class BPMob : GameNPC
         }
 
         if(player is GamePlayer && IsWorthReward)
-
         {
-
+            var spawnPosition = Geometry.Position.Create(regionID: 79, x: 32401, y: 12245, z: 17413, heading: 1902);
             if (player.Group != null)
             {
-
-                if (player.Group.MemberCount  == 1) { rewardbp = (rewardbp); }
+                //if (player.Group.MemberCount  == 1) { rewardbp = (rewardbp); }
                 if (player.Group.MemberCount  == 2) { rewardbp = (rewardbp / 2); }
                 if (player.Group.MemberCount  == 3) { rewardbp = (rewardbp / 3); }
                 if (player.Group.MemberCount  == 4) { rewardbp = (rewardbp / 4); }
@@ -102,11 +98,10 @@ public class BPMob : GameNPC
                               
                 foreach (GamePlayer player2 in player.Group.GetMembersInTheGroup())
                 {
-
                     if (player2.RealmPoints >= 1755250)
                     {
                         player2.Out.SendMessage("Hero, You are RR7 or higher, you will not be rewarded here anymore!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-                        player2.MoveTo(79, 32401, 12245, 17413, 1902);
+                        player2.MoveTo(spawnPosition);
 
                     }
                     if (playersonline >= 50)
@@ -114,26 +109,22 @@ public class BPMob : GameNPC
                         if ((player2.Client.Account.PrivLevel == 1) && (player2.CurrentRegionID == 249))
                         {
                             player2.Out.SendMessage("There are " + playersonline + " players online and your in the farmzone, why don't you go play with them!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-                            player2.MoveTo(79, 32401, 12245, 17413, 1902);
+                            player2.MoveTo(spawnPosition);
                         }
                     }
 
-                    if (player2.CurrentRegionID == 249) { player2.BountyPoints += rewardbp; }
+                    if (player2.CurrentRegionID == 249) { player2.AddMoney(Currency.BountyPoints.Mint(rewardbp)); }
                     if (isjackpot) { player2.Out.SendMessage("JACKPOT!!!", eChatType.CT_ScreenCenter, eChatLoc.CL_SystemWindow); player2.Out.SendPlaySound(eSoundType.Craft, 0x04); player2.Out.SendMessage("You just got " + multiplier + "x multiplier bonus points!  Woot!", eChatType.CT_ScreenCenterSmaller, eChatLoc.CL_SystemWindow); }
                     player2.Out.SendMessage("Hero, You Get " + rewardbp + " bounty points!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                     player2.Out.SendMessage("You Get " + rewardbp + " bounty points!", eChatType.CT_ScreenCenterSmaller, eChatLoc.CL_SystemWindow);
-
                 }
-
-
             }
-
             else
             {
                 if (player.RealmPoints >= 1755250)
                 {
                     player.Out.SendMessage("Hero, You are RR7 or higher, you will not be rewarded here anymore!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-                    player.MoveTo(79, 32401, 12245, 17413, 1902);
+                    player.MoveTo(spawnPosition);
 
                 }
                 else
@@ -143,11 +134,11 @@ public class BPMob : GameNPC
                         if ((player.Client.Account.PrivLevel == 1) && (player.CurrentRegionID == 249))
                         {
                             player.Out.SendMessage("There are " + playersonline + " players online and your in the farmzone, why don't you go play with them!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-                            player.MoveTo(79, 32401, 12245, 17413, 1902);
+                            player.MoveTo(spawnPosition);
                         }
                     }
 
-                    if (player.CurrentRegionID == 249) { player.BountyPoints += rewardbp; }
+                    if (player.CurrentRegionID == 249) { player.AddMoney(Currency.BountyPoints.Mint(rewardbp)); }
                     if (isjackpot) { player.Out.SendMessage("JACKPOT!!!", eChatType.CT_ScreenCenter, eChatLoc.CL_SystemWindow); player.Out.SendPlaySound(eSoundType.Craft, 0x04); player.Out.SendMessage("You just got " + multiplier + "x multiplier bonus points!  Woot!", eChatType.CT_ScreenCenterSmaller, eChatLoc.CL_SystemWindow); }
                     player.Out.SendMessage("Hero, You Get " + rewardbp + " bounty points!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                     player.Out.SendMessage("You Get " + rewardbp + " bounty points!", eChatType.CT_ScreenCenterSmaller, eChatLoc.CL_SystemWindow);

@@ -4,6 +4,7 @@ using DOL.GS.PacketHandler;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.Language;
+using DOL.GS.Profession;
 
 // Merchants for Dragon Slayer Weapons, For use for all DOL Members.
 //
@@ -48,7 +49,7 @@ namespace DOL.GS.Scripts
             RespawnInterval = 2000;
             MaxSpeedBase = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("AlbionDragonWeapons");
+            Catalog = MerchantCatalog.Create("AlbionDragonWeapons");
 
             return base.AddToWorld();
         }
@@ -83,7 +84,7 @@ namespace DOL.GS.Scripts
             RespawnInterval = 2000;
             MaxSpeedBase = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("HiberniaDragonWeapons");
+            Catalog = MerchantCatalog.Create("HiberniaDragonWeapons");
 
             return base.AddToWorld();
         }
@@ -120,7 +121,7 @@ namespace DOL.GS.Scripts
             RespawnInterval = 2000;
             MaxSpeedBase = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("MidgardDragonWeapons");
+            Catalog = MerchantCatalog.Create("MidgardDragonWeapons");
 
             return base.AddToWorld();
         }

@@ -8,18 +8,11 @@
 
 using System;
 using System.Collections;
-using System.Timers;
 using log4net;
-using DOL;
-using DOL.GS;
 using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.GS.Scripts;
 using DOL.Events;
-using DOL.GS.GameEvents;
 using DOL.GS.PacketHandler;
 using System.Reflection;
-using System.Collections;
 
 namespace DOL.GS
 {
@@ -76,7 +69,6 @@ namespace DOL.GS.Scripts
 {
     public class MLNPC : GameNPC
     {
-        private static ItemTemplate item = null;
         private static ItemTemplate ml1token = null;
         private static ItemTemplate ml2token = null;
         private static ItemTemplate ml3token = null;
@@ -90,7 +82,6 @@ namespace DOL.GS.Scripts
 
         string mlchoicea = "";
         string mlchoiceb = "";
-        byte mlstatus = 0;
 
         private const int EFFECT_ID = 1610;
         private const int CAST_TIME = 20;
@@ -1265,7 +1256,7 @@ namespace DOL.GS.Scripts
 
         protected static void GiveItem(GameLiving source, GamePlayer player, ItemTemplate itemTemplate)
         {
-            InventoryItem item = GameInventoryItem.Create<ItemTemplate>(itemTemplate);
+            InventoryItem item = GameInventoryItem.Create(itemTemplate);
             if (player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, item))
             {
                 if (source == null)
@@ -1308,7 +1299,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
 
             if (t.Level != 50)
                 t.Out.SendMessage("Please come back when you are level 50.", eChatType.CT_Say, eChatLoc.CL_PopupWindow);

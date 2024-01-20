@@ -4,14 +4,9 @@
 //based on Nardin and Zjovaz previous script
 //24/06/2008
 //by Stormcrow
-
-using System;
-using DOL;
-using DOL.GS;
-using DOL.Events;
 using DOL.Database;
-using System.Collections;
 using DOL.GS.PacketHandler;
+using static DOL.GS.Finance.Currency;
 
 namespace DOL.GS.Scripts
 {
@@ -57,7 +52,7 @@ namespace DOL.GS.Scripts
                 t.Out.SendMessage("You are too far away to give anything to " + GetName(0, false) + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 return false;
             }
-            if (t.BountyPoints < 500)
+            if (t.BountyPointBalance < 500)
             {
                 t.Out.SendMessage("You need more bounty points to use this service!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 return false;
@@ -147,7 +142,7 @@ namespace DOL.GS.Scripts
 
             GamePlayer player = (GamePlayer)source;
 
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
 
             switch (str)
             {
@@ -207,7 +202,7 @@ namespace DOL.GS.Scripts
                     SetProc(player, 42430); break;
                 case "ML10 Pet Proc Illusion":
                     {
-                        if (player.BountyPoints < 100000)
+                        if (player.BountyPointBalance < 100000)
                         {
                             SendReply(player, "You need 100k BP to get this proc!");
                             return false;
@@ -287,15 +282,15 @@ namespace DOL.GS.Scripts
             unique.ProcSpellID1 = proc;
             GameServer.Database.AddObject(unique);
 
-            player.RemoveBountyPoints(500);
+            player.RemoveMoney(BountyPoints.Mint(500));
             if (proc == 30113)
-                player.RemoveBountyPoints(500);
+                player.RemoveMoney(BountyPoints.Mint(500));
             if (proc == 30138)
-                player.RemoveBountyPoints(500);
+                player.RemoveMoney(BountyPoints.Mint(500));
             if (proc == 71980)
-                player.RemoveBountyPoints(100000);
+                player.RemoveMoney(BountyPoints.Mint(100000));
 
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
             SendReply(player, "My work upon " + item.Name + " is complete. Farewell adventurer.");
@@ -317,12 +312,10 @@ namespace DOL.GS.Scripts
             unique.MaxCharges = 10;
             GameServer.Database.AddObject(unique);
 
-            if (charge == 30113)
-                player.RemoveBountyPoints(500);
-            if (charge == 32169)				
-                player.RemoveBountyPoints(500);
+            if (charge == 30113) player.RemoveMoney(BountyPoints.Mint(500));
+            if (charge == 32169) player.RemoveMoney(BountyPoints.Mint(500));
 
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
             SendReply(player, "My work upon " + item.Name + " is complete. Farewell " + player.Name + ".");

@@ -1,5 +1,5 @@
 using System;
-using DOL.GS;
+using DOL.GS.Geometry;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
@@ -56,14 +56,14 @@ namespace DOL.GS.Scripts
                 case "Gjalpinulva":
 
                     //if (t.Group.MemberCount >= 4) //You have enough
-                    {
+                    // {
                         Say("I'm now teleporting you to the Dragon Gjalpinulva");
-                        t.MoveTo(100, 694102, 996417, 2861, 935);
+                        t.MoveTo(Position.Create(regionID: 100, x: 694102, y: 996417, z: 2861, heading: 935));
                         break;
-                    }
+                    // }
                     //else if (t.Group.MemberCount <= 3) //You dont have enough
                         //t.Out.SendMessage("You need a group of at least 4 adventurers for this encounter!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-                    break;
+                    // break;
             
 
                 default: break;

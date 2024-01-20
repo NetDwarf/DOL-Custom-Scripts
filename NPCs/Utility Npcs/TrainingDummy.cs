@@ -1,17 +1,8 @@
-using System;
-using DOL;
-using DOL.GS;
-using DOL.Events;
-using DOL.Database;
-using System.Collections;
-using DOL.GS.PacketHandler;
-using DOL.GS.Scripts;
-
 namespace DOL.GS.Scripts
 {
 	public class TrainingDummy : GameNPC
     {
-        private int Chance;//Chance for Prefixes
+        private int Chance = 0;//Chance for Prefixes
         public override bool AddToWorld()
         {
 

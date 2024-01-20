@@ -1,22 +1,7 @@
 ﻿// A little script to help with the missing Jump Points in some clients... by jaystar
 // Using Mob name and case to port to xyz locs.
 
-
-
-
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DOL.Database;
-
-using DOL.GS.Keeps;
-using DOL.GS;
-using DOL.GS.Spells;
-using DOL.GS.PacketHandler;
-using DOL.GS.Effects;
+using DOL.GS.Geometry;
 using DOL.AI.Brain;
 
 namespace DOL.GS.Scripts
@@ -33,10 +18,10 @@ namespace DOL.GS.Scripts
                 switch (Name)
                 {
                     case "SVASUDNF":
-                        player.MoveTo(163, 651951, 313721, 9432, 1006);
+                        player.MoveTo(Position.Create(regionID: 163, x: 651951, y: 313721, z: 9432, heading: 1006));
                         break;
                     case "DLNF":
-                        player.MoveTo(163, 396561, 618476, 9825, 1966);
+                        player.MoveTo(Position.Create(regionID: 163, x: 396561, y: 618476, z: 9825, heading: 1966));
                         break;
                 }
                 

@@ -10,6 +10,7 @@ using System.Collections;
 using DOL.GS;
 using DOL.Database;
 using DOL.GS.PacketHandler;
+using DOL.GS.Geometry;
 
 namespace DOL.GS.Commands
 {
@@ -46,7 +47,7 @@ namespace DOL.GS.Commands
                 if (client.Player.TargetObject is GamePlayer)
                 {
                     GamePlayer target = (GamePlayer)client.Player.TargetObject;
-                    target.MoveTo(249, 47382, 49715, 25001, 1); //jail room
+                    target.MoveTo(Position.Create(regionID: 249, x: 47382, y: 49715, z: 25001, heading: 1)); //jail room
                     target.Bind(true);
                     target.SaveIntoDatabase();
                     target.Out.SendMessage("Your character is jailed!", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
@@ -71,7 +72,7 @@ namespace DOL.GS.Commands
                 {
                     if (cl.Player.Name == PlayerName)
                     {
-                        cl.Player.MoveTo(249, 47382, 49715, 25001, 1);
+                        cl.Player.MoveTo(Position.Create(regionID: 249, x: 47382, y: 49715, z: 25001, heading: 1));
                         cl.Player.Bind(true);
                         cl.Player.SaveIntoDatabase();
                         client.Out.SendMessage(cl.Player.Name + " jumped in the jail room", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -145,7 +146,7 @@ namespace DOL.GS.Commands
                     {
                         if (cl.Player.Realm == eRealm.Albion)
                         {
-                            cl.Player.MoveTo(1, 560421, 511840, 2344, 1);
+                            cl.Player.MoveTo(Position.Create(regionID: 1, x: 560421, y: 511840, z: 2344, heading: 1));
                             cl.Player.Bind(true);
                             cl.Player.SaveIntoDatabase();
                             client.Out.SendMessage(cl.Player.Name + " jumped in Cotswold!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -153,7 +154,7 @@ namespace DOL.GS.Commands
                         }
                         else if (cl.Player.Realm == eRealm.Midgard)
                         {
-                            cl.Player.MoveTo(100, 804763, 723998, 4699, 1);
+                            cl.Player.MoveTo(Position.Create(regionID: 100, x: 804763, y: 723998, z: 4699, heading: 1));
                             cl.Player.Bind(true);
                             cl.Player.SaveIntoDatabase();
                             client.Out.SendMessage(cl.Player.Name + " jumped in Mularn!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -161,7 +162,7 @@ namespace DOL.GS.Commands
                         }
                         else if (cl.Player.Realm == eRealm.Hibernia)
                         {
-                            cl.Player.MoveTo(200, 345684, 490996, 5200, 1);
+                            cl.Player.MoveTo(Position.Create(regionID: 200, x: 345684, y: 490996, z: 5200, heading: 1));
                             cl.Player.Bind(true);
                             cl.Player.SaveIntoDatabase();
                             client.Out.SendMessage(cl.Player.Name + " jumped in MagMell!", eChatType.CT_System, eChatLoc.CL_SystemWindow);

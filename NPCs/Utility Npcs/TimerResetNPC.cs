@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DOL.GS.PacketHandler;
+﻿using static DOL.GS.Finance.Currency;
 
 namespace DOL.GS
 {
@@ -29,13 +26,13 @@ namespace DOL.GS
                 GamePlayer player = source as GamePlayer;
 
 
-                if (player.BountyPoints <= BP_COST)
+                if (player.BountyPointBalance <= BP_COST)
                 {
                     SayTo(player, "You can't afford my services. Come back when you can!");
                     return false;
                 }
 
-                player.RemoveBountyPoints(BP_COST);
+                player.RemoveMoney(BountyPoints.Mint(BP_COST));
                 player.ResetDisabledSkills();
             }
 

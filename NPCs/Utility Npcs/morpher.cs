@@ -10,6 +10,7 @@ using System.Text;
 using System.Collections;
 using DOL.GS.PacketHandler;
 using DOL.Database;
+using static DOL.GS.Finance.Currency;
 
 namespace DOL.GS.Scripts
 {
@@ -95,7 +96,7 @@ namespace DOL.GS.Scripts
 
 
         //How many BPs are charged per morph.
-        long BountyPointPrice = 5;
+        Finance.Money BountyPointPrice = BountyPoints.Mint(5);
 
 
         //Controls wiether or not bps are charged for restoring a players original morph.
@@ -103,7 +104,7 @@ namespace DOL.GS.Scripts
 
         
         //Ammount of bps charged for a morph restore.
-        long MorphRestorePrice = 1;
+        Finance.Money MorphRestorePrice = BountyPoints.Mint(1);
 
         //Controls wiether or not the player can view a list of the blocked models.
         bool CanseeBlockedModels = true;
@@ -140,6 +141,7 @@ namespace DOL.GS.Scripts
             string morphRtext = "No Morph Restores!";
             string MorphSet = "Free Morphs!";
             GamePlayer Dude = source as GamePlayer;
+            var price = BountyPoints.Mint(0);
             long rprice = 0;
             string rcostmsg = "";
             string blkmdsmsg = "";
@@ -147,16 +149,16 @@ namespace DOL.GS.Scripts
             if (AllowMorphRestore == true)
             {
                 morphRtext = "Free Morph Restores";
-                if (MorphRestorePrice > 0)
+                if (MorphRestorePrice.Amount > 0)
                 {
-                    morphRtext = "Morph Restores Cost:" + MorphRestorePrice + " bps."; 
+                    morphRtext = "Morph Restores Cost:" + MorphRestorePrice.Amount + " bps."; 
                 }
             }
             if (ChargeBountyPoints == true)
             {
-                if (BountyPointPrice > 0)
+                if (BountyPointPrice.Amount > 0)
                 {
-                    MorphSet = "Morph Cost:" + BountyPointPrice + " bps.";
+                    MorphSet = "Morph Cost:" + BountyPointPrice.Amount + " bps.";
                 }
             }
 
@@ -186,7 +188,7 @@ namespace DOL.GS.Scripts
             if ((str == "restored"))
             {
                 iscase = true;
-                if (Dude.BountyPoints < MorphRestorePrice)
+                if (Dude.BountyPointBalance < MorphRestorePrice.Amount)
                 {
                     SayTo(Dude, "Sorry " + Dude.Name + ", you do not have enough BPs.");
                     return false;
@@ -196,12 +198,12 @@ namespace DOL.GS.Scripts
                 {
                     if (ChargeMorphRestore == true)
                     {
-                        rprice = MorphRestorePrice;
+                        price = MorphRestorePrice;
                     }
-                    if (rprice > 0)
+                    if (price.Amount > 0)
                     {
                       
-                        Dude.BountyPoints += -rprice;
+                        Dude.RemoveMoney(price);
                         rcostmsg = "It has cost you " + rprice + " bounty points";
                         UpdateShit(Dude);
                     }
@@ -221,7 +223,7 @@ namespace DOL.GS.Scripts
             if (str == "blocked")
             {
                 iscase = true;
-                if (CanseeBlockedModels = true)
+                if (CanseeBlockedModels == true)
                 {
 
                     int blockedcount = 0;
@@ -283,15 +285,15 @@ namespace DOL.GS.Scripts
 
                 if (ChargeBountyPoints == true)
                 {
-                    if (BountyPointPrice > 0)
+                    if (BountyPointPrice.Amount > 0)
                     {
-                        if (Dude.BountyPoints < BountyPointPrice)
+                        if (Dude.BountyPointBalance < BountyPointPrice.Amount)
                         {
                             SayTo(Dude, "Sorry " + Dude.Name + ", you do not have enough BPs.");
                             return false;
                         }
-                        Morphmsg = "Your morph is now " + model + ", it cost you " + BountyPointPrice + " bps.";
-                        Dude.BountyPoints += -BountyPointPrice;
+                        Morphmsg = "Your morph is now " + model + ", it cost you " + BountyPointPrice.Amount + " bps.";
+                        Dude.RemoveMoney(BountyPointPrice);
                         UpdateShit(Dude);
                         
                     }
@@ -307,7 +309,6 @@ namespace DOL.GS.Scripts
 
             }
            return true;
-          return base.WhisperReceive(source, str);
         }
 
         public void UpdateShit(GamePlayer player)

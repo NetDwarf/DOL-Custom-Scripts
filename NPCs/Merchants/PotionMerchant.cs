@@ -8,8 +8,7 @@ using DOL.Database;
 using DOL.Events;
 using log4net;
 using DOL.AI.Brain;
-
-
+using DOL.GS.Profession;
 
 namespace DOL.GS.Scripts
 {
@@ -39,7 +38,7 @@ namespace DOL.GS.Scripts
             MaxSpeedBase = 0;
             Realm = 0;
    
-            TradeItems = new MerchantTradeItems("potion_merchant");
+            Catalog = MerchantCatalog.Create("potion_merchant");
 
             return base.AddToWorld();
         }
@@ -47,8 +46,8 @@ namespace DOL.GS.Scripts
         #endregion AddToWorld
         public override bool Interact(GamePlayer player)
         {
-            TradeItems = new MerchantTradeItems("potion_merchant");
-            player.Out.SendMerchantWindow(TradeItems, eMerchantWindowType.Normal);
+            Catalog = MerchantCatalog.Create("potion_merchant");
+            player.Out.SendMerchantWindow(Catalog, eMerchantWindowType.Normal);
             return true;
         }
     }  

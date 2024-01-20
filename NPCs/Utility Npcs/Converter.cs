@@ -1,9 +1,9 @@
 using System;
-using DOL.GS;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
 using System.Reflection;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -36,7 +36,7 @@ namespace DOL.GS.Scripts
 		public override bool Interact(GamePlayer player)
 		{
 			if (!base.Interact(player)) return false;
-			TurnTo(player.X,player.Y);
+			TurnTo(player.Coordinate);
 			player.Out.SendMessage("Hello "+player.Name+"! I can trade your Bounty Points for [Realm Points].", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
 			return true;
 		}
@@ -45,7 +45,8 @@ namespace DOL.GS.Scripts
 			if(!base.WhisperReceive(source,str)) return false;
 		  	if(!(source is GamePlayer)) return false;
 			GamePlayer t = (GamePlayer) source;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
+            Finance.Money price;
 			switch(str)
 			{
             case "Realm Points":
@@ -53,10 +54,10 @@ namespace DOL.GS.Scripts
                     break;
 
             case "1,000":
-
-                if (t.BountyPoints >= 1000) //You have enough
+                price = Currency.BountyPoints.Mint(1000);
+                if (t.BountyPointBalance >= price.Amount) //You have enough
                 {
-                    t.RemoveBountyPoints(1000);
+                    t.RemoveMoney(price);
                     t.GainRealmPoints(67);
                     t.Out.SendMessage("I have given you " + 67 * 15 + "realmpoints!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                     t.SaveIntoDatabase();
@@ -66,10 +67,10 @@ namespace DOL.GS.Scripts
                     break;
 
                 case "10,000":
-
-                    if (t.BountyPoints >= 10000) //You have enough
+                    price = Currency.BountyPoints.Mint(10000);
+                    if (t.BountyPointBalance >= price.Amount) //You have enough
                     {
-                        t.RemoveBountyPoints(10000);
+                        t.RemoveMoney(price);
                         t.GainRealmPoints(667);
                         t.Out.SendMessage("I have given you " + 667 * 15 + "realmpoints!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                         t.SaveIntoDatabase();
@@ -79,10 +80,10 @@ namespace DOL.GS.Scripts
                     break;
 
                 case "50,000":
-
-                    if (t.BountyPoints >= 50000) //You have enough
+                    price = Currency.BountyPoints.Mint(50000);
+                    if (t.BountyPointBalance >= price.Amount) //You have enough
                     {
-                        t.RemoveBountyPoints(50000);
+                        t.RemoveMoney(price);
                         t.GainRealmPoints(3333);
                         t.Out.SendMessage("I have given you " + 3333 * 15 + "realmpoints!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                         t.SaveIntoDatabase();
@@ -92,10 +93,10 @@ namespace DOL.GS.Scripts
                     break;
 
                 case "100,000":
-
-                    if (t.BountyPoints >= 100000) //You have enough
+                    price = Currency.BountyPoints.Mint(100000);
+                    if (t.BountyPointBalance >= price.Amount) //You have enough
                     {
-                        t.RemoveBountyPoints(100000);
+                        t.RemoveMoney(price);
                         t.GainRealmPoints(6667);
                         t.Out.SendMessage("I have given you " + 6667 * 15 + "realmpoints!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                         t.SaveIntoDatabase();
@@ -108,12 +109,12 @@ namespace DOL.GS.Scripts
 			}
 			return true;
 		}
+
 		private void SendReply(GamePlayer target, string msg)
-			{
-				target.Client.Out.SendMessage(
-					msg,
-					eChatType.CT_Say,eChatLoc.CL_PopupWindow);
-			}
+		{
+			target.Client.Out.SendMessage(msg, eChatType.CT_Say,eChatLoc.CL_PopupWindow);
+		}
+
 		[ScriptLoadedEvent]
         public static void OnScriptCompiled(DOLEvent e, object sender, EventArgs args)
         {

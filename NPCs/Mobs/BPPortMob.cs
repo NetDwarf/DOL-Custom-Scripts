@@ -79,7 +79,7 @@ namespace DOL.GS.Scripts
                 player.ReceiveItem(this, "ML1token");// Adds an item into player inventory
                 player.Out.SendMessage("An item has appeared in your inventory!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 player.GainBountyPoints((this.Level * 5));// grants BP at Server BP rate * 5 * level of mob
-                player.MoveTo(90, 51597, 38366, 10858, 3281);// Moved player to specified location
+                player.MoveTo(Geometry.Position.Create(regionID: 90, x: 51597, y: 38366, z: 10858, heading: 3281));// Moved player to specified location
             }
                 DropLoot(killer);
 

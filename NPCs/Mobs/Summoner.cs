@@ -15,6 +15,7 @@ using DOL.GS.Scripts;
 using System.Threading;
 using log4net;
 using DOL.AI.Brain;
+using DOL.GS.Geometry;
 
 namespace DOL.GS.Scripts
 {
@@ -254,11 +255,7 @@ namespace DOL.GS.Scripts
         void ActionDragonThrow(GameLiving target)
         {
             SummonerBroadcast(Name + " throws " + m_summonerTarget.Name + " into the air!");
-            m_summonerTarget.MoveTo(m_summonerTarget.CurrentRegionID,
-                m_summonerTarget.X,
-                m_summonerTarget.Y,
-                m_summonerTarget.Z + 100,
-                m_summonerTarget.Heading);
+            m_summonerTarget.MoveTo(m_summonerTarget.Position + Vector.Create(z: 100));
         }
 
         #endregion

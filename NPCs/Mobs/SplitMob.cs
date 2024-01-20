@@ -10,6 +10,8 @@ using DOL.Database;
 using DOL.GS.PacketHandler;
 
 using log4net;
+using DOL.GS.Geometry;
+
 namespace DOL.GS.Scripts
 {
     public class SplitMob : GameNPC
@@ -58,11 +60,7 @@ namespace DOL.GS.Scripts
         }
         public void SetVariables(GameNPC mob)
         {
-            mob.X = this.X + 10;
-            mob.Y = this.Y + 10;
-			mob.Z = this.Z;
-			mob.CurrentRegion = this.CurrentRegion;
-			mob.Heading = this.Heading;
+            mob.Position = Position + Vector.Create(x: 10, y: 10);
 			mob.Level = this.Level;
 			mob.Realm = this.Realm;
 			mob.Name = "Dork's Minion";

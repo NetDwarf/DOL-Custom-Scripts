@@ -9,13 +9,8 @@
 //smalltalk, equip, emotes, changing of itemnames and spellcast at the end of process
 //plus i added changing of speed and color
 //what could be done is trimming the prefixes from the name instead of looking at the db, but i dont know how to do that :)
-
-using System;
-using DOL;
-using DOL.GS;
-using DOL.Events;
+using static DOL.GS.Finance.Currency;
 using DOL.Database;
-using System.Collections;
 using DOL.GS.PacketHandler;
 
 namespace DOL.GS.Scripts
@@ -54,7 +49,7 @@ namespace DOL.GS.Scripts
 				t.Out.SendMessage("You are too far away to give anything to " + GetName(0, false) + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return false;
 			}
-			if(t.BountyPoints < 300)
+			if(t.BountyPointBalance < 300)
 			{
 				t.Out.SendMessage("You need more bounty points to use this service!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return false;
@@ -91,7 +86,7 @@ namespace DOL.GS.Scripts
 		
 			GamePlayer player = (GamePlayer)source;
 
-			TurnTo(player.X,player.Y);
+			TurnTo(player.Coordinate);
 
 			switch(str)
 			{
@@ -163,9 +158,9 @@ namespace DOL.GS.Scripts
             unique.ProcSpellID = proc;
             GameServer.Database.AddObject(unique);
 
-            player.RemoveBountyPoints(300);
+            player.RemoveMoney(BountyPoints.Mint(300));
             
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
             SendReply(player, "My work upon " + item.Name + " is complete.\n Farewell " + player.Name + ".");

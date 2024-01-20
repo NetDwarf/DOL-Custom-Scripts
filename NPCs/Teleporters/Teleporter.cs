@@ -1,16 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-
-using DOL.AI;
-using DOL.AI.Brain;
-using DOL.Events;
-using DOL.Database;
+﻿using System.Collections.Generic;
+using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
 
-using log4net;
 namespace DOL.GS.Scripts
 {
     public class PvPHandler
@@ -140,7 +131,7 @@ namespace DOL.GS.Scripts
                 player.Out.SendMessage("Error #1, please contact a GM", eChatType.CT_Important, eChatLoc.CL_ChatWindow);
                 return;
             }
-            player.MoveTo(npc.CurrentRegionID, npc.X, npc.Y, npc.Z, npc.Heading);
+            player.MoveTo(npc.Position);
             player.Bind(true);
         }
         public static GameNPC currentPvPPort()
@@ -270,7 +261,7 @@ namespace DOL.GS.Scripts
                 }
                 if (text == "Setup")
                 {
-                    player.MoveTo(70, 565006, 536702, 5983, 2561);
+                    player.MoveTo(Position.Create(regionID: 70, x: 565006, y: 536702, z: 5983, heading: 2561));
                     player.Bind(true);
                     return true; 
                 }

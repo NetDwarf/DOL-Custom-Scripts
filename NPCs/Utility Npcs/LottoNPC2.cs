@@ -73,7 +73,7 @@ namespace DOL.GS.Scripts
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DragonslayerWizardStaff");
-                    generic0 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                    generic0 = GameInventoryItem.Create(tgeneric0);
                     t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Congratulations!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -82,7 +82,7 @@ namespace DOL.GS.Scripts
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DragonslayerWizardStaff");
-                    generic0 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                    generic0 = GameInventoryItem.Create(tgeneric0);
                     t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Congratulations!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -91,7 +91,7 @@ namespace DOL.GS.Scripts
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DragonslayerWizardStaff");
-                    generic0 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                    generic0 = GameInventoryItem.Create(tgeneric0);
                     t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Congratulations!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -100,7 +100,7 @@ namespace DOL.GS.Scripts
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DragonslayerWizardStaff");
-                    generic0 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                    generic0 = GameInventoryItem.Create(tgeneric0);
                     t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Congratulations!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -109,7 +109,7 @@ namespace DOL.GS.Scripts
                 {
                     InventoryItem generic0 = new InventoryItem();
                     ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate>("DragonslayerWizardStaff");
-                    generic0 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                    generic0 = GameInventoryItem.Create(tgeneric0);
                     t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
                     t.Inventory.RemoveItem(item); t.UpdatePlayerStatus();
                     t.Out.SendMessage("Congratulations!", eChatType.CT_System, eChatLoc.CL_SystemWindow);

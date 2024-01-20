@@ -12,6 +12,7 @@ using DOL.GS.GameEvents;
 using DOL.GS.Scripts;
 using log4net;
 using DOL.GS.Geometry;
+using static DOL.GS.Finance.Currency;
 
 /* Summon Buffbot Command - Created By Deathwish, with a BIG THANKS to geshi for his help!
  * Version 1.0 (13/07/2010) For the use of all Dol Members.
@@ -61,14 +62,14 @@ namespace DOL.GS.Commands
             #endregion Command timer
       
         #region Command spell Loader 
-            if (client.Player.BountyPoints >= 30) // how many bps are need to summon the buffbot
+            if (client.Player.BountyPointBalance >= 30) // how many bps are need to summon the buffbot
             {
                 
                 SpellLine line = new SpellLine("HastenerCast", "Hastener Cast", "unknown", false);
                     ISpellHandler spellHandler = ScriptMgr.CreateSpellHandler(client.Player, HastenerSpell, line);
                     if (spellHandler != null)
                         spellHandler.StartSpell(client.Player);
-                    client.Player.RemoveBountyPoints(50); // removes the amount of bps from the player
+                    client.Player.RemoveMoney(BountyPoints.Mint(50)); // removes the amount of bps from the player
                     client.Player.Out.SendMessage("You have summoned a Hastener!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                     client.Player.SaveIntoDatabase(); // saves new amount of bps
                     client.Player.Out.SendUpdatePlayer(); // updates players bp
@@ -168,7 +169,7 @@ namespace DOL.GS.Spells
                         npc = (GameNPC)Assembly.GetAssembly(typeof(GameServer)).CreateInstance(template.ClassType, false);
 
                 }
-                catch (Exception e)
+                catch
                 {
                 }
                 if (npc == null)
@@ -177,7 +178,7 @@ namespace DOL.GS.Spells
                     {
                         npc = (GameNPC)Assembly.GetExecutingAssembly().CreateInstance(template.ClassType, false);
                     }
-                    catch (Exception e)
+                    catch
                     {
                     }
                 }

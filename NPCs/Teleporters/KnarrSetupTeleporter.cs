@@ -1,15 +1,8 @@
 using System;
-using DOL.GS;
+using DOL.GS.Geometry;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
-using DOL;
-using DOL.AI.Brain;
-using DOL.GS.Scripts;
-using DOL.GS.GameEvents;
-using DOL.GS.Quests;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
 using DOL.Database;
 using System.Reflection;
 
@@ -35,7 +28,7 @@ namespace DOL.GS.Scripts
         public override bool Interact(GamePlayer player)
         {
             if (!base.Interact(player)) return false;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             player.Out.SendMessage("Hello " + player.Name + "!  I am the Arbiter and I can teleport you to the following locations\n\n[Main Setup]\n\n" +
             "[PvP Setup]\n\n[Gjalpinulva]\n\n[Master Level Trials]", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
             return true;
@@ -45,7 +38,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
             switch (str)
             {
                 case "PvP Setup":
@@ -54,22 +47,22 @@ namespace DOL.GS.Scripts
                         /*if (curMap.Value == "Aegir's Landing PvP")
                         {
                             Say("I'm now teleporting you to the current PvP Setup area");
-                            t.MoveTo(151, 255443, 316099, 4048, 2194);
+                            t.MoveTo(Position.Create(regionID: 151, x: 255443, y: 316099, z: 4048, heading: 2194));
                         }
                          else if (curMap.Value == "Knarr PvP")
                          {*/
                              Say("I'm now teleporting you to the current PvP Setup area");
-                             t.MoveTo(151, 348551, 433572, 3712, 3338);
+                             t.MoveTo(Position.Create(regionID: 151, x: 348551, y: 433572, z: 3712, heading: 3338));
                              /*}
                             //if (curMap.Value == "Gothwaite PvP")
                             //{
                             Say("I'm now teleporting you to the current PvP Setup area");
-                            t.MoveTo(51, 526034, 505253, 3424, 1549);
+                            t.MoveTo(Position.Create(regionID: 51, x: 526034, y: 505253, z: 3424, heading: 1549));
                             // }
                              else if (curMap.Value == "Mag Mell PvP")
                              {
                                  Say("I'm now teleporting you to the current PvP Setup area");
-                                 t.MoveTo(200, 296554, 454088, 7139, 1101);
+                                 t.MoveTo(Position.Create(regionID: 200, x: 296554, y: 454088, z: 7139, heading: 1101));
                              }*/
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
@@ -79,7 +72,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to the Main Setup area");
-                        t.MoveTo(70, 569762, 538694, 6104, 3268);
+                        t.MoveTo(Position.Create(regionID: 70, x: 569762, y: 538694, z: 6104, heading: 3268));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -90,7 +83,7 @@ namespace DOL.GS.Scripts
                     //if (t.Group.MemberCount >= 4) //You have enough
                     {
                         Say("I'm now teleporting you to Gjalpinulva's Lair");
-                        t.MoveTo(100, 694102, 996417, 2861, 935);
+                        t.MoveTo(Position.Create(regionID: 100, x: 694102, y: 996417, z: 2861, heading: 935));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -106,7 +99,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Cetus");
-                        t.MoveTo(78, 30258, 36507, 17005, 2305);
+                        t.MoveTo(Position.Create(regionID: 78, x: 30258, y: 36507, z: 17005, heading: 2305));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -115,7 +108,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Runihura");
-                        t.MoveTo(73, 335638, 464204, 10727, 8);
+                        t.MoveTo(Position.Create(regionID: 73, x: 335638, y: 464204, z: 10727, heading: 8));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -124,7 +117,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Medussa");
-                        t.MoveTo(80, 68870, 21562, 18146, 2014);
+                        t.MoveTo(Position.Create(regionID: 80, x: 68870, y: 21562, z: 18146, heading: 2014));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -133,7 +126,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Manticore");
-                        t.MoveTo(88, 31982, 30892, 16300, 4091);
+                        t.MoveTo(Position.Create(regionID: 88, x: 31982, y: 30892, z: 16300, heading: 4091));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -142,7 +135,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Ammut");
-                        t.MoveTo(83, 44901, 36638, 15656, 3074);
+                        t.MoveTo(Position.Create(regionID: 83, x: 44901, y: 36638, z: 15656, heading: 3074));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -151,7 +144,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Chimera");
-                        t.MoveTo(73, 548432, 561198, 10672, 2445);
+                        t.MoveTo(Position.Create(regionID: 73, x: 548432, y: 561198, z: 10672, heading: 2445));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -160,7 +153,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Typhon");
-                        t.MoveTo(89, 45990, 22136, 14876, 3073);
+                        t.MoveTo(Position.Create(regionID: 89, x: 45990, y: 22136, z: 14876, heading: 3073));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -169,7 +162,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Talos");
-                        t.MoveTo(73, 477955, 695019, 16156, 2576);
+                        t.MoveTo(Position.Create(regionID: 73, x: 477955, y: 695019, z: 16156, heading: 2576));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -178,7 +171,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to the Phoenix");
-                        t.MoveTo(90, 34885, 37445, 19063, 2054);
+                        t.MoveTo(Position.Create(regionID: 90, x: 34885, y: 37445, z: 19063, heading: 2054));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;
@@ -187,7 +180,7 @@ namespace DOL.GS.Scripts
                     if (!t.InCombat)
                     {
                         Say("I'm now teleporting you to Draco");
-                        t.MoveTo(91, 31886, 34425, 15763, 2046);
+                        t.MoveTo(Position.Create(regionID: 91, x: 31886, y: 34425, z: 15763, heading: 2046));
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                     break;

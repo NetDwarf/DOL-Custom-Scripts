@@ -214,9 +214,6 @@ namespace DOL.GS.Scripts
             m_Current = null;
 
             string msg = "Voting ended!";
-
-            int listStart = 1;
-            ArrayList filters = null;
             ArrayList clients = new ArrayList();
 
             // get list of clients depending on server type

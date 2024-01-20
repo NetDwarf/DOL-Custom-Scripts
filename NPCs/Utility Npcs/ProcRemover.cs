@@ -49,7 +49,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer player = (GamePlayer)source;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
 
             InventoryItem item = player.TempProperties.getProperty<InventoryItem>(TempProperty);
 
@@ -58,7 +58,7 @@ namespace DOL.GS.Scripts
                 SendReply(player, "I need an item to work on!");
                 return false;
             }
-            int defaultProcNumber = 1;
+
             int tmpProcNumber = int.Parse(str);
             RemoveProc(player, tmpProcNumber);
             SendReply(player, "I have removed your item's proc, you can now use it.");
@@ -69,7 +69,7 @@ namespace DOL.GS.Scripts
         {
             GamePlayer player = source as GamePlayer;
             if (player == null || item == null) return false;
-            bool output = false;
+
             #region messages
             if (GetDistanceTo(player) > WorldMgr.INTERACT_DISTANCE)
             {
@@ -80,7 +80,6 @@ namespace DOL.GS.Scripts
             {
                 item = player.TempProperties.getProperty<InventoryItem>(TempProperty);
                 SendReply(player, "You already gave me an item! What was it again?");
-                output = true;
             }
             SendReply(player, "Ok, which proc do you want to remove? \n Proc [1] or Proc [2] ?");
             player.TempProperties.setProperty(TempProperty, item);
@@ -120,7 +119,7 @@ namespace DOL.GS.Scripts
             }
             GameServer.Database.AddObject(unique);
 
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
             player.SaveIntoDatabase();

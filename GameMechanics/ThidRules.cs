@@ -100,7 +100,7 @@ using DOL.Database;
 using DOL.AI.Brain;
 using DOL.Events;
 using DOL.Language;
-using DOL.GS;
+using static DOL.GS.Finance.Currency;
 using DOL.GS.Keeps;
 using DOL.GS.Scripts;
 using DOL.GS.ServerRules;
@@ -1352,7 +1352,7 @@ namespace DOL.GS.ServerRules
                     if (bountyPoints > bpCap)
                         bountyPoints = bpCap;
 
-#warning this is guessed, i do not believe this is the right way, we will most likely need special messages to be sent
+                    /// this is guessed, i do not believe this is the right way, we will most likely need special messages to be sent
                     //apply the keep bonus for bounty points
                     if (killer != null)
                     {
@@ -1419,11 +1419,12 @@ namespace DOL.GS.ServerRules
                     living.GainExperience(GameLiving.eXPSource.Player, xpReward);
 
                     //gold
-                    if (living is GamePlayer)
+                    if (living is GamePlayer rewardRecipient)
                     {
-                        long money = (long)(playerMoneyValue * damagePercent);
                         //long money = (long)(Money.GetMoney(0, 0, 17, 85, 0) * damagePercent * killedPlayer.Level / 50);
-                        ((GamePlayer)living).AddMoney(money, "You recieve {0}");
+                        var reward = Copper.Mint((long)(playerMoneyValue * damagePercent));
+                        rewardRecipient.AddMoney(reward);
+                        rewardRecipient.SendSystemMessage($"You recieve {reward}");
                     }
 
                     if (killedPlayer.ReleaseType != GamePlayer.eReleaseType.Duel && expGainPlayer != null)
@@ -1508,7 +1509,7 @@ namespace DOL.GS.ServerRules
             if (CLAIM_STATUS)
             {
                 pl.Out.SendMessage("Your Guild have claimed the " + keep.Name + " therefore you receives " + RPbonus.ToString() + " realmpoints and " + BPbonus.ToString() + " bountypoints as a bonus.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-                pl.BountyPoints += BPbonus;
+                pl.AddMoney(BountyPoints.Mint(BPbonus));
                 pl.RealmPoints += RPbonus;
             }
             if (CLAIM_LOGGING)

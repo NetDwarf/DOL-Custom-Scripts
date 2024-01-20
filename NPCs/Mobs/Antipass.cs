@@ -1,15 +1,7 @@
 using System;
-using System.Collections;
-using System.Timers;
 using DOL.GS;
-using DOL.Database;
-using DOL.GS.Scripts;
-using DOL.Events;
-using DOL.GS.PacketHandler;
-using DOL.GS.SkillHandler;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
 using DOL.AI.Brain;
+using DOL.GS.Geometry;
 
 namespace DOL.GS.Scripts
 {
@@ -51,8 +43,9 @@ namespace DOL.AI.Brain
             {
                 if (player.Client.Account.PrivLevel != 3)
                 {
-                    double angle = 0.00153248422;
-                    player.MoveTo(player.CurrentRegionID, (int)(Body.X - ((AggroRange + 10) * Math.Sin(angle * Body.Heading))), (int)(Body.Y + ((AggroRange + 10) * Math.Cos(angle * Body.Heading))), Body.Z, player.Heading);
+                    var offset = Vector.Create(Body.Orientation, length: AggroRange + 10);
+                    var pos = player.Position.With(Body.Coordinate) + offset;
+                    player.MoveTo(player.Position.With(Body.Coordinate) + offset);
                 }
             }
         }

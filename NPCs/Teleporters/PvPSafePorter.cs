@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Text;
-using System.Threading;
 using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
-
 using DOL.Events;
-using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.AI.Brain;
-using DOL.GS.SkillHandler;
-using DOL.GS;
-using DOL.GS.Scripts;
+using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
 
 using log4net;
 
@@ -39,7 +27,7 @@ namespace DOL.GS.Scripts
         public override bool Interact(GamePlayer player)
         {
             if (!base.Interact(player)) return false;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             player.Out.SendMessage("Hello " + player.Name + ", You can currently be translocated to the [PvP Safe Zone].  Number of Players Currently In the PvP Safe Zone = " + WorldMgr.GetClientsOfRegionCount(91) + " ", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
 			
             return true;
@@ -52,7 +40,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
 
             switch (str)
             {
@@ -66,7 +54,7 @@ namespace DOL.GS.Scripts
 					if (!t.InCombat)
                     {
                     SendReply(t, "I'm now translocating you to the PvP zone!");
-                    t.MoveTo(91, 31955, 30276, 15733, 35);
+                    t.MoveTo(Position.Create(regionID: 91, x: 31955, y: 30276, z: 15733, heading: 35));
 					}
 					else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
 
@@ -76,18 +64,15 @@ namespace DOL.GS.Scripts
                 default: break;
             }
             return true;
-
-
-
-
-
         }
+
         private void SendReply(GamePlayer target, string msg)
         {
             target.Client.Out.SendMessage(
                 msg,
                 eChatType.CT_Say, eChatLoc.CL_PopupWindow);
         }
+
         [ScriptLoadedEvent]
         public static void OnScriptCompiled(DOLEvent e, object sender, EventArgs args)
         {

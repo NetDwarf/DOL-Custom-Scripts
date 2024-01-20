@@ -35,93 +35,11 @@ using log4net;
 
 namespace DOL.GS.Trainer
 {
-    public class Auto : GameTrainer
+    public class Auto : DOL.GS.GameTrainer
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        #region Declarations
-        private static ItemTemplate free_epic_cloak = null; //Free Epic Cloak
-
-        private static ItemTemplate free_chain_vest = null; //Free Chain Vest
-        private static ItemTemplate free_chain_arms = null; //Free Chain Arms
-        private static ItemTemplate free_chain_legs = null; //Free Chain Legs
-        private static ItemTemplate free_chain_helm = null; //Free Chain Helm
-        private static ItemTemplate free_chain_gloves = null; //Free Chain Gloves
-        private static ItemTemplate free_chain_boots = null; //Free Chain Boots
-
-        private static ItemTemplate free_cloth_vest = null; //Free Cloth Vest
-        private static ItemTemplate free_cloth_arms = null; //Free Cloth Arms
-        private static ItemTemplate free_cloth_legs = null; //Free Cloth Legs
-        private static ItemTemplate free_cloth_helm = null; //Free Cloth Helm
-        private static ItemTemplate free_cloth_gloves = null; //Free Cloth Gloves
-        private static ItemTemplate free_cloth_boots = null; //Free Cloth Boots
-
-        private static ItemTemplate free_leather_vest = null; //Free Leather Vest
-        private static ItemTemplate free_leather_arms = null; //Free Leather Arms
-        private static ItemTemplate free_leather_legs = null; //Free Leather Legs
-        private static ItemTemplate free_leather_helm = null; //Free Leather Helm
-        private static ItemTemplate free_leather_gloves = null; //Free Leather Gloves
-        private static ItemTemplate free_leather_boots = null; //Free Leather Boots
-
-        private static ItemTemplate free_studded_vest = null; //Free Studded Vest
-        private static ItemTemplate free_studded_arms = null; //Free Studded Arms
-        private static ItemTemplate free_studded_legs = null; //Free Studded Legs
-        private static ItemTemplate free_studded_helm = null; //Free Studded Helm
-        private static ItemTemplate free_studded_gloves = null; //Free Studded Gloves
-        private static ItemTemplate free_studded_boots = null; //Free Studded Boots
-
-        private static ItemTemplate free_plate_vest = null; //Free Plate Vest
-        private static ItemTemplate free_plate_arms = null; //Free Plate Arms
-        private static ItemTemplate free_plate_legs = null; //Free Plate Legs
-        private static ItemTemplate free_plate_helm = null; //Free Plate Helm
-        private static ItemTemplate free_plate_gloves = null; //Free Plate Gloves
-        private static ItemTemplate free_plate_boots = null; //Free Plate Boots
-
-        private static ItemTemplate free_belt = null; //Free Belt
-        private static ItemTemplate free_jewel = null; //Free Jewel
-        private static ItemTemplate free_stats_ring = null; //Free Stats Ring
-        private static ItemTemplate free_overcap_ring = null; //Free Overcap Ring
-        private static ItemTemplate free_resists_bracer = null; //Free Resists Bracer
-        private static ItemTemplate free_skill_bracer = null; //Free Skill Bracer
-        private static ItemTemplate free_necklace = null; //Free Necklace
-
-        //weapons
-        private static ItemTemplate free_staff = null; //Free Caster Staff
-        private static ItemTemplate free_slash = null; //Free Slash
-        private static ItemTemplate free_thrust = null; //Free Thrust
-        private static ItemTemplate free_crush = null; //Free Crush
-        private static ItemTemplate free_axe = null; //Free Axe
-        private static ItemTemplate free_long_bow = null; //Free Long Bow
-        private static ItemTemplate free_composite_bow = null; //Free Composite Bow
-        private static ItemTemplate free_recurved_bow = null; //Free Recurved Bow
-        private static ItemTemplate free_short_bow = null; //Free Short Bow
-        private static ItemTemplate free_crossbow = null; //Free Crossbow
-        private static ItemTemplate free_twohanded_slash = null; //Free TwoHanded Slash
-        private static ItemTemplate free_twohanded_crush = null; //Free TwoHanded Crush
-        private static ItemTemplate free_twohanded_axe = null; //Free TwoHanded Axe
-        private static ItemTemplate free_twohanded_sword = null; //Free TwoHanded Sword
-        private static ItemTemplate free_twohanded_hammer = null; //Free TwoHanded Hammer
-        private static ItemTemplate free_small_shield = null; //Free Small Shield
-        private static ItemTemplate free_medium_shield = null; //Free Medium Shield
-        private static ItemTemplate free_large_shield = null; //Free Large Shield
-        private static ItemTemplate free_slash_spear = null; //Free Slash Spear
-        private static ItemTemplate free_thrust_spear = null; //Free Thrust Spear
-        private static ItemTemplate free_slash_flail = null; //Free Slash Flail
-        private static ItemTemplate free_thrust_flail = null; //Free Thrust Flail
-        private static ItemTemplate free_crush_flail = null; //Free Crush Flail
-        private static ItemTemplate free_slash_claw = null; //Free Slash Claw
-        private static ItemTemplate free_thrust_claw = null; //Free Thrust Claw
-        private static ItemTemplate free_harp = null; //Free Harp
-        private static ItemTemplate free_mauler_staff = null; //Free Mauler Staff
-        private static ItemTemplate free_mauler_fist_wrap = null; //Free Mauler Fist Wrap
-        private static ItemTemplate free_scythe = null; //Free Scythe
-        private static ItemTemplate free_crush_polearm = null; //Free Crush Polearm
-        private static ItemTemplate free_thrust_polearm = null; //Free Thrust Polearm
-        private static ItemTemplate free_slash_polearm = null; //Free Slash Polearm
-
         private static ItemTemplate mlrespectoken = null;
-
-        #endregion Declarations
 
         [ScriptLoadedEvent]
         public static void ScriptLoaded(DOLEvent e, object sender, EventArgs args)

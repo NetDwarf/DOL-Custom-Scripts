@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Text;
-using System.Threading;
 using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
-
 using DOL.Events;
-using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.AI.Brain;
-using DOL.GS.SkillHandler;
-using DOL.GS;
-using DOL.GS.Scripts;
+using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
 
 using log4net;
 
@@ -36,7 +24,7 @@ namespace DOL.GS.Scripts
         public override bool Interact(GamePlayer player)
         {
             if (!base.Interact(player)) return false;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             player.Out.SendMessage("Hello " + player.Name + ", You can currently be translocated to the [PvP zone].  Number of Players Currently In the PvP Zone = " + WorldMgr.GetClientsOfRegionCount(51) + " ", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
             player.Bind(true);
 
@@ -50,35 +38,24 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
 
             switch (str)
             {
-
-
-
                 #region PvP Zone
-
-
                 case "PvP BuffArea":
                     SendReply(t,
                         "" + t.Name + ", are you sure you wish to go to the [PvP zone]?");
                     break;
                 case "PvP zone":
                     SendReply(t, "I'm now translocating you to the PvP zone!");
-                    t.MoveTo(51, 476642, 461501, 4200, 35);
-
-
+                    t.MoveTo(Position.Create(regionID: 51, x: 476642, y: 461501, z: 4200, heading: 35));
                     break;
                 #endregion PvP Zone
 
                 default: break;
             }
             return true;
-
-
-
-
 
         }
         private void SendReply(GamePlayer target, string msg)

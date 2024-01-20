@@ -672,11 +672,7 @@ namespace DOL.GS.Scripts
 
                 if (cloneIsNewMob)
                 {
-                    clone.CurrentRegion = player.CurrentRegion;
-                    clone.X = player.X;
-                    clone.Y = player.Y;
-                    clone.Z = player.Z;
-                    clone.Heading = player.Heading;
+                    clone.Position = player.Position;
                     clone.AddToWorld();
                 }
             }

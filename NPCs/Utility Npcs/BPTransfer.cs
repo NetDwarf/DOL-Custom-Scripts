@@ -74,7 +74,7 @@ using log4net;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 using DOL.GS;
-
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -198,7 +198,7 @@ namespace DOL.GS.Scripts
 			if (!base.Interact(player))
 				return false;
 
-			TurnTo(player.X, player.Y);
+			TurnTo(player.Coordinate);
 			StringBuilder sb = new StringBuilder();
 			sb.Append("Hello ").Append(player.Name).Append(",\n");
 			sb.Append("I can transfer some things to another char.\n");
@@ -281,9 +281,9 @@ namespace DOL.GS.Scripts
 			public override bool WhisperReceive(GameLiving source, string text)
 			{
 				GamePlayer player = source as GamePlayer;
-				if ( player == null )
-					return false;
-				long costs = BP_COSTS[player.RealmLevel/10];
+				if ( player == null ) return false;
+
+                var price = Currency.BountyPoints.Mint(BP_COSTS[player.RealmLevel/10]);
 	
 				// check if already got an /whisper CHARNAME, this works also for charname='Yes'
 				if ( !m_chars.ContainsKey(player) )
@@ -299,8 +299,8 @@ namespace DOL.GS.Scripts
 								sb.Append("This transfer is for free.\n");
 							else
 							{
-								sb.Append("It costs ").Append(costs).Append(" bountypoints\n");
-								if ( player.BountyPoints < costs )
+								sb.Append("It costs ").Append(price.Amount).Append(" bountypoints\n");
+								if ( player.BountyPointBalance < price.Amount )
 								{
 									if ( IsLogging ) Log(player, "ABORT: fromchar="+player.Name+" tochar="+character.Name+" Reason=Not enough BP");
 									return Returning(player, sb.Append("But you dont have enough bountypoints").ToString(), false);
@@ -352,7 +352,7 @@ namespace DOL.GS.Scripts
 						return Returning(player, "The receiving character already have RP/BP!\nTry another character\n", true);
 					}
 					// Costs?
-					if ( COSTS_BOUNTY && (costs > player.BountyPoints) && !IsFreeUsageReady(player) )
+					if ( COSTS_BOUNTY && (price.Amount > player.BountyPointBalance) && !IsFreeUsageReady(player) )
 					{
 						if ( IsLogging ) Log(player, "ABORT: fromchar="+fromchar.Name+" tochar="+tochar.Name+" Reason=Not enough BP");
 						return Returning(player, "But you dont have enough bountypoints and for now no free transfer ready.\nCome back if you have enough!\n", true);
@@ -365,7 +365,7 @@ namespace DOL.GS.Scripts
 						if ( IsFreeUsageReady(player) )
 							senderDolCharacter.LastFreeLeveled = DateTime.Now;
 						else
-							player.BountyPoints -= costs;
+							player.RemoveMoney(price);
 					}
 					#endregion
 					
@@ -386,7 +386,7 @@ namespace DOL.GS.Scripts
 					if ( TRANSFER_BOUNTY )
 					{
 						tochar.BountyPoints += fromchar.BountyPoints;
-						player.BountyPoints = 0;
+                        fromchar.BountyPoints = 0;
 					}
 					#endregion
 					
@@ -429,7 +429,7 @@ namespace DOL.GS.Scripts
                         {
                             if (TRANSFER_BOUNTY)
                             {
-                                character.BountyPoints = player.BountyPoints;
+                                character.BountyPoints = player.BountyPointBalance;
                             }
                             if (TRANSFER_REALM)
                             {

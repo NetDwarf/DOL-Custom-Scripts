@@ -8,6 +8,7 @@ using DOL.Events;
 using DOL.Database;
 using System.Collections;
 using DOL.GS.PacketHandler;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -32,19 +33,20 @@ namespace DOL.GS.Scripts
             GamePlayer player = (GamePlayer)source;
 
             long amount = long.Parse(str);
-            if (player.BountyPoints >= amount)
+            var bps = Currency.BountyPoints.Mint(amount);
+            if (player.GetBalance(Currency.BountyPoints).Amount >= bps.Amount)
             {
                 if (Util.Chance(50))
                 {
                     SendReply(player, "You have doubled your bounty points and gain " + amount + " plus the money you just bet!");
-                    player.GainBountyPoints(amount);
+                    player.AddMoney(bps);
                     bpWon += amount;
                     Emote(eEmote.Cheer);
                 }
                 else
                 {
                     SendReply(player, ":( You lose " + amount + " bounty points");
-                    player.RemoveBountyPoints(amount);
+                    player.RemoveMoney(bps);
                     bpLost += amount;
                     Emote(eEmote.Cry);
                 }

@@ -4,6 +4,7 @@ using DOL.GS.PacketHandler;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.Language;
+using DOL.GS.Profession;
 
 // Merchants for Labyrinth Weapons, For use for all DOL Members.
 // For use with Labyrinth Weapons made by Deathwish.
@@ -50,7 +51,7 @@ namespace DOL.GS.Scripts
             RespawnInterval = 2000;
             MaxSpeedBase = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("AlbLabWeaps");
+            Catalog = MerchantCatalog.Create("AlbLabWeaps");
 
             return base.AddToWorld();
         }
@@ -85,7 +86,7 @@ namespace DOL.GS.Scripts
             RespawnInterval = 2000;
             MaxSpeedBase = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("HibLabWeaps");
+            Catalog = MerchantCatalog.Create("HibLabWeaps");
 
             return base.AddToWorld();
         }
@@ -122,7 +123,7 @@ namespace DOL.GS.Scripts
             RespawnInterval = 2000;
             MaxSpeedBase = 0;
             Flags |= eFlags.PEACE;
-            TradeItems = new MerchantTradeItems("MidLabWeaps");
+            Catalog = MerchantCatalog.Create("MidLabWeaps");
 
             return base.AddToWorld();
         }

@@ -107,7 +107,6 @@ namespace DOL.GS.Scripts
             }
             else
             {
-                rewardrp = (rewardrp);
                // rewardrp = (rewardrp + bonus);// bonus not working correctly
             }
 
@@ -204,11 +203,12 @@ namespace DOL.GS.Scripts
 
             base.StartAttack(attackTarget);
         }
-        public void SwitchToMelee(GameObject target)
-        {
-            SwitchWeapon(eActiveWeaponSlot.Standard);
-            this.Health = this.MaxHealth;
-        }
+        /// does nothing
+        // public void SwitchToMelee(GameObject target)
+        // {
+        //     SwitchWeapon(eActiveWeaponSlot.Standard);
+        //     this.Health = this.MaxHealth;
+        // }
     }
 }
 

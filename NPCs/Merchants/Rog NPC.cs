@@ -8,6 +8,8 @@ using DOL.Database;
 using DOL.GS.PacketHandler;
 
 using log4net;
+using DOL.GS.Finance;
+
 namespace DOL.GS
 {
     public enum eSlot
@@ -51,7 +53,7 @@ namespace DOL.GS
         {
             TurnTo(player, 500);
             string str = "Hello, I sell ROG for BP! Choose which object you wish to create!\n\n";
-            if (player.BountyPoints < 100)
+            if (player.GetBalance(Currency.BountyPoints).Amount < 100)
             {
                 str += "It seems you do not have enough BP to use my service, you need atleast 100!";
                 SendReply(player,str);
@@ -119,7 +121,7 @@ namespace DOL.GS
                 case "Chest":
                     slot = eSlot.TORSO;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -127,7 +129,7 @@ namespace DOL.GS
                 case "Helm":
                     slot = eSlot.HELM;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -135,7 +137,7 @@ namespace DOL.GS
                 case "Arms":
                     slot = eSlot.ARMS;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -143,7 +145,7 @@ namespace DOL.GS
                 case "Hands":
                     slot = eSlot.HANDS;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -151,7 +153,7 @@ namespace DOL.GS
                 case "Legs":
                     slot = eSlot.LEGS;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -159,7 +161,7 @@ namespace DOL.GS
                 case "Boots":
                     slot = eSlot.FEET;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -167,7 +169,7 @@ namespace DOL.GS
                 case "One Handed":
                     slot = eSlot.RIGHTHAND;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -175,7 +177,7 @@ namespace DOL.GS
                 case "Left Handed":
                     slot = eSlot.LEFTHAND;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
@@ -183,18 +185,17 @@ namespace DOL.GS
                 case "Two Handed":
                     slot = eSlot.TWOHAND;
                     type = player.TempProperties.getProperty<eObjectType>(ROG_OBJECT_TYPE);
-                    if (type != null)
+                    if (type != (eObjectType)0)
                     {
                         GenerateROG(player, type, slot);
                     }
-                    break;
                     break;
             }
             return base.WhisperReceive(source, text);
         }
         public void GenerateROG(GamePlayer player, eObjectType objectType, eSlot slot)
         {
-            player.RemoveBountyPoints(100);
+            player.RemoveMoney(Currency.BountyPoints.Mint(100));
             GameNPC mob = new GameNPC();
             mob.Name = "Unique Object";
             mob.CurrentRegionID = 1;
@@ -211,14 +212,13 @@ namespace DOL.GS
 
             mob.Level = 60;
             mob.Name = "TOA Mob";
-            mob.CurrentRegionID = 30;
-            mob.Z = 9999;
+            mob.Position = mob.Position.With(regionID: 30, z: 9999);
             lootlist.AddFixed(LootGeneratorUniqueObject.GenerateUniqueItem(mob, player, item), 1);
             foreach (ItemUnique unique in lootlist.GetLoot())
             {
                 unique.Price = 0;
                 GameServer.Database.AddObject(unique);
-                InventoryItem invitem = GameInventoryItem.Create<ItemUnique>(unique);
+                InventoryItem invitem = GameInventoryItem.Create(unique);
                 player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, invitem);
                 player.Out.SendMessage("Generated: " + unique.Name, eChatType.CT_System, eChatLoc.CL_SystemWindow);
             }

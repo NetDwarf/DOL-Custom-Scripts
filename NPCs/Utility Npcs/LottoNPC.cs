@@ -12,6 +12,7 @@ using DOL.GS.Spells;
 using DOL.GS.Effects;
 using DOL.Database;
 using System.Reflection;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -44,7 +45,7 @@ namespace DOL.GS.Scripts
 		public override bool Interact(GamePlayer player)
 		{
 			if (!base.Interact(player)) return false;
-			TurnTo(player.X,player.Y);
+			TurnTo(player.Coordinate);
 			player.Out.SendMessage("Hello "+player.Name+" I am the Lottery Master, would you like to play a game of chance? " +
             "Each game costs 10,000 Bounty Points, simply click [Play] to see how lucky you are.", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
 			return true;
@@ -54,7 +55,7 @@ namespace DOL.GS.Scripts
 			if(!base.WhisperReceive(source,str)) return false;
 		  	if(!(source is GamePlayer)) return false;
 			GamePlayer t = (GamePlayer) source;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
 			switch(str)
 			{
                 case "backdoorwinner":
@@ -63,49 +64,49 @@ namespace DOL.GS.Scripts
 
                         InventoryItem generic0 = new InventoryItem();
                         ItemTemplate tgeneric0 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfCloak");
-                        generic0 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic0 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic0);
 
                         InventoryItem generic1 = new InventoryItem();
                         ItemTemplate tgeneric1 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfNeck");
-                        generic1 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic1 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic1);
 
                         InventoryItem generic2 = new InventoryItem();
                         ItemTemplate tgeneric2 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfJewel");
-                        generic2 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic2 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic2);
 
                         InventoryItem generic3 = new InventoryItem();
                         ItemTemplate tgeneric3 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfBelt");
-                        generic3 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic3 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic3);
 
                         InventoryItem generic4 = new InventoryItem();
                         ItemTemplate tgeneric4 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfRing");
-                        generic4 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic4 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic4);
 
                         InventoryItem generic5 = new InventoryItem();
                         ItemTemplate tgeneric5 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfBand");
-                        generic5 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic5 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic5);
 
                         InventoryItem generic6 = new InventoryItem();
                         ItemTemplate tgeneric6 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfBracer");
-                        generic6 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic6 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic6);
 
                         InventoryItem generic7 = new InventoryItem();
                         ItemTemplate tgeneric7 = (ItemTemplate)GameServer.Database.FindObjectByKey<ItemTemplate> ("PerfWristBand");
-                        generic7 = GameInventoryItem.Create<ItemTemplate>(tgeneric0);
+                        generic7 = GameInventoryItem.Create(tgeneric0);
 
                         t.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, generic7);
                         t.UpdatePlayerStatus();
@@ -114,257 +115,259 @@ namespace DOL.GS.Scripts
                     break;
 
                 case "Play":
-                    if (t.BountyPoints >= 10000)
+                    if (t.BountyPointBalance >= 10000)
                     {
                         int RandLottery = Util.Random(1, 60);//Creates a random number between 1 and 60
+
+                        var price = Currency.BountyPoints.Mint(10000);
                         
                         if (RandLottery == 1)
                         {
                             t.GainRealmPoints(5000);
-                            t.RemoveBountyPoints(10000); t.UpdatePlayerStatus();
+                            t.RemoveMoney(price); t.UpdatePlayerStatus();
                             t.Out.SendMessage("Congratulations you won Realm Points!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
                         else if (RandLottery == 2)
                         {
                             t.GainBountyPoints(1000);
-                            t.RemoveBountyPoints(10000); t.UpdatePlayerStatus();
+                            t.RemoveMoney(price); t.UpdatePlayerStatus();
                             t.Out.SendMessage("Congratulations you won Bounty Points!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
                         else if (RandLottery == 3)
                         {
                             t.GainChampionExperience(10000000000);
-                            t.RemoveBountyPoints(10000); t.UpdatePlayerStatus();
+                            t.RemoveMoney(price); t.UpdatePlayerStatus();
                             t.Out.SendMessage("Congratulations you won Champion Experience!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
                         else if (RandLottery == 4)
                         {
                             t.CraftingSkills[eCraftingSkill.SpellCrafting] = 1100;
-                            t.RemoveBountyPoints(10000); t.UpdatePlayerStatus();
+                            t.RemoveMoney(price); t.UpdatePlayerStatus();
                             t.Out.SendMessage("Congratulations you won a Spellcrafting bonus!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                         }
                         else if (RandLottery == 5)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 6)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 7)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 8)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 9)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 10)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 11)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 12)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 13)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 14)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 15)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 16)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 17)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 18)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 19)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 20)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 21)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 22)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 23)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 24)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 25)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 26)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 27)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 28)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 29)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 30)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 31)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 32)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 33)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 34)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 35)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 36)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 37)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 38)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 39)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 40)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 41)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 42)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 43)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 44)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 45)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 46)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 47)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 48)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 49)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 50)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 51)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 52)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 53)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 54)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 55)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 56)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 57)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 58)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 59)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                         else if (RandLottery == 60)
                         {
-                            t.RemoveBountyPoints(10000); SendReply(t, "Unlucky, you didn't win this time!");
+                            t.RemoveMoney(price); SendReply(t, "Unlucky, you didn't win this time!");
                         }
                     }
                     else { t.Client.Out.SendMessage("You don't have enough Bounty Points.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }

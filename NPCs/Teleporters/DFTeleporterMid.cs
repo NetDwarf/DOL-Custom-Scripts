@@ -1,5 +1,5 @@
 using System;
-using DOL.GS;
+using DOL.GS.Geometry;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
@@ -34,7 +34,7 @@ namespace DOL.GS.Scripts
 			{
 				case "Farm":
                         Say("I'm now teleporting you to Darkness Falls");
-                        t.MoveTo(249, 18093, 18681, 22893, 1024);
+                        t.MoveTo(Position.Create(regionID: 249, x: 18093, y: 18681, z: 22893, heading: 1024));
                         break;
 
                 default: break;

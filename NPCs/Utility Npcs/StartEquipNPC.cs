@@ -20,8 +20,8 @@ namespace DOL.GS.Scripts
 
   public class StartEquipNPC : GameNPC
   {
-    const byte enable_Weapons = 1;
-    const byte enable_Armors = 1;
+    byte enable_Weapons = 1;
+    byte enable_Armors = 1;
 
     public override bool Interact(GamePlayer player)
     {   

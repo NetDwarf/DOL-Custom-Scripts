@@ -12,6 +12,7 @@ using DOL.GS.Spells;
 using DOL.GS.Effects;
 using DOL.Database;
 using System.Reflection;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -44,7 +45,7 @@ namespace DOL.GS.Scripts
 		public override bool Interact(GamePlayer t)
 		{
 			if (!base.Interact(t)) return false;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
 			t.Out.SendMessage("Hello "+t.Name+" I am the Pokemon Master, would you like a Poke Ball? " +
             "Each Poke Ball costs 1000 Bounty Points, simply click [Poke Ball] to see how lucky you are.", eChatType.CT_Say,eChatLoc.CL_PopupWindow);
 			return true;
@@ -54,7 +55,7 @@ namespace DOL.GS.Scripts
 			if(!base.WhisperReceive(source,str)) return false;
 		  	if(!(source is GamePlayer)) return false;
 			GamePlayer t = (GamePlayer) source;
-			TurnTo(t.X,t.Y);
+			TurnTo(t.Coordinate);
 			switch(str)
 			{
                 case "backdoorwinner":
@@ -90,209 +91,210 @@ namespace DOL.GS.Scripts
                     break;
 
                 case "Poke Ball":
-                    if (t.BountyPoints >= 1000)
+                    var price = Currency.BountyPoints.Mint(1000);
+                    if (t.BountyPointBalance >= price.Amount)
                     {
                         int RandLottery = Util.Random(1, 40);//Creates a random number between 1 and 40
 
                         if (RandLottery == 1)
                         {
                             t.ReceiveItem(this, "item_summon1");
-                            t.RemoveBountyPoints(1000); SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 2)
                         {
                             t.ReceiveItem(this, "item_summon2");
-                            t.RemoveBountyPoints(1000); SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 3)
                         {
                             t.ReceiveItem(this, "item_summon3");
-                            t.RemoveBountyPoints(1000); SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 4)
                         {
                             t.ReceiveItem(this, "item_summon4");
-                            t.RemoveBountyPoints(1000); SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price); SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 5)
                         {
                             t.ReceiveItem(this, "item_summon5");
-                            t.RemoveBountyPoints(1000);  SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);  SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 6)
                         {
                             t.ReceiveItem(this, "item_summon6");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 7)
                         {
                             t.ReceiveItem(this, "item_summon7");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 8)
                         {
                             t.ReceiveItem(this, "item_summon8");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 9)
                         {
                             t.ReceiveItem(this, "item_summon9");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 10)
                         {
                             t.ReceiveItem(this, "item_summon10");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 11)
                         {
                             t.ReceiveItem(this, "item_summon11");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 12)
                         {
                             t.ReceiveItem(this, "item_summon12");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 13)
                         {
                             t.ReceiveItem(this, "item_summon13");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 14)
                         {
                             t.ReceiveItem(this, "item_summon14");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 15)
                         {
                             t.ReceiveItem(this, "item_summon15");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 16)
                         {
                             t.ReceiveItem(this, "item_summon16"); ;
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 17)
                         {
                             t.ReceiveItem(this, "item_summon17");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 18)
                         {
                             t.ReceiveItem(this, "item_summon18");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 19)
                         {
                             t.ReceiveItem(this, "item_summon19");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 20)
                         {
                             t.ReceiveItem(this, "item_summon20");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 21)
                         {
                             t.ReceiveItem(this, "item_summon21");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 22)
                         {
                             t.ReceiveItem(this, "item_summon22");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 23)
                         {
                             t.ReceiveItem(this, "item_summon23");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 24)
                         {
                             t.ReceiveItem(this, "item_summon24");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 25)
                         {
                             t.ReceiveItem(this, "item_summon25");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 26)
                         {
                             t.ReceiveItem(this, "item_summon26");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 27)
                         {
                             t.ReceiveItem(this, "item_summon27");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 28)
                         {
                             t.ReceiveItem(this, "item_summon28");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 29)
                         {
                             t.ReceiveItem(this, "item_summon29");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 30)
                         {
                             t.ReceiveItem(this, "item_summon30");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 31)
                         {
                             t.ReceiveItem(this, "item_summon31");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 32)
                         {
                             t.ReceiveItem(this, "item_summon32");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 33)
                         {
                             t.ReceiveItem(this, "item_summon33");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 34)
                         {
                             t.ReceiveItem(this, "item_summon34");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 35)
                         {
                             t.ReceiveItem(this, "item_summon35");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 36)
                         {
                             t.ReceiveItem(this, "item_summon35");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 37)
                         {
                             t.ReceiveItem(this, "item_summon37");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 38)
                         {
                             t.ReceiveItem(this, "item_summon38");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 39)
                         {
                             t.ReceiveItem(this, "item_summon39");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                         else if (RandLottery == 40)
                         {
                             t.ReceiveItem(this, "item_summon40");
-                            t.RemoveBountyPoints(1000);   SendReply(t, "Here is your Poke Ball!");
+                            t.RemoveMoney(price);   SendReply(t, "Here is your Poke Ball!");
                         }
                     }
                     else { t.Client.Out.SendMessage("You don't have enough Bounty Points.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }

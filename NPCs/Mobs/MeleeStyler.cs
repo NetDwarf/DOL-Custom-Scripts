@@ -9,6 +9,7 @@ using DOL.GS.PacketHandler;
 using DOL.GS.Styles;
 using DOL.GS.Effects;
 using DOL.Database;
+using DOL.GS.Geometry;
 
 namespace DOL.AI.Brain
 {
@@ -67,29 +68,25 @@ namespace DOL.AI.Brain
                 if (m_style != null && m_style.OpeningRequirementType == Style.eOpening.Positional)
                 {
                     float angle = target.Coordinate.GetOrientationTo(Body.Coordinate).InDegrees;
-                    Point2D positionalPoint;
 
                     switch (m_style.OpeningRequirementValue)
                     {
                         case (int)Style.eOpeningPosition.Front:
                             if (!(angle >= 315 || angle < 45))
                             {
-                                positionalPoint = target.GetPointFromHeading(Body.Heading, 65);
-                                Body.WalkTo(positionalPoint.X, positionalPoint.Y, target.Z, 1250);
+                                Body.WalkTo(target.Coordinate + Vector.Create(Body.Orientation, 65), 1250);
                             }
                             break;
                         case (int)Style.eOpeningPosition.Side:
                             if (!(angle >= 45 && angle < 150) && !(angle >= 210 && angle < 315))
                             {
-                                positionalPoint = target.GetPointFromHeading((ushort)(target.Heading + (110.0 * (4096.0 / 360.0))), 65);
-                                Body.WalkTo(positionalPoint.X, positionalPoint.Y, target.Z, 1250);
+                                Body.WalkTo(target.Coordinate + Vector.Create(Body.Orientation + Angle.Degrees(110), 65), 1250);
                             }
                             break;
                         case (int)Style.eOpeningPosition.Back:
                             if (!(angle >= 150 && angle < 210))
                             {
-                                positionalPoint = target.GetPointFromHeading((ushort)((target.Heading + 2048) & 0xFFF), 65);
-                                Body.WalkTo(positionalPoint.X, positionalPoint.Y, target.Z, 1250);
+                                Body.WalkTo(target.Coordinate + Vector.Create(Body.Orientation + Angle.Degrees(180), 65), 1250);
                             }
                             break;
                     }

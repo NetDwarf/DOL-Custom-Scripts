@@ -30,7 +30,7 @@ using DOL.Database;
 using DOL.Events;
 using DOL.GS.Spells;
 using DOL.GS.Effects;
-
+using DOL.GS.Geometry;
 
 namespace DOL.GS
 {
@@ -99,20 +99,14 @@ namespace DOL.AI.Brain
             {
                 Body.TargetObject = null;
                 //if (WorldMgr.GetDistance(Body.SpawnX, Body.SpawnY, Body.SpawnZ, Body.X, Body.Y, Body.Z) > 1000)
-				if (Body.SpawnPosition.Coordinate.DistanceTo(Body.Coordinate) > 1000)
-                    Body.WalkToSpawn();
-                else
-                    Body.WalkTo((Body.X - Util.Random(1, 100)), (Body.Y - Util.Random(1, 100)), Body.Z, 80);
+				if (Body.SpawnPosition.Coordinate.DistanceTo(Body.Coordinate) > 1000) Body.WalkToSpawn();
+                else Body.WalkTo(Body.Coordinate - Vector.Create(x: Util.Random(1,100), y: Util.Random(1, 100)), 80);
             }
         }
 
         public void TheWalk(GamePlayer target, GameNPC cat)
         {
-            int tx, ty;
-
-            tx = target.GetPointFromHeading(this.Body.Heading, 30).X;
-            ty = target.GetPointFromHeading(this.Body.Heading, 30).Y;
-            cat.WalkTo(tx, ty, target.Z, 80);
+            cat.WalkTo(target.Coordinate + Vector.Create(target.Orientation, 30), 80);
         }
 
         public void ArriveAt(DOLEvent e, object sender, EventArgs arguments)
@@ -199,29 +193,29 @@ namespace DOL.AI.Brain
                 {
                     case 1:
                         foreach (GamePlayer p in npc.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
-                            p.Out.SendSoundEffect(2564, p.CurrentRegionID, (ushort)npc.X, (ushort)npc.Y, (ushort)npc.Z, 100);
+                            p.Out.SendSoundEffect(2564, npc.Position, 100);
                         break;
 
                     case 2:
                         foreach (GamePlayer p in npc.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
-                            p.Out.SendSoundEffect(2565, p.CurrentRegionID, (ushort)npc.X, (ushort)npc.Y, (ushort)npc.Z, 100);
+                            p.Out.SendSoundEffect(2565, npc.Position, 100);
                         break;
 
                     case 3:
                         foreach (GamePlayer p in npc.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
-                            p.Out.SendSoundEffect(2566, p.CurrentRegionID, (ushort)npc.X, (ushort)npc.Y, (ushort)npc.Z, 100);
+                            p.Out.SendSoundEffect(2566, npc.Position, 100);
                         break;
 
                     case 4:
                         foreach (GamePlayer p in npc.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
                         {
                             p.Out.SendMessage("The little zombie bites", eChatType.CT_Emote, eChatLoc.CL_ChatWindow);
-                            p.Out.SendSoundEffect(2555, p.CurrentRegionID, (ushort)npc.X, (ushort)npc.Y, (ushort)npc.Z, 100);
+                            p.Out.SendSoundEffect(2555, npc.Position, 100);
                         }
                         break;
                     case 5:
                         foreach (GamePlayer p in npc.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
-                            p.Out.SendSoundEffect(2564, p.CurrentRegionID, (ushort)npc.X, (ushort)npc.Y, (ushort)npc.Z, 100);
+                            p.Out.SendSoundEffect(2564, npc.Position, 100);
                         break;
                 }
 

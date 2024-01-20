@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Text;
-using System.Threading;
 using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
-
 using DOL.Events;
-using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.AI.Brain;
-using DOL.GS.SkillHandler;
-using DOL.GS;
-using DOL.GS.Scripts;
+using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
-
 using log4net;
 
 namespace DOL.GS.Scripts
@@ -39,7 +26,7 @@ namespace DOL.GS.Scripts
         public override bool Interact(GamePlayer player)
         {
             if (!base.Interact(player)) return false;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             player.Out.SendMessage("Hello " + player.Name + ", You can currently be translocated to your [BPFarm Zone].  Number of Players Currently In your BPFarm Zone = " + WorldMgr.GetClientsOfRegionCount(249) + " ", eChatType.CT_Say, eChatLoc.CL_PopupWindow);
             player.Bind(true);
 
@@ -53,7 +40,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y);
+            TurnTo(t.Coordinate);
 
             switch (str)
             {
@@ -67,7 +54,7 @@ namespace DOL.GS.Scripts
 					if (!t.InCombat)
                     {
                     SendReply(t, "I'm now translocating you to the BPFarm zone!");
-                    t.MoveTo(249, 47260, 49577, 20831, 35);
+                    t.MoveTo(Position.Create(regionID: 249, x: 47260, y: 49577, z: 20831, heading: 35));
 					}
 					else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
 

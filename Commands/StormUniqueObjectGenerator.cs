@@ -84,7 +84,7 @@ namespace DOL.GS
                                 mob.Level = 60;
                                 mob.Name = "TOA Mob";
                                 mob.CurrentRegionID = 30;
-                                mob.Z = 9999;
+                                mob.Position = mob.Position.With(z: 9999);
                             }
                             else if (Convert.ToString(args[1]).ToUpper() == "L51")
                             {
@@ -106,7 +106,7 @@ namespace DOL.GS
                     foreach (ItemUnique item in lootlist.GetLoot())
                     {
                         GameServer.Database.AddObject(item);
-                        InventoryItem invitem = GameInventoryItem.Create<ItemUnique>(item);
+                        InventoryItem invitem = GameInventoryItem.Create(item);
                         client.Player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, invitem);
                         client.Player.Out.SendMessage("Generated: " + item.Name, eChatType.CT_System, eChatLoc.CL_SystemWindow);
                     }
@@ -240,7 +240,7 @@ namespace DOL.GS
             item.MaxDurability = condition;
 
             item.Weight = GenerateItemWeight((eObjectType)item.Object_Type, (eInventorySlot)item.Item_Type, item);
-            item.Price = Money.SetAutoPrice(item.Level, item.Quality);
+            item.Price = SetAutoPrice(item.Level, item.Quality);
             item.Description = mob.Name;
             item.PackageID = "rog";
 
@@ -279,6 +279,13 @@ namespace DOL.GS
 
             return item;
         }
+
+        public static long SetAutoPrice(int level, int quality)
+		{
+			double dCopper = (Math.Pow(level, 3) / 0.6) * Math.Pow(quality / 100.0, 5); // level 50, 100 quality; worth aprox 20 gold, sells for 10 gold
+            dCopper = Math.Max(dCopper, 2);
+			return (long)dCopper;
+		}
 
         public static InventoryItem GenerateFreeEquipment(eInventorySlot slot, eObjectType type, byte level, GamePlayer player, eDamageType damage)
         {
@@ -373,7 +380,7 @@ namespace DOL.GS
             item.Price = 1;
 
             GameServer.Database.AddObject(item);
-            return GameInventoryItem.Create<ItemUnique>(item);
+            return GameInventoryItem.Create(item);
         }
 
         private static eObjectType GenerateObjectType(int realm, int level)
@@ -2497,19 +2504,6 @@ namespace DOL.GS
                 case eProperty.Skill_Cross_Bows:
                     {
                         return false; // disabled for armor
-
-                        if (level < 15)
-                        {
-                            if (type == eObjectType.Chain)
-                                return true;
-                            return false;
-                        }
-                        else
-                        {
-                            if (type == eObjectType.Plate)
-                                return true;
-                            return false;
-                        }
                     }
                 case eProperty.Skill_Crushing:
                     {

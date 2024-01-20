@@ -26,6 +26,7 @@ using DOL;
 using DOL.GS;
 using DOL.Events;
 using System.Collections;
+using DOL.GS.Geometry;
 
 namespace DOL.GS
 {
@@ -38,16 +39,13 @@ namespace DOL.GS
 
         static int numberOfChests = 15;
 
-        static int startX = 556779;
-        static int startY = 557287;
         static int radius = 10000;
+        static Position defaultSpawnPosition = Position.Create(regionID: 235, x: 556779, y: 557287, z: 10000, heading: 13);
 
-        static ushort currentregionID = 235;
         string targetName = "";
 
         IList<ItemTemplate> rewards;
 
-        IList<GamePlayer> players;
         public TreasureChest(IList<ItemTemplate> items)
             : base(minutesToDecay * 60 * 1000)
         {
@@ -81,7 +79,7 @@ namespace DOL.GS
                         current += 1;
                     }
                 }
-                InventoryItem item = GameInventoryItem.Create<ItemTemplate>(array[Util.Random(0, array.Length - 2)]);
+                InventoryItem item = GameInventoryItem.Create(array[Util.Random(0, array.Length - 2)]);
                 if (item != null)
                 {
                     if (player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, item))
@@ -103,7 +101,7 @@ namespace DOL.GS
 
 
         }
-        public virtual bool Interact(GamePlayer player)
+        public override bool Interact(GamePlayer player)
         {
             if (!this.IsWithinRadius(player, WorldMgr.INTERACT_DISTANCE, true))
                 return false;
@@ -236,11 +234,7 @@ namespace DOL.GS
             {
                 TreasureChest chest = new TreasureChest(items);
                 //15k
-                chest.X = Util.Random(startX - radius, startX + radius);
-                chest.Y = Util.Random(startY - radius, startY + radius);
-                chest.Z = 10000;
-                chest.Heading = 13;
-                chest.CurrentRegionID = currentregionID;
+                chest.Position = defaultSpawnPosition + Vector.Create(x: Util.Random(-radius, radius), y: Util.Random(-radius, radius));
                 chest.Model = 1596;
                 chest.AddToWorld();
             }

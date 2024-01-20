@@ -21,7 +21,7 @@ namespace DOL.GS.Scripts
         {
             TurnTo(player, 500);
             string str = "Hello, I sell add stats to your armor for BP! \n \n \n";
-            if (player.BountyPoints < 300)
+            if (player.BountyPointBalance < 300)
             {
                 str += "It seems you do not have enough BP to use my service, you need atleast 300!";
             }
@@ -172,7 +172,7 @@ namespace DOL.GS.Scripts
             }
             Console.WriteLine("3");
             GameServer.Database.AddObject(unique);
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             SendReply(player, "I have now imbued your " + unique.Name + " with the power of " + propertyName + "!");
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });

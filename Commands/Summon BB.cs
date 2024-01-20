@@ -75,14 +75,13 @@ namespace DOL.GS.Commands
             #endregion Command timer
             
             #region Command spell Loader   
-		if (client.Player.BountyPoints >= 0) // how many bps are need to summon the buffbot
+		if (client.Player.BountyPointBalance >= 0) // how many bps are need to summon the buffbot
 		{
 
             var line = new SpellLine("BuffBotCast", "BuffBot Cast", "unknown", false);
             var spellHandler = ScriptMgr.CreateSpellHandler(client.Player, BuffBotSpell, line);
             if (spellHandler != null)
                 spellHandler.StartSpell(client.Player);
-			client.Player.RemoveBountyPoints(0); // removes the amount of bps from the player
             client.Player.Out.SendMessage("You have summoned a Buffbot!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
             client.Player.SaveIntoDatabase(); // saves new amount of bps
             client.Player.Out.SendUpdatePlayer(); // updates players bp
@@ -1042,7 +1041,7 @@ namespace DOL.GS.Spells
                     Npc = new GameNPC();
                     Npc = (GameNPC) Assembly.GetAssembly(typeof (GameServer)).CreateInstance(template.ClassType, false);
                 }
-                catch (Exception e)
+                catch
                 {
                 }
                 if (Npc == null)
@@ -1051,7 +1050,7 @@ namespace DOL.GS.Spells
                     {
                         Npc = (GameNPC) Assembly.GetExecutingAssembly().CreateInstance(template.ClassType, false);
                     }
-                    catch (Exception e)
+                    catch
                     {
                     }
                 }

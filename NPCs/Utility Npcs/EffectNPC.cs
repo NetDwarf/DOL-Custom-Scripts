@@ -18,6 +18,7 @@ using DOL.Database;
 using System.Collections;
 using DOL.GS.PacketHandler;
 using DOL.Database.UniqueID;
+using System.Linq;
 
 namespace DOL.GS
 {
@@ -25,16 +26,8 @@ namespace DOL.GS
     public class EffectNPC : GameNPC
     {
         private string EFFECTNPC_ITEM_WEAK = "DOL.GS.Scripts.EffectNPC_Item_Manipulation";//used to store the item in the player
-        private string Prefix0 = "Purified";//Prefix for Effect Remover
-        private string Prefix1 = "Glowing ";//25% Chance for each Prefix when effect is applied
-        private string Prefix2 = "Sparkling ";//25% Chance for each Prefix when effect is applied
-        private string Prefix3 = "Flaming ";//25% Chance for each Prefix when effect is applied
-        private string Prefix4 = "Arcing ";//25% Chance for each Prefix when effect is applied
-        private string Prefix5 = "Polished ";//Prefix for Speed change
-        private string Prefix6 = "Dyed ";//Prefix for dyeing
         private ushort spell = 7215;//The spell which is casted
         private ushort duration = 3000;//3s, the duration the spell is cast
-        private int Chance;//Chance for Prefixes
         private Random rnd = new Random();//Randomness 4 teh win
         private eEmote Emotes = eEmote.Raise;//The Emote the NPC does when Interacted
         private Queue m_timer = new Queue();//Gametimer for casting some spell at the end of the process
@@ -88,7 +81,6 @@ namespace DOL.GS
 
         public override bool WhisperReceive(GameLiving source, string str)
         {
-            bool speed = false;
             //coming soon bool color = false;
 
             if (!base.WhisperReceive(source, str)) return false;
@@ -97,7 +89,7 @@ namespace DOL.GS
 
             GamePlayer player = source as GamePlayer;
 
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
 
             switch (str)
             {
@@ -1078,17 +1070,17 @@ namespace DOL.GS
             unique.Color = color;
             unique.ObjectId = "Unique" + System.Guid.NewGuid().ToString();
             unique.Id_nb = "Unique" + System.Guid.NewGuid().ToString();
-            if (GameServer.Database.ExecuteNonQuery("SELECT ItemUnique_ID FROM itemunique WHERE ItemUnique_ID = 'unique.ObjectId'"))
+            if (DOLDB<ItemUnique>.SelectObjects(DB.Column("ItemUnique_ID").IsEqualTo(unique.ObjectId)).Any())
             {
                 unique.ObjectId = "Unique" + System.Guid.NewGuid().ToString();
             }
-            if (GameServer.Database.ExecuteNonQuery("SELECT Id_nb FROM itemunique WHERE Id_nb = 'unique.Id_nb'"))
+            if (DOLDB<ItemUnique>.SelectObjects(DB.Column("Id_nb").IsEqualTo(unique.Id_nb)).Any())
             {
                 unique.Id_nb = IDGenerator.GenerateID();
             }
             GameServer.Database.AddObject(unique);
 
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
 
@@ -1164,17 +1156,17 @@ namespace DOL.GS
             unique.SPD_ABS = speed;
             unique.ObjectId = "Unique" + System.Guid.NewGuid().ToString();
             unique.Id_nb = "Unique" + System.Guid.NewGuid().ToString();
-            if (GameServer.Database.ExecuteNonQuery("SELECT ItemUnique_ID FROM itemunique WHERE ItemUnique_ID = 'unique.ObjectId'"))
+            if (DOLDB<ItemUnique>.SelectObjects(DB.Column("ItemUnique_ID").IsEqualTo(unique.ObjectId)).Any())
             {
                 unique.ObjectId = "Unique" + System.Guid.NewGuid().ToString();
             }
-            if (GameServer.Database.ExecuteNonQuery("SELECT Id_nb FROM itemunique WHERE Id_nb = 'unique.Id_nb'"))
+            if (DOLDB<ItemUnique>.SelectObjects(DB.Column("Id_nb").IsEqualTo(unique.Id_nb)).Any())
             {
                 unique.Id_nb = IDGenerator.GenerateID();
             }
             GameServer.Database.AddObject(unique);
 
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
 
@@ -1245,17 +1237,17 @@ namespace DOL.GS
             unique.Effect = effect;
             unique.Id_nb = IDGenerator.GenerateID();
             unique.ObjectId = "Unique" + System.Guid.NewGuid().ToString();
-            if (GameServer.Database.ExecuteNonQuery("SELECT ItemUnique_ID FROM itemunique WHERE ItemUnique_ID = 'unique.ObjectId'"))
+            if (DOLDB<ItemUnique>.SelectObjects(DB.Column("ItemUnique_ID").IsEqualTo(unique.ObjectId)).Any())
             {
                 unique.ObjectId = "Unique" + System.Guid.NewGuid().ToString();
             }
-            if (GameServer.Database.ExecuteNonQuery("SELECT Id_nb FROM itemunique WHERE Id_nb = 'unique.Id_nb'"))
+            if (DOLDB<ItemUnique>.SelectObjects(DB.Column("Id_nb").IsEqualTo(unique.Id_nb)).Any())
             {
                 unique.Id_nb = IDGenerator.GenerateID();
             }
             GameServer.Database.AddObject(unique);
 
-            InventoryItem newInventoryItem = GameInventoryItem.Create<ItemUnique>(unique);
+            InventoryItem newInventoryItem = GameInventoryItem.Create(unique);
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, newInventoryItem);
             player.Out.SendInventoryItemsUpdate(new InventoryItem[] { newInventoryItem });
 

@@ -1,5 +1,5 @@
 using System;
-using DOL.GS;
+using DOL.GS.Geometry;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
@@ -50,7 +50,7 @@ namespace DOL.GS.Scripts
 			{
                 case "Setup":
                     Say("I'm now teleporting you to Setup");
-                    t.MoveTo(1, 531200, 479688, 2200, 2197);
+                    t.MoveTo(Position.Create(regionID: 1, x: 531200, y: 479688, z: 2200, heading: 2197));
                     break;
 
                 case "Darkness Falls":
@@ -59,15 +59,15 @@ namespace DOL.GS.Scripts
                         int RandPvP = Util.Random(1, 3);//Creates a random number between 1 and 3
                         if (RandPvP == 1)
                         {// send you to  the gloc below if number 1 comes up random
-                            t.MoveTo(249, 31670, 27908, 22893, 3058);
+                            t.MoveTo(Position.Create(regionID: 249, x: 31670, y: 27908, z: 22893, heading: 3058));
                         }
                         else if (RandPvP == 2)
                         {
-                            t.MoveTo(249, 46385, 40298, 21357, 2033);
+                            t.MoveTo(Position.Create(regionID: 249, x: 46385, y: 40298, z: 21357, heading: 2033));
                         }
                         else if (RandPvP == 3)
                         {
-                            t.MoveTo(249, 18093, 18681, 22893, 1024);
+                            t.MoveTo(Position.Create(regionID: 249, x: 18093, y: 18681, z: 22893, heading: 1024));
                         }
                     }
 
@@ -80,15 +80,15 @@ namespace DOL.GS.Scripts
                         int RandPvP = Util.Random(1, 3);//Creates a random number between 1 and 3
                         if (RandPvP == 1)
                         {// send you to  the gloc below if number 1 comes up random
-                            t.MoveTo(489, 25357, 52833, 15999, 3069);
+                            t.MoveTo(Position.Create(regionID: 489, x: 25357, y: 52833, z: 15999, heading: 3069));
                         }
                         else if (RandPvP == 2)
                         {
-                            t.MoveTo(489, 14780, 37713, 15999, 13);
+                            t.MoveTo(Position.Create(regionID: 489, x: 14780, y: 37713, z: 15999, heading: 13));
                         }
                         else if (RandPvP == 3)
                         {
-                            t.MoveTo(489, 40400, 42105, 15999, 2055);
+                            t.MoveTo(Position.Create(regionID: 489, x: 40400, y: 42105, z: 15999, heading: 2055));
                         }
                         }
                     

@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-
 using DOL.GS.PacketHandler;
 using DOL.AI.Brain;
-using DOL.Database;
-using DOL.Language;
+using DOL.GS.Profession;
 
 namespace DOL.GS.Scripts
 {
@@ -34,7 +30,7 @@ namespace DOL.GS.Scripts
             MaxSpeedBase = 0;
             Realm = 0;
    
-            TradeItems = new MerchantTradeItems("dragon_merchant");
+            Catalog = MerchantCatalog.Create("dragon_merchant");
 
             return base.AddToWorld();
         }
@@ -42,8 +38,8 @@ namespace DOL.GS.Scripts
         #endregion AddToWorld
         public override bool Interact(GamePlayer player)
         {
-            TradeItems = new MerchantTradeItems("dragon_merchant");
-            player.Out.SendMerchantWindow(TradeItems, eMerchantWindowType.Normal);
+            Catalog = MerchantCatalog.Create("dragon_merchant");
+            player.Out.SendMerchantWindow(Catalog, eMerchantWindowType.Normal);
             return true;
         }
     }  

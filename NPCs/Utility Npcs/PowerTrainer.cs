@@ -382,7 +382,7 @@ namespace DOL.GS.Scripts
             if (player == null) return false;
 
 
-            if (player.SetCharacterClass(classid))
+            if (player.SetCharacterClass(CharacterClass.GetClass(classid)))
             {
                 player.Out.SendMessage(this.Name + " says, \"" + messageToPlayer + "\"", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 player.Out.SendMessage("You have been upgraded to the " + player.CharacterClass.GetSalutation(eGender.Male) + " class!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);

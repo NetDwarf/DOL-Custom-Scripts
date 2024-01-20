@@ -3,16 +3,7 @@ Author : Dams33
 Date : May 2007
 Description : Mob that allow to change item model by whisper
 */
-
-using DOL;
-using DOL.GS;
-using DOL.Events;
-using DOL.Database;
-using System;
 using DOL.GS.PacketHandler;
-using DOL.AI.Brain;
-using DOL.GS.Spells;
-using System;
 using System.Collections.Generic;
 
 
@@ -82,7 +73,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer player = (GamePlayer)source;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             ClearChat(player);
             msg = "Hello, which morph do you wish to morph in to? \n";
             if (str == "Reload")

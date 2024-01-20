@@ -6,21 +6,8 @@
  * Characters must be level 5 to use this NPC
  */
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using DOL.Database;
-using DOL.Database.Attributes;
-using DOL.Events;
-using DOL.GS;
-using DOL.GS.Keeps;
-using DOL.GS.Spells;
-using DOL.GS.Effects;
 using DOL.GS.PacketHandler;
-
-using System.Reflection;
-using log4net;
-
+using static DOL.GS.Finance.Currency;
 
 namespace DOL.GS.Scripts
 {
@@ -158,14 +145,14 @@ namespace DOL.GS.Scripts
             player.RemoveSpecialization("");
             player.RemoveAbility("");
             player.Inventory.ClearInventory();
-            player.AddMoney(500000);
+            player.AddMoney(Copper.Mint(500000));
 
 
 
 
 
             //reset before, and after changing the class.          
-            player.SetCharacterClass(newClassID);
+            player.SetCharacterClass(CharacterClass.GetClass(newClassID));
             player.RespecAll();
 
             player.SaveIntoDatabase();

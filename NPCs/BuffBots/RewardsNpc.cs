@@ -2,20 +2,12 @@
  * Majorly Modded by Exde.
  */
 
-using System;
-using DOL;
-using DOL.GS;
-using DOL.Events;
-using DOL.Database;
-using System.Collections;
 using DOL.GS.PacketHandler;
 
 namespace DOL.GS.Scripts
 {
 	public class RewardsNPC: GameNPC
     {
-        private int Chance;//Chance for Prefixes
-
         public override bool AddToWorld()
         {
             GameNpcInventoryTemplate template = new GameNpcInventoryTemplate();
@@ -73,7 +65,7 @@ namespace DOL.GS.Scripts
                     if (t.Level >= 50)
                     {
                         Say("I'm now teleporting you to the King");
-                        t.MoveTo(394, 32327, 32379, 15901, 63);
+                        t.MoveTo(Geometry.Position.Create(regionID: 394, x: 32327, y: 32379, z: 15901, heading: 63));
                     }
                     else 
                     SendReply(t, "You are not the correct level, here you go :).");

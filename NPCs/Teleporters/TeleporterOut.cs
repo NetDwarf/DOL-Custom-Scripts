@@ -1,5 +1,5 @@
 using System;
-using DOL.GS;
+using DOL.GS.Geometry;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using log4net;
@@ -38,17 +38,17 @@ namespace DOL.GS.Scripts
 
                 case "Albion":
                     Say("I'm now teleporting you to the Albion portal keep");
-                    t.MoveTo(238, 563118, 573761, 5408, 3042);
+                    t.MoveTo(Position.Create(regionID: 238, x: 563118, y: 573761, z: 5408, heading: 3042));
                     break;
 
                 case "Midgard":
                     Say("I'm now teleporting you to the Midgard portal keep");
-                    t.MoveTo(238, 569706, 541223, 5408, 3055);
+                    t.MoveTo(Position.Create(regionID: 238, x: 569706, y: 541223, z: 5408, heading: 3055));
                     break;
 
                 case "Hibernia":
                     Say("I'm now teleporting you to the Hibernia portal keep");
-                    t.MoveTo(238, 534596, 534058, 5408, 488);
+                    t.MoveTo(Position.Create(regionID: 238, x: 534596, y: 534058, z: 5408, heading: 488));
                     break;
 
                 case "RvR":
@@ -57,23 +57,23 @@ namespace DOL.GS.Scripts
                         int RandPvP = Util.Random(1, 5);//Creates a random number between 1 and 5
                         if (RandPvP == 1)
                         {// send you to  the gloc below if number 1 comes up random
-                            t.MoveTo(238, 569010, 552070, 5301, 1485);
+                            t.MoveTo(Position.Create(regionID: 238, x: 569010, y: 552070, z: 5301, heading: 1485));
                         }
                         else if (RandPvP == 2)
                         {
-                            t.MoveTo(238, 554329, 543530, 5059, 391);
+                            t.MoveTo(Position.Create(regionID: 238, x: 554329, y: 543530, z: 5059, heading: 391));
                         }
                         else if (RandPvP == 3)
                         {
-                            t.MoveTo(238, 550016, 563013, 4350, 2737);
+                            t.MoveTo(Position.Create(regionID: 238, x: 550016, y: 563013, z: 4350, heading: 2737));
                         }
                         else if (RandPvP == 4)
                         {
-                            t.MoveTo(238, 543489, 558435, 4144, 2680);
+                            t.MoveTo(Position.Create(regionID: 238, x: 543489, y: 558435, z: 4144, heading: 2680));
                         }
                         else if (RandPvP == 5)
                         {
-                            t.MoveTo(238, 559208, 544046, 4709, 34);
+                            t.MoveTo(Position.Create(regionID: 238, x: 559208, y: 544046, z: 4709, heading: 34));
                         }
                     }
                     else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }

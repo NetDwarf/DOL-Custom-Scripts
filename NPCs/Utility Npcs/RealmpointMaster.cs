@@ -138,7 +138,7 @@ namespace DOL.GS
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer player = (GamePlayer)source;
-            TurnTo(player.X, player.Y);
+            TurnTo(player.Coordinate);
             switch (str)
             {
                 #region Give Free Realmranks

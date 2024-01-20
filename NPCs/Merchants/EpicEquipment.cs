@@ -1,12 +1,9 @@
 ﻿
 
 using System;
-using DOL;
-using DOL.GS;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using System.Reflection;
-using System.Collections;
 using DOL.Database;
 using log4net;
 
@@ -141,7 +138,7 @@ namespace DOL.GS.Scripts
                 GameServer.Database.AddObject(itemTemplate);
             }
             //ameInventoryItem.Create<ItemTemplate>(itemTemplate);
-            InventoryItem item = GameInventoryItem.Create<ItemTemplate>(itemTemplate);
+            InventoryItem item = GameInventoryItem.Create(itemTemplate);
             if (player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, item))
             {
                 if (source == null) { player.Out.SendMessage("You receive the " + itemTemplate.Name + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow); }

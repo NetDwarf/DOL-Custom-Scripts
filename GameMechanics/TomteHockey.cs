@@ -147,23 +147,18 @@ namespace DOL.GS.Scripts
             #region Movement
 
             //angle from player to puck.
-            double angle = Math.Atan2(Y - player.Y, X - player.X);
-
-            //degree to move using sin and cos.
-            int xmove, ymove;
-            xmove = (int)(200 * Math.Cos(angle));
-            ymove = (int)(200 * Math.Sin(angle));
+            var puckMovementAngle = player.Coordinate.GetOrientationTo(Position.Coordinate) - Angle.Degrees(90);
+            var movementVector = Vector.Create(puckMovementAngle, 200);
 
             //Now, call us to walk there....
-            WalkTo(X + xmove, Y + ymove, Z, MaxSpeed);
+            WalkTo(Coordinate + movementVector, MaxSpeed);
 
             //Movement complete!
 
             #endregion
 
             //Send out a sound effect of the tomte wailing from the hit!
-            if (Util.Chance(30))
-                player.Out.SendSoundEffect(1210, (ushort)player.CurrentRegionID, (ushort)X, (ushort)Y, (ushort)Z, 300);
+            if (Util.Chance(30)) player.Out.SendSoundEffect(1210, player.Position, 300);
 
             //Lastly, as the hit has been successful, we will remember which team hit us last.
             m_hitLastByRedTeam = (item.Color == 1) ? true : false;
@@ -192,17 +187,17 @@ namespace DOL.GS.Scripts
             //Lets see first if we are out of bounds.
 
             //First, are we off the sides of the court? This will always result in an out-of-bounds scenario.
-            if (X < Game.X - Game.XSize/2 || X > Game.X + Game.XSize/2)
+            if (Position.X < Game.X - Game.XSize/2 || Position.X > Game.X + Game.XSize/2)
             {
                 OutOfBounds();
                 return true; //No further check is required!
             }
 
             //Next, check we are out of bounds Y-ways.
-            if (Y < Game.Y - Game.YSize / 2 || Y > Game.Y + Game.YSize / 2)
+            if (Position.Y < Game.Y - Game.YSize / 2 || Position.Y > Game.Y + Game.YSize / 2)
             {
                 //We are out of bounds y-ways. Did we miss the goal?
-                if (X < Game.X - Game.XSize / 4 || X > Game.X + Game.XSize / 4)
+                if (Position.X < Game.X - Game.XSize / 4 || Position.X > Game.X + Game.XSize / 4)
                 {
                     //we did, reposition as normal!
                     OutOfBounds();
@@ -216,7 +211,7 @@ namespace DOL.GS.Scripts
                     //For sake of consistency, we have said blue team is above the centre and red is below (see above).
                     //So, lets use that and see who scored!
 
-                    if (Y > Game.Y)
+                    if (Position.Y > Game.Y)
                     {
                         OutOfBounds(1);
                         Game.RedScores(); //Red scores when the puck goes into blues goal. 
@@ -230,7 +225,7 @@ namespace DOL.GS.Scripts
                     //Now reposition because we are still out of bounds and need to return!
                     //Before we do though, play a cheering noise.
                     foreach (GamePlayer pl in GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
-                        pl.Out.SendSoundEffect(218, (ushort)pl.CurrentRegionID, (ushort)X, (ushort)Y, (ushort)Z, (ushort)WorldMgr.VISIBILITY_DISTANCE);
+                        pl.Out.SendSoundEffect(218, Position, (ushort)WorldMgr.VISIBILITY_DISTANCE);
 
                     return true;
                 }
@@ -254,7 +249,7 @@ namespace DOL.GS.Scripts
         /// </summary>
         public void OutOfBounds(int scored)
         {
-            MoveTo(CurrentRegionID, Game.X, Game.Y, Game.Z, Heading);
+            MoveTo(Position.With(Game.Position.Coordinate));
             //Cheer emote to taunt players to come and hit us!
             if (Util.Chance(50))
                 Emote(DOL.GS.PacketHandler.eEmote.Cheer);
@@ -436,12 +431,8 @@ namespace DOL.GS.Scripts
             //position, creating a moved game, we shall simply place him at the side to start.
             m_xsize = 700;
             m_ysize = 1150;
-            
-            m_x = judge.X + XSize/2 + 50;
-            m_y = judge.Y;
-            m_z = judge.Z;
-            m_region = judge.CurrentRegionID;
 
+            Position = judge.Position + Vector.Create(x: XSize/2 + 50);
 
             //Initialise rules stuff...
             m_playerCount = 4;
@@ -470,12 +461,10 @@ namespace DOL.GS.Scripts
                     int ybias = 2 - y;
 
                     TomteMarker npc = new TomteMarker();
-                    npc.X = X + XSize * x / 2;
-                    npc.Y = Y + YSize * (2-y) / 2;
-                    npc.Z = Z;
-                    npc.CurrentRegionID = Region;
+                    var offset = Vector.Create(x: XSize * x / 2, y: YSize * (2 - y) / 2);
+                    npc.Position = Position + offset;
                     npc.AddToWorld();
-                    npc.TurnTo(X, Y, true);
+                    npc.TurnTo(Position.Coordinate, true);
 
                 }
 
@@ -488,10 +477,8 @@ namespace DOL.GS.Scripts
 
                     GameStaticItem goalpost = new GameStaticItem();
                     goalpost.Model = 2963;
-                    goalpost.X = X + XSize * x / 4;
-                    goalpost.Y = Y + YSize * y / 2;
-                    goalpost.Z = Z;
-                    goalpost.CurrentRegionID = Region;
+                    var offset = Vector.Create(x: XSize * x / 4, y: YSize * y / 2);
+                    goalpost.Position = Position + offset;
                     goalpost.Name = "Goalpost";
 
                     //Goalpost colour names...
@@ -507,14 +494,11 @@ namespace DOL.GS.Scripts
                     continue;
 
                 TomteMarker stick = new TomteMarker();
-                if (y >0)
-                    stick.Model = 907; //Blue goal orb.
-                else
-                    stick.Model= 908; //Red goal orb.
-                stick.X = X;
-                stick.Y = Y + YSize * y / 2;
-                stick.Z = Z;
-                stick.CurrentRegionID = Region;
+                if (y >0) stick.Model = 907; //Blue goal orb.
+                else stick.Model= 908; //Red goal orb.
+
+                var offset = Vector.Create(y: YSize * y / 2);
+                stick.Position = Position + offset;
                 stick.Name = "Big Goal Thing";
 
                 //Goalpost colour names...
@@ -547,6 +531,18 @@ namespace DOL.GS.Scripts
 
         public int Z
         { get { return m_z; } }
+
+        public Position Position
+        {
+            get => Position.Create(Region, X, Y, Z);
+            set
+            {
+                m_region = value.RegionID;
+                m_x = value.X;
+                m_y = value.Y;
+                m_z = value.Z;
+            }
+        }
 
         private int m_xsize, m_ysize;
 
@@ -710,14 +706,8 @@ namespace DOL.GS.Scripts
             player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, stick);
 
             //Brilliant. Now all that remains is to position him at his goal.
-            int yp;
-            if (redTeam)
-                yp = Y - YSize / 2;
-            else
-                yp = Y + YSize / 2;
-
-            player.X = X;
-            player.Y = yp;
+            var offset = redTeam ? Vector.Create(y: -YSize / 2): Vector.Create(y: YSize / 2);
+            player.Position = Position.With(player.Orientation) + offset;
 
             //Alert the player of his team.
             string teamname = (redTeam) ? "Red" : "Blue";
@@ -862,8 +852,7 @@ namespace DOL.GS.Scripts
             //Move Red Team!
             foreach (GamePlayer player in m_redTeam)
             {
-                player.X = X;
-                player.Y = Y - YSize / 2;
+                player.Position = Position.With(player.Orientation) - Vector.Create(y: YSize/2);
 
                 var playerOrientation = player.Coordinate.GetOrientationTo(Coordinate.Create(X,Y));
                 var newPlayerPosition = Position.Create(Region, player.Coordinate, playerOrientation);
@@ -873,8 +862,7 @@ namespace DOL.GS.Scripts
             //Move Blue Team!
             foreach (GamePlayer player in m_blueTeam)
             {
-                player.X = X;
-                player.Y = Y + YSize / 2;
+                player.Position = Position.With(player.Orientation) + Vector.Create(y: YSize/2);
 
                 var playerOrientation = player.Coordinate.GetOrientationTo(Coordinate.Create(X,Y));
                 var newPlayerPosition = Position.Create(Region, player.Coordinate, playerOrientation);
@@ -954,10 +942,7 @@ namespace DOL.GS.Scripts
 
             //Create the puck...
             TomteHockeyPuck puck = new TomteHockeyPuck(this);
-            puck.CurrentRegionID = Region;
-            puck.X = X;
-            puck.Y = Y;
-            puck.Z = Z;
+            puck.Position = Position;
             puck.AddToWorld();
 
             //Assign the puck to this game.

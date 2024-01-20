@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-
-using DOL;
-using DOL.Events;
-using DOL.GS;
-using DOL.GS.Housing;
-using DOL.GS.Spells;
+﻿using DOL.GS.Geometry;
 using DOL.GS.PacketHandler;
-
-using log4net;
 /* Need to fix
  * EquipTemplate for Hib and Mid
  * Oceanus for all realms.
  * Kobold Undercity for Mid
  * personal guild and hearth teleports
  */
+
 namespace DOL.GS.Scripts
 {
     public class LiveTeleporter : GameNPC
@@ -151,7 +140,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer t = (GamePlayer)source;
-            TurnTo(t.X, t.Y); // Turn to face the player
+            TurnTo(t.Coordinate); // Turn to face the player
             // This is where we handle what is said to the NPC, we do it by using case switches.
             // it follows this format
             // switch(str){
@@ -169,7 +158,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Forest Sauvage");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(163, 652700, 617189, 9560, 2815);
+                                t.MoveTo(Position.Create(regionID: 163, x: 652700, y: 617189, z: 9560, heading: 2815));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -179,7 +168,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Castle Sauvage");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 583913, 487012, 2184, 2048);
+                                t.MoveTo(Position.Create(regionID: 1, x: 583913, y: 487012, z: 2184, heading: 2048));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -189,7 +178,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Snowdonia Fortress");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 516801, 373238, 8208, 1784);
+                                t.MoveTo(Position.Create(regionID: 1, x: 516801, y: 373238, z: 8208, heading: 1784));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -199,7 +188,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Avalon Marsh");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 462144, 633058, 1739, 1769);
+                                t.MoveTo(Position.Create(regionID: 1, x: 462144, y: 633058, z: 1739, heading: 1769));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -209,7 +198,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Gothwaite Harbor.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(51, 526580, 542058, 3168, 406);
+                                t.MoveTo(Position.Create(regionID: 51, x: 526580, y: 542058, z: 3168, heading: 406));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -236,7 +225,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to The Iconnu Crypt.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(65, 33199, 37978, 16150, 2097);
+                                t.MoveTo(Position.Create(regionID: 65, x: 33199, y: 37978, z: 16150, heading: 2097));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -246,7 +235,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Camelot");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(10, 36209, 29843, 7971, 18);
+                                t.MoveTo(Position.Create(regionID: 10, x: 36209, y: 29843, z: 7971, heading: 18));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -269,61 +258,61 @@ namespace DOL.GS.Scripts
                                     {
                                         // Move to The Proving Grounds area 234
                                         // Need to check realm rank
-                                        t.MoveTo(234, 573154, 549877, 8640, 1389);
+                                        t.MoveTo(Position.Create(regionID: 234, x: 573154, y: 549877, z: 8640, heading: 1389));
                                     }
 
                                     if (t.Level > 4 && t.Level < 10)
                                     {
                                         // Move to the Lions Den area 235
-                                        t.MoveTo(235, 536907, 535991, 5056, 3965);
+                                        t.MoveTo(Position.Create(regionID: 235, x: 536907, y: 535991, z: 5056, heading: 3965));
                                     }
 
                                     if (t.Level > 9 && t.Level < 15)
                                     {
                                         // Move to the Hills of Claret area 236
-                                        t.MoveTo(236, 541032, 577287, 8008, 3083);
+                                        t.MoveTo(Position.Create(regionID: 236, x: 541032, y: 577287, z: 8008, heading: 3083));
                                     }
 
                                     if (t.Level > 14 && t.Level < 20)
                                     {
                                         // Move to Killaloe area 237
-                                        t.MoveTo(237, 544935, 582399, 8288, 2632);
+                                        t.MoveTo(Position.Create(regionID: 237, x: 544935, y: 582399, z: 8288, heading: 2632));
                                     }
 
                                     if (t.Level > 19 && t.Level < 25)
                                     {
                                         // Move to Thidranki area 238
-                                        t.MoveTo(238, 562805, 574005, 5408, 2796);
+                                        t.MoveTo(Position.Create(regionID: 238, x: 562805, y: 574005, z: 5408, heading: 2796));
                                     }
 
                                     if (t.Level > 24 && t.Level < 30)
                                     {
                                         // Move to Breamear area 239
-                                        t.MoveTo(239, 553703, 584974, 6952, 2619);
+                                        t.MoveTo(Position.Create(regionID: 239, x: 553703, y: 584974, z: 6952, heading: 2619));
                                     }
 
                                     if (t.Level > 29 && t.Level < 35)
                                     {
                                         // Move to Wilton are 240
-                                        t.MoveTo(240, 553692, 583983, 6952, 2632);
+                                        t.MoveTo(Position.Create(regionID: 240, x: 553692, y: 583983, z: 6952, heading: 2632));
                                     }
 
                                     if (t.Level > 34 && t.Level < 40)
                                     {
                                         // Move to Molvik area 241
-                                        t.MoveTo(241, 531997, 541272, 5992, 4031);
+                                        t.MoveTo(Position.Create(regionID: 241, x: 531997, y: 541272, z: 5992, heading: 4031));
                                     }
 
                                     if (t.Level > 39 && t.Level < 45)
                                     {
                                         // Move to Leirvik area 242
-                                        t.MoveTo(242, 322174, 284521, 10128, 1283);
+                                        t.MoveTo(Position.Create(regionID: 242, x: 322174, y: 284521, z: 10128, heading: 1283));
                                     }
 
                                     if (t.Level > 44 && t.Level < 50)
                                     {
                                         // Move to Cathal Valley area 165
-                                        t.MoveTo(165, 583347, 585349, 4896, 2330);
+                                        t.MoveTo(Position.Create(regionID: 165, x: 583347, y: 585349, z: 4896, heading: 2330));
                                     }
                                     if (t.Level > 49)
                                     {
@@ -354,7 +343,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Gothwaite");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(51, 535512, 547448, 4800, 82);
+                                t.MoveTo(Position.Create(regionID: 51, x: 535512, y: 547448, z: 4800, heading: 82));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -364,7 +353,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Wearyall Village");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(51, 435140, 493260, 3088, 921);
+                                t.MoveTo(Position.Create(regionID: 51, x: 435140, y: 493260, z: 3088, heading: 921));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -374,7 +363,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Fort Gwyntell");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(51, 427322, 416538, 5712, 689);
+                                t.MoveTo(Position.Create(regionID: 51, x: 427322, y: 416538, z: 5712, heading: 689));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -384,7 +373,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Cear Diogel.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(51, 403525, 502582, 4680, 561);
+                                t.MoveTo(Position.Create(regionID: 51, x: 403525, y: 502582, z: 4680, heading: 561));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -394,7 +383,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Housing.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(2, 584461, 561355, 3576, 2256);
+                                t.MoveTo(Position.Create(regionID: 2, x: 584461, y: 561355, z: 3576, heading: 2256));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -406,7 +395,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Cotswold.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 559613, 511843, 2289, 3200);
+                                t.MoveTo(Position.Create(regionID: 1, x: 559613, y: 511843, z: 2289, heading: 3200));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -416,7 +405,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Prydwen Keep");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 573994, 529009, 2870, 2206);
+                                t.MoveTo(Position.Create(regionID: 1, x: 573994, y: 529009, z: 2870, heading: 2206));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -426,7 +415,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Cear Ulfwych.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 522479, 615826, 1818, 4);
+                                t.MoveTo(Position.Create(regionID: 1, x: 522479, y: 615826, z: 1818, heading: 4));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -436,7 +425,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Campacorentin Station.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 493010, 591806, 1806, 3881);
+                                t.MoveTo(Position.Create(regionID: 1, x: 493010, y: 591806, z: 1806, heading: 3881));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -446,7 +435,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Adribard's Retreat.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 473036, 628049, 2048, 3142);
+                                t.MoveTo(Position.Create(regionID: 1, x: 473036, y: 628049, z: 2048, heading: 3142));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -456,7 +445,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Snowdonia Keep.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                t.MoveTo(1, 516801, 373238, 8208, 1784);
+                                t.MoveTo(Position.Create(regionID: 1, x: 516801, y: 373238, z: 8208, heading: 1784));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -475,7 +464,7 @@ namespace DOL.GS.Scripts
                                     Say("I'm now teleporting you to Holtham.");
                                     foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                         player.Out.SendSpellCastAnimation(this, 4953, 6);
-                                    t.MoveTo(27, 97636, 91606, 5696, 4025);
+                                    t.MoveTo(Position.Create(regionID: 27, x: 97636, y: 91606, z: 5696, heading: 4025));
                                 }
                                 else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             }
@@ -501,7 +490,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Uppland");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(163, 597472, 304485, 8088, 4084);
+                                t.MoveTo(Position.Create(regionID: 163, x: 597472, y: 304485, z: 8088, heading: 4084));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -511,7 +500,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Svasud Faste");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 766145, 673323, 5736, 829);
+                                t.MoveTo(Position.Create(regionID: 100, x: 766145, y: 673323, z: 5736, heading: 829));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -521,7 +510,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Vindsaul Faste");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 704404, 738841, 5704, 817);
+                                t.MoveTo(Position.Create(regionID: 100, x: 704404, y: 738841, z: 5704, heading: 817));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -531,7 +520,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Gotar");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 771081, 836721, 4624, 167);
+                                t.MoveTo(Position.Create(regionID: 100, x: 771081, y: 836721, z: 4624, heading: 167));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -557,7 +546,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Jordheim");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(101, 31619, 28768, 8800, 2201);
+                                t.MoveTo(Position.Create(regionID: 101, x: 31619, y: 28768, z: 8800, heading: 2201));
                                 //MoveTo(regionid, x , y, z, heading)
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
@@ -581,61 +570,61 @@ namespace DOL.GS.Scripts
                                     {
                                         // Move to The Proving Grounds area 234
                                         // Need to check realm rank
-                                        t.MoveTo(234, 556216, 574739, 8640, 2761);
+                                        t.MoveTo(Position.Create(regionID: 234, x: 556216, y: 574739, z: 8640, heading: 2761));
                                     }
 
                                     if (t.Level > 4 && t.Level < 10)
                                     {
                                         // Move to the Lions Den area 235
-                                        t.MoveTo(235, 543729, 575471, 50556, 2965);
+                                        t.MoveTo(Position.Create(regionID: 235, x: 543729, y: 575471, z: 50556, heading: 2965));
                                     }
 
                                     if (t.Level > 9 && t.Level < 15)
                                     {
                                         // Move to the Hills of Claret area 236
-                                        t.MoveTo(236, 582679, 554408, 8008, 1654);
+                                        t.MoveTo(Position.Create(regionID: 236, x: 582679, y: 554408, z: 8008, heading: 1654));
                                     }
 
                                     if (t.Level > 14 && t.Level < 20)
                                     {
                                         // Move to Killaloe area 237
-                                        t.MoveTo(237, 585970, 559111, 8288, 835);
+                                        t.MoveTo(Position.Create(regionID: 237, x: 585970, y: 559111, z: 8288, heading: 835));
                                     }
 
                                     if (t.Level > 19 && t.Level < 25)
                                     {
                                         // Move to Thidranki area 238
-                                        t.MoveTo(238, 570913, 540584, 5408, 478);
+                                        t.MoveTo(Position.Create(regionID: 238, x: 570913, y: 540584, z: 5408, heading: 478));
                                     }
 
                                     if (t.Level > 24 && t.Level < 30)
                                     {
                                         // Move to Breamear area 239
-                                        t.MoveTo(239, 582186, 539260, 6776, 1431);
+                                        t.MoveTo(Position.Create(regionID: 239, x: 582186, y: 539260, z: 6776, heading: 1431));
                                     }
 
                                     if (t.Level > 29 && t.Level < 35)
                                     {
                                         // Move to Wilton are 240
-                                        t.MoveTo(240, 534127, 534463, 6728, 3945);
+                                        t.MoveTo(Position.Create(regionID: 240, x: 534127, y: 534463, z: 6728, heading: 3945));
                                     }
 
                                     if (t.Level > 34 && t.Level < 40)
                                     {
                                         // Move to Molvik area 241
-                                        t.MoveTo(241, 549468, 577418, 5992, 2552);
+                                        t.MoveTo(Position.Create(regionID: 241, x: 549468, y: 577418, z: 5992, heading: 2552));
                                     }
 
                                     if (t.Level > 39 && t.Level < 45)
                                     {
                                         // Move to Leirvik area 242
-                                        t.MoveTo(242, 272810, 272742, 10128, 360);
+                                        t.MoveTo(Position.Create(regionID: 242, x: 272810, y: 272742, z: 10128, heading: 360));
                                     }
 
                                     if (t.Level > 44 && t.Level < 50)
                                     {
                                         // Move to Cathal Valley area 165
-                                        t.MoveTo(165, 575260, 538161, 4832, 1134);
+                                        t.MoveTo(Position.Create(regionID: 165, x: 575260, y: 538161, z: 4832, heading: 1134));
                                     }
                                     if (t.Level > 49)
                                     {
@@ -665,7 +654,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Mularn");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 804292, 726509, 4696, 842);
+                                t.MoveTo(Position.Create(regionID: 100, x: 804292, y: 726509, z: 4696, heading: 842));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -675,7 +664,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Audliten");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 725682, 760401, 4528, 1150);
+                                t.MoveTo(Position.Create(regionID: 100, x: 725682, y: 760401, z: 4528, heading: 1150));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -685,7 +674,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Fort Veldon.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 800200, 678003, 5304, 204);
+                                t.MoveTo(Position.Create(regionID: 100, x: 800200, y: 678003, z: 5304, heading: 204));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -695,7 +684,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Huginfel.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 711788, 784084, 4672, 2579);
+                                t.MoveTo(Position.Create(regionID: 100, x: 711788, y: 784084, z: 4672, heading: 2579));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -705,7 +694,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Fort Atla.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(100, 749237, 816443, 4408, 2033);
+                                t.MoveTo(Position.Create(regionID: 100, x: 749237, y: 816443, z: 4408, heading: 2033));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -715,7 +704,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Housing.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(102, 527051, 561559, 3638, 102);
+                                t.MoveTo(Position.Create(regionID: 102, x: 527051, y: 561559, z: 3638, heading: 102));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -727,7 +716,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Aegirhamn.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(151, 293382, 357369, 3488, 1096);
+                                t.MoveTo(Position.Create(regionID: 151, x: 293382, y: 357369, z: 3488, heading: 1096));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -737,7 +726,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Bjarken.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(151, 289626, 301652, 4160, 2804);
+                                t.MoveTo(Position.Create(regionID: 151, x: 289626, y: 301652, z: 4160, heading: 2804));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -747,7 +736,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Hagall.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(151, 379055, 386013, 7752, 2187);
+                                t.MoveTo(Position.Create(regionID: 151, x: 379055, y: 386013, z: 7752, heading: 2187));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -757,7 +746,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Knarr.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(151, 302660, 433690, 3214, 2103);
+                                t.MoveTo(Position.Create(regionID: 151, x: 302660, y: 433690, z: 3214, heading: 2103));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -774,7 +763,7 @@ namespace DOL.GS.Scripts
                                     Say("I'm now teleporting you to Hafheim.");
                                     foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                         player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                    t.MoveTo(27, 228981, 222130, 5696, 41);
+                                    t.MoveTo(Position.Create(regionID: 27, x: 228981, y: 222130, z: 5696, heading: 41));
                                 }
                                 else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             }
@@ -788,7 +777,7 @@ namespace DOL.GS.Scripts
                                     Say("I'm now teleporting you to Svarhamr.");
                                     foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                         player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                    t.MoveTo(100, 742842, 978919, 3920, 1680);
+                                    t.MoveTo(Position.Create(regionID: 100, x: 742842, y: 978919, z: 3920, heading: 1680));
                                 }
                                 else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             }
@@ -807,7 +796,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Cruachan Gorge");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(163, 395861, 618238, 9816, 2548);
+                                t.MoveTo(Position.Create(regionID: 163, x: 395861, y: 618238, z: 9816, heading: 2548));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -817,7 +806,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Druim Ligen");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 334600, 419997, 5184, 479);
+                                t.MoveTo(Position.Create(regionID: 200, x: 334600, y: 419997, z: 5184, heading: 479));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -827,7 +816,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Shannon Estuary");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 310320, 645327, 4855, 1441);
+                                t.MoveTo(Position.Create(regionID: 200, x: 310320, y: 645327, z: 4855, heading: 1441));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -837,7 +826,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Domann Grove.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(181, 423157, 442474, 5952, 2046);
+                                t.MoveTo(Position.Create(regionID: 181, x: 423157, y: 442474, z: 5952, heading: 2046));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -860,7 +849,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Shar Labyrinth.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(93, 25147, 27035, 17563, 308);
+                                t.MoveTo(Position.Create(regionID: 93, x: 25147, y: 27035, z: 17563, heading: 308));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -870,7 +859,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Tir na Nog");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(201, 30011, 33138, 7916, 3079);
+                                t.MoveTo(Position.Create(regionID: 201, x: 30011, y: 33138, z: 7916, heading: 3079));
                                 //MoveTo(regionid, x , y, z, heading)
                             }
                             break;
@@ -893,61 +882,61 @@ namespace DOL.GS.Scripts
                                     {
                                         // Move to The Proving Grounds area 234
                                         // Need to check realm rank
-                                        t.MoveTo(234, 541540, 549326, 8640, 2707);
+                                        t.MoveTo(Position.Create(regionID: 234, x: 541540, y: 549326, z: 8640, heading: 2707));
                                     }
 
                                     if (t.Level > 4 && t.Level < 10)
                                     {
                                         // Move to the Lions Den area 235
-                                        t.MoveTo(235, 580335, 555282, 5056, 1127);
+                                        t.MoveTo(Position.Create(regionID: 235, x: 580335, y: 555282, z: 5056, heading: 1127));
                                     }
 
                                     if (t.Level > 9 && t.Level < 15)
                                     {
                                         // Move to the Hills of Claret area 236
-                                        t.MoveTo(236, 538416, 539050, 8008, 3917);
+                                        t.MoveTo(Position.Create(regionID: 236, x: 538416, y: 539050, z: 8008, heading: 3917));
                                     }
 
                                     if (t.Level > 14 && t.Level < 20)
                                     {
                                         // Move to Killaloe area 237
-                                        t.MoveTo(237, 534289, 536526, 8288, 3532);
+                                        t.MoveTo(Position.Create(regionID: 237, x: 534289, y: 536526, z: 8288, heading: 3532));
                                     }
 
                                     if (t.Level > 19 && t.Level < 25)
                                     {
                                         // Move to Thidranki area 238
-                                        t.MoveTo(238, 534248, 533333, 5408, 3985);
+                                        t.MoveTo(Position.Create(regionID: 238, x: 534248, y: 533333, z: 5408, heading: 3985));
                                     }
 
                                     if (t.Level > 24 && t.Level < 30)
                                     {
                                         // Move to Breamear area 239
-                                        t.MoveTo(239, 533569, 533068, 6768, 3759);
+                                        t.MoveTo(Position.Create(regionID: 239, x: 533569, y: 533068, z: 6768, heading: 3759));
                                     }
 
                                     if (t.Level > 29 && t.Level < 35)
                                     {
                                         // Move to Wilton are 240
-                                        t.MoveTo(240, 581353, 539099, 6736, 917);
+                                        t.MoveTo(Position.Create(regionID: 240, x: 581353, y: 539099, z: 6736, heading: 917));
                                     }
 
                                     if (t.Level > 34 && t.Level < 40)
                                     {
                                         // Move to Molvik area 241
-                                        t.MoveTo(241, 576254, 544246, 5992, 1462);
+                                        t.MoveTo(Position.Create(regionID: 241, x: 576254, y: 544246, z: 5992, heading: 1462));
                                     }
 
                                     if (t.Level > 39 && t.Level < 45)
                                     {
                                         // Move to Leirvik area 242
-                                        t.MoveTo(242, 279389, 319874, 10128, 2470);
+                                        t.MoveTo(Position.Create(regionID: 242, x: 279389, y: 319874, z: 10128, heading: 2470));
                                     }
 
                                     if (t.Level > 44 && t.Level < 50)
                                     {
                                         // Move to Cathal Valley area 165
-                                        t.MoveTo(165, 536222, 585564, 5800, 1958);
+                                        t.MoveTo(Position.Create(regionID: 165, x: 536222, y: 585564, z: 5800, heading: 1958));
                                     }
                                     if (t.Level > 49)
                                     {
@@ -977,7 +966,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Mag Mell");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 348073, 489646, 5200, 643);
+                                t.MoveTo(Position.Create(regionID: 200, x: 348073, y: 489646, z: 5200, heading: 643));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -987,7 +976,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Tir na mBeo.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 344519, 527771, 4061, 1178);
+                                t.MoveTo(Position.Create(regionID: 200, x: 344519, y: 527771, z: 4061, heading: 1178));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -997,7 +986,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Ardagh.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 351533, 553440, 5102, 3054);
+                                t.MoveTo(Position.Create(regionID: 200, x: 351533, y: 553440, z: 5102, heading: 3054));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1007,7 +996,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Howth.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 342575, 591967, 5456, 1014);
+                                t.MoveTo(Position.Create(regionID: 200, x: 342575, y: 591967, z: 5456, heading: 1014));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1017,7 +1006,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Connla");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 297173, 642141, 4848, 3814);
+                                t.MoveTo(Position.Create(regionID: 200, x: 297173, y: 642141, z: 4848, heading: 3814));
                             }
                             break;
                         case "druim cain":
@@ -1026,7 +1015,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Druim Cain");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(200, 421838, 486293, 1824, 1109);
+                                t.MoveTo(Position.Create(regionID: 200, x: 421838, y: 486293, z: 1824, heading: 1109));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1038,7 +1027,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Droighaid.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(181, 379767, 421216, 5528, 1720);
+                                t.MoveTo(Position.Create(regionID: 181, x: 379767, y: 421216, z: 5528, heading: 1720));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1048,7 +1037,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Aalid Feie");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(181, 313648, 352530, 3592, 942);
+                                t.MoveTo(Position.Create(regionID: 181, x: 313648, y: 352530, z: 3592, heading: 942));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1058,7 +1047,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Necht.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(181, 429507, 318578, 3458, 716);
+                                t.MoveTo(Position.Create(regionID: 181, x: 429507, y: 318578, z: 3458, heading: 716));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1068,7 +1057,7 @@ namespace DOL.GS.Scripts
                                 Say("I'm now teleporting you to Housing.");
                                 foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                     player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                t.MoveTo(202, 555396, 526607, 3008, 1309);
+                                t.MoveTo(Position.Create(regionID: 202, x: 555396, y: 526607, z: 3008, heading: 1309));
                             }
                             else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             break;
@@ -1085,7 +1074,7 @@ namespace DOL.GS.Scripts
                                     Say("I'm now teleporting you to Fintain.");
                                     foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                         player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                    t.MoveTo(27, 359574, 353555, 5688, 18);
+                                    t.MoveTo(Position.Create(regionID: 27, x: 359574, y: 353555, z: 5688, heading: 18));
                                 }
                                 else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             }
@@ -1099,7 +1088,7 @@ namespace DOL.GS.Scripts
                                     Say("I'm now teleporting you to Tailtiu.");
                                     foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
                                         player.Out.SendSpellCastAnimation(this, 4953, 3);
-                                    t.MoveTo(200, 369715, 651594, 3693, 1882);
+                                    t.MoveTo(Position.Create(regionID: 200, x: 369715, y: 651594, z: 3693, heading: 1882));
                                 }
                                 else { t.Client.Out.SendMessage("You can't port while in combat.", eChatType.CT_Say, eChatLoc.CL_PopupWindow); }
                             }

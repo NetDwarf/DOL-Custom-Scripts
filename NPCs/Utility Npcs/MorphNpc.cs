@@ -14,7 +14,6 @@ namespace DOL.GS.Scripts
 {
 	public class MorphNPC: GameNPC
     {
-        private int Chance;//Chance for Prefixes
         public override bool AddToWorld()
         {
             GameNpcInventoryTemplate template = new GameNpcInventoryTemplate();

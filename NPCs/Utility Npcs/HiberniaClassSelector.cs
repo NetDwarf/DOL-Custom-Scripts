@@ -21,6 +21,7 @@ using DOL.GS.PacketHandler;
 
 using System.Reflection;
 using log4net;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -160,14 +161,14 @@ namespace DOL.GS.Scripts
             player.RemoveSpecialization("");
             player.RemoveAbility("");
             player.Inventory.ClearInventory();
-            player.AddMoney(500000);
+            player.AddMoney(Currency.Copper.Mint(500000));
             
            
 
            
 
             //reset before, and after changing the class.          
-            player.SetCharacterClass(newClassID);
+            player.SetCharacterClass(CharacterClass.GetClass(newClassID));
             player.RespecAll(); 
 
             player.SaveIntoDatabase();

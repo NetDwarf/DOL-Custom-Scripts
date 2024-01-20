@@ -43,7 +43,7 @@ namespace DOL.GS.Scripts
 		{
 			if(!base.Interact(player)) return false;
 			
-			TurnTo(player.X,player.Y);
+			TurnTo(player.Coordinate);
 			Reply(player, "Hello " +player.Name+"! I am the Bowmans Ally, you can give me your Bow and I will enchant it."+
 					"Once enchanted the Bow will strike the enemy harder.  My service is free");
 					
@@ -56,13 +56,13 @@ namespace DOL.GS.Scripts
 			GamePlayer player = source as GamePlayer;
 			if(player == null || item == null) return false;
 
-            if (player.BountyPoints < 0)
+            if (player.BountyPointBalance < 0)
 			{
 				Reply(player, "Not enough money!");
 				return false;
 			}
 
-            if ((player.BountyPoints >= 0) && (item.Object_Type == 9) || (item.Object_Type == 15) || (item.Object_Type == 18))
+            if ((player.BountyPointBalance >= 0) && (item.Object_Type == 9) || (item.Object_Type == 15) || (item.Object_Type == 18))
             {
                 item.Name = "Bolstered" + item.Name;
  // Fix this at later date               item.CrafterName = this.Name;
@@ -91,7 +91,6 @@ namespace DOL.GS.Scripts
                 item.Durability = 50000;
                 item.MaxCondition = 50000;
                 item.Condition = 50000;
-                player.RemoveBountyPoints(0);
                 return true;
             }
             else Reply(player, "This is not a bow!");

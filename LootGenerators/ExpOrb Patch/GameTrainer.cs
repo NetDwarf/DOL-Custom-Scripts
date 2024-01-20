@@ -311,27 +311,17 @@ namespace DOL.GS
             {
                 switch (item.Id_nb)
                 {
-
                     case "token_solo":
-
                         if (player.Level >= 50)
-
                         {
-
                             player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "You are already level 50!"), eChatType.CT_System, eChatLoc.CL_PopupWindow);
-
                             return false;
-
                         }
 
                         if (item.Count < player.Level)
-
                         {
-
                             player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "You need to turn in " + player.Level + " at once."), eChatType.CT_System, eChatLoc.CL_PopupWindow);
-
                             return false;
-
                         }
 
                         var remaining = item.Count;
@@ -344,39 +334,26 @@ namespace DOL.GS
 
                             remaining -= player.Level;
                             used += player.Level;
-                            var amount = GamePlayer.GetExperienceAmountForLevel(player.Level) *
-
-                                                 1;
-
+                            var amount = GamePlayer.GetExperienceAmountForLevel(player.Level);
                             totalXpGained += amount;
                             timesTurnedIn++;
                             player.GainExperience(eXPSource.Other, amount, false);
-
                         }
 
                         if (used > 0)
-
                         {
-
                             player.Inventory.RemoveCountFromStack(item, used);
                             player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "You have made " + timesTurnedIn + " turn ins and used a total of " + used + " tokens. You have gained a total of " + totalXpGained + " experience points."), eChatType.CT_System, eChatLoc.CL_PopupWindow);
-
                             return true;
-
                         }
-
                         break;
 
                     case "token_many":
 
                         if (player.Level >= 50)
-
                         {
-
                             player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "You are already level 50!"), eChatType.CT_System, eChatLoc.CL_PopupWindow);
-
                             return false;
-
                         }
 
                         var usedz = 0;
@@ -384,42 +361,21 @@ namespace DOL.GS
                         var timesTurnedInz = 0;
                         var amountz = item.Count;
 
-                        if (player.Level >= 1 && player.Level <=4)
+                        if (player.Level >= 1 && player.Level <=4) amountz = item.Count * 50;
+                        if (player.Level >= 5 && player.Level <= 9) amountz = item.Count * 75;
+                        if (player.Level >= 10 && player.Level <=19) amountz = item.Count * 150;
+                        if (player.Level >= 20 && player.Level <= 34) amountz = item.Count * 5000;
+                        if (player.Level >= 35 && player.Level <= 49) amountz = item.Count * 10000;
 
-                           amountz = item.Count * 50;
+                        totalXpGainedz += amountz;
+                        timesTurnedInz++;
+                        usedz += item.Count;
+                        player.GainExperience(eXPSource.Other, amountz, false);
 
-                        if (player.Level >= 5 && player.Level <= 9)
+                        player.Inventory.RemoveCountFromStack(item, item.Count);
+                        player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "You have made " + timesTurnedInz + " turn ins and used a total of " + usedz + " tokens. You have gained a total of " + totalXpGainedz + " experience points."), eChatType.CT_System, eChatLoc.CL_PopupWindow);
 
-                            amountz = item.Count * 75;
-
-                        if (player.Level >= 10 && player.Level <=19)
-
-                            amountz = item.Count * 150;
-
-                        if (player.Level >= 20 && player.Level <= 34)
-
-                            amountz = item.Count * 5000;
-
-                        if (player.Level >= 35 && player.Level <= 49)
-
-                            amountz = item.Count * 10000;
-
-
-                        {
-                            totalXpGainedz += amountz;
-                            timesTurnedInz++;
-                            usedz += item.Count ;
-                            player.GainExperience(eXPSource.Other, amountz, false);
-
-                            player.Inventory.RemoveCountFromStack(item, item.Count);
-                            player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "You have made " + timesTurnedInz + " turn ins and used a total of " + usedz + " tokens. You have gained a total of " + totalXpGainedz + " experience points."), eChatType.CT_System, eChatLoc.CL_PopupWindow);
-
-                            return true;
-                        }
-
-
-
-                        break;
+                        return true;
 
                     case "respec_single":
                         {
@@ -514,7 +470,7 @@ namespace DOL.GS
             var oldClass = player.CharacterClass;
 
             // Player was promoted
-            if (player.SetCharacterClass(classid))
+            if (player.SetCharacterClass(CharacterClass.GetClass(classid)))
             {
                 player.RemoveAllStyles();
                 player.RemoveAllAbilities();

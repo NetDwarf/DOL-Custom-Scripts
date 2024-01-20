@@ -1,4 +1,5 @@
 using System;
+using DOL.GS.Finance;
 
 namespace DOL.GS.Scripts
 {
@@ -38,7 +39,7 @@ namespace DOL.GS.Scripts
             if (!base.WhisperReceive(source, str)) return false;
             if (!(source is GamePlayer)) return false;
             GamePlayer player = (GamePlayer)source;
-            TurnTo(player.X, player.Y); // Turn to face the player
+            TurnTo(player); // Turn to face the player
 
 			int iCraftNum=Convert.ToInt32(str);
 			
@@ -46,7 +47,7 @@ namespace DOL.GS.Scripts
 
 	
 			// 10p
-			if (player.GetCurrentMoney() < 100000000)
+			if (player.CopperBalance < 100000000)
 			{
 				SayTo(player, "You need 10p to reach 1000 craft skill");
 				return false;
@@ -61,7 +62,7 @@ namespace DOL.GS.Scripts
 
 			player.GainCraftingSkill(craftingSkillID, 1000-player.GetCraftingSkillValue(craftingSkillID));
 			
-			player.RemoveMoney(100000000);
+			player.RemoveMoney(Currency.Copper.Mint(100000000));
 			player.Out.SendUpdateCraftingSkills();
 			player.Out.SendUpdatePlayer();
 			player.Out.SendUpdatePoints();
